@@ -7,6 +7,10 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.13",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/orm": "^3.3",
+        "easycorp/easyadmin-bundle": "^4.17",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "7.1.*",
         "symfony/console": "7.1.*",
@@ -69,6 +73,8 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.7",
+        "fakerphp/faker": "^1.24",
         "symfony/maker-bundle": "^1.61"
     }
 }
