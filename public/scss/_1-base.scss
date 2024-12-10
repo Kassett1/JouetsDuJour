@@ -1,0 +1,41 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body{
+  overflow-x: hidden;
+  background-color: $color1;
+}
+
+button {
+  border-style: none;
+  background: none;
+  cursor: pointer;
+}
+
+.invisible {
+  display: none;
+}
+
+strong{
+  font-weight: bold;
+}
+
+a{
+  text-decoration: none;
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+
+}
+
+
+@media (min-width: 1024px) {
+ 
+}

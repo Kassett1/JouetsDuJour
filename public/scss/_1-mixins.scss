@@ -1,0 +1,130 @@
+@font-face {
+  font-family: 'OpenSans';
+  src: url('fonts/OpenSans.ttf') format('truetype');
+  font-display: swap;
+}
+
+// Desktop Fonts ----------------------------------------------------------------------------------------------------------------------
+
+@mixin desktopH1 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+@mixin desktopH2 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+@mixin desktopH3 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 1.2vw;
+  font-weight: bold;
+}
+
+@mixin desktopP {
+  font-family: "OpenSans", sans-serif;
+  font-size: 1vw;
+  line-height: 1.5;
+}
+
+@mixin desktopMenu {
+  font-family: "OpenSans", sans-serif;
+  font-size: 1vw;
+  font-weight: bold;
+}
+
+@mixin desktopSubMenu {
+  font-family: "OpenSans", sans-serif;
+  font-size: 1vw;
+}
+
+
+
+// Tablet Fonts ----------------------------------------------------------------------------------------------------------------------
+
+@mixin tabletH1 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 4.5vw;
+  font-weight: bold;
+}
+
+@mixin tabletH2 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 4vw;
+  font-weight: bold;
+}
+
+@mixin tabletH3 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 3.5vw;
+  font-weight: bold;
+}
+
+@mixin tabletP {
+  font-family: "OpenSans", sans-serif;
+  font-size: 2.5vw;
+  line-height: 1.3;
+}
+
+@mixin tabletMenu {
+  font-family: "OpenSans", sans-serif;
+  font-size: 3vw;
+  font-weight: bold;
+}
+
+@mixin tabletSubMenu {
+  font-family: "OpenSans", sans-serif;
+  font-size: 5vw;
+}
+
+
+// Mobile Fonts ----------------------------------------------------------------------------------------------------------------------
+
+
+@mixin mobileH1 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 5.5vw;
+  font-weight: bold;
+}
+
+@mixin mobileH2 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 5vw;
+  font-weight: bold;
+}
+
+@mixin mobileH3 {
+  font-family: "OpenSans", sans-serif;
+  font-size: 4.5vw;
+  font-weight: bold;
+}
+
+@mixin mobileP {
+  font-family: "OpenSans", sans-serif;
+  font-size: 3.5vw;
+  line-height: 1.5;
+}
+
+@mixin mobileMenu {
+  font-family: "OpenSans", sans-serif;
+  font-size: 5vw;
+  font-weight: bold;
+}
+
+@mixin mobileSubMenu {
+  font-family: "OpenSans", sans-serif;
+  font-size: 5vw;
+}
+
+// Autre ----------------------------------------------------------------------------------------------------------------------
+
+@mixin textShadow {
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+@mixin boxShadow {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+}

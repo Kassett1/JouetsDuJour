@@ -1,20 +1,206 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %} Accueil {% endblock %} {% block
+stylesheets %}
+<link rel="stylesheet" href="css/home.css" />
+{% endblock %} {% block javascripts %}
+<script src="js/home.js"></script>
+{% endblock %} {% block body %}
+<main class="main">
+  <section class="main__header">
+    <h1 class="main__title">Repère Hub</h1>
 
-{% block title %}Hello DefaultController!{% endblock %}
+    <h2 class="main__subtitle">Catégories</h2>
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/killi/Documents/code/RepereHub/src/Controller/DefaultController.php</code></li>
-        <li>Your template at <code>C:/Users/killi/Documents/code/RepereHub/templates/default/index.html.twig</code></li>
+    <ul class="categories">
+      {% for categorie in categories %}
+      <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+        <a class="categories__link" href="#"><strong>{{ categorie.getNom() }}</strong></a>
+      </li>
+      {% endfor %}
     </ul>
-</div>
+
+    <div class="main__intro">
+      <div class="main__intro-item">
+        <h3 class="main__intro-title">Un univers ludique pour tous</h3>
+        <p class="main__intro-text">
+          Explorez une vaste sélection de <strong>jouets créatifs</strong>, de
+          <strong>jeux de société passionnants</strong>, et de
+          <strong>jeux éducatifs enrichissants</strong> adaptés à tous les âges.
+          Que vous cherchiez des idées pour occuper les enfants, des jeux pour
+          animer vos soirées entre amis ou encore des produits innovants pour
+          développer l’imagination et les compétences, notre sélection répond à
+          toutes vos attentes. Découvrez également les dernières tendances en
+          <strong>jeux vidéos</strong>, ainsi que des
+          <strong>accessoires gaming</strong> et <strong>consoles</strong> pour
+          des expériences immersives inoubliables.
+        </p>
+      </div>
+      <div class="main__intro-item">
+        <h3 class="main__intro-title">Les meilleures idées à portée de clic</h3>
+        <p class="main__intro-text">
+          Retrouvez facilement les <strong>promotions</strong> et les
+          <strong>top ventes</strong> sur une sélection de produits triés avec
+          soin. Des <strong>jeux éducatifs</strong> pour stimuler les jeunes
+          esprits, des <strong>jeux de société stratégiques</strong> pour des
+          moments conviviaux, ou encore les indispensables du
+          <strong>gaming</strong>, tout est là pour combler vos envies de
+          divertissement. Parcourez nos recommandations pour dénicher les
+          meilleures offres et offrir des cadeaux qui feront plaisir à coup sûr.
+        </p>
+      </div>
+      <div class="main__intro-item">
+        <h3 class="main__intro-title main__intro-title--center">Partager</h3>
+        <ul class="main__social-list">
+          <li class="main__social-list-item">
+            <a href="#"><img src="images/logo_facebook.webp" alt="Facebook" class="main__social-icon"></a>
+          </li>
+          <li class="main__social-list-item">
+            <a href="#"><img src="images/logo_instagram.webp" alt="Instagram" class="main__social-icon"></a>
+          </li>
+          <li class="main__social-list-item">
+            <a href="#"><img src="images/logo_linkedin.webp" alt="Linkedin" class="main__social-icon"></a>
+          </li>
+          <li class="main__social-list-item">
+            <a href="#"><img src="images/logo_reddit.webp" alt="Reddit" class="main__social-icon"></a>
+          </li>
+          <li class="main__social-list-item">
+            <a href="#"><img src="images/logo_snapchat.webp" alt="Snapchat" class="main__social-icon"></a>
+          </li>
+          <li class="main__social-list-item">
+            <a href="#"><img src="images/logo_x.webp" alt="X" class="main__social-icon"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {% if articles|length >= 1 %}
+  <section class="main__articles">
+    <h2 class="main__subtitle">Articles récents</h2>
+    <ul class="main__articles-list">
+      {% for article in articles %}
+      <li class="main__articles-item">
+        <img
+          src="{{ article.getImage() }}"
+          alt="{{ article.getNom() }}"
+          class="main__articles-image"
+        />
+        <h3 class="main__articles-title">{{ article.getNom() }}</h3>
+        <p class="main__articles-text">{{ article.getResume() }}</p>
+        <a href="#" class="main__articles-link">Voir plus</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section class="section section--top-ventes">
+    <h2 class="section__title">Top ventes</h2>
+  
+    <div class="section__descriptions">
+      <p class="section__description">
+        Explorez notre sélection de <strong>jouets incontournables</strong>, spécialement choisis pour leur popularité et leur qualité. 
+        Parmi ces <strong>top ventes</strong>, vous trouverez des <strong>jeux éducatifs</strong>, des <strong>jeux de société</strong> captivants, des <strong>jeux de plein air</strong> 
+        pour toute la famille et même des articles liés à l'univers <strong>gaming</strong>. Ces produits variés sont parfaits pour éveiller la créativité des enfants et offrir des moments de plaisir partagé.
+      </p>
+      <p class="section__description">
+        Que vous cherchiez des <strong>idées de cadeaux pour enfants</strong> ou des <strong>activités ludiques</strong> pour occuper petits et grands, cette sélection vous propose des références adaptées à tous les âges. 
+        Vous y trouverez également des <strong>livres pour enfants</strong>, idéaux pour développer leur imagination et leurs compétences tout en s’amusant.
+      </p>
+      <p class="section__description">
+        Découvrez dès maintenant ces <strong>jouets et jeux populaires</strong>, qu'il s'agisse de jeux éducatifs pour apprendre tout en jouant, de jeux de plein air pour se dépenser en famille, 
+        ou encore de jeux de société incontournables pour animer vos soirées. Ces articles sont parfaits pour enrichir votre quotidien ou offrir des moments mémorables à vos proches.
+      </p>
+    </div>
+  
+    <ul class="section__list">
+      {% for topVente in topVentes %}
+      <li class="section__item">
+        <h3 class="section__item-title">{{ topVente.getNom() }}</h3>
+        <div class="section__item-content">
+          <img 
+            src={{ topVente.getImage() }} 
+            alt={{ topVente.getNom() }} 
+            class="section__item-image" 
+          />
+          <div class="section__item-details">
+            <p class="section__item-description">{{ topVente.getDescription()|slice(0, 100) ~ (topVente.getDescription()|length > 120 ? '...' : '') }}</p>
+            <div class="section__item-price-wrapper">
+              <div class="section__item-prices">
+                {% if topVente.getPromo() %}
+                <p class="section__item-promo">-{{ topVente.getPromo() }}%</p>
+                {% endif %}
+                <p class="section__item-price">{{ topVente.getPrix() }}€</p>
+              </div>
+              <a 
+                href={{ topVente.getLien() }} 
+                class="section__item-link"
+              >
+                Voir l'offre 
+                <img src="images/logo_amazon.webp" class="section__item-link-icon" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  
+    <a href="#" class="section__more-link">Voir Plus<img class="section__more-link-icone" src="images/arrow5.webp" alt=">"/></a>
+  </section>
+
+  <section class="section section--promotions">
+    <h2 class="section__title">Promotions</h2>
+  
+    <div class="section__descriptions">
+      <p class="section__description">
+        Découvrez les <strong>bons plans du moment</strong> sur une sélection de <strong>jouets, jeux de société</strong>, et autres produits populaires. 
+        Que vous cherchiez des <strong>jeux éducatifs</strong> pour vos enfants, des <strong>jeux d'extérieur</strong> pour profiter du plein air, ou encore des articles de <strong>gaming</strong>, 
+        ces offres vous permettent de trouver des produits intéressants à des prix avantageux.
+      </p>
+      <p class="section__description">
+        Cette sélection inclut une variété de produits tels que des <strong>livres pour enfants</strong>, des <strong>jeux de construction</strong>, ou encore des <strong>accessoires de gaming</strong>. 
+        Quels que soient vos besoins, vous trouverez certainement des idées qui sauront plaire aux petits comme aux grands, tout en explorant les meilleures offres disponibles.
+      </p>
+      <p class="section__description">
+        Parcourez ces <strong>offres incontournables</strong> pour dénicher des <strong>jouets ludiques</strong>, des <strong>jeux éducatifs</strong>, ou des produits liés au <strong>gaming</strong> qui feront le bonheur de toute la famille. 
+        Ces bons plans sont une excellente occasion d'allier qualité et économies, pour se faire plaisir ou gâter vos proches.
+      </p>
+    </div>  
+  
+    <ul class="section__list">
+      {% for promo in promos %}
+      <li class="section__item">
+        <h3 class="section__item-title">{{ promo.getNom() }}</h3>
+        <div class="section__item-content">
+          <img 
+            src={{ promo.getImage() }} 
+            alt={{ promo.getNom() }} 
+            class="section__item-image" 
+          />
+          <div class="section__item-details">
+            <p class="section__item-description">{{ promo.getDescription()|slice(0, 100) ~ (promo.getDescription()|length > 120 ? '...' : '') }}</p>
+            <div class="section__item-price-wrapper">
+              <div class="section__item-prices">
+                {% if promo.getPromo() %}
+                <p class="section__item-promo">-{{ promo.getPromo() }}%</p>
+                {% endif %}
+                <p class="section__item-price">{{ promo.getPrix() }}€</p>
+              </div>
+              <a 
+                href={{ promo.getLien() }} 
+                class="section__item-link"
+              >
+                Voir l'offre 
+                <img src="images/logo_amazon.webp" class="section__item-link-icon" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  
+    <a href="#" class="section__more-link">Voir plus<img class="section__more-link-icone" src="images/arrow2.webp" alt=">"/></a>
+  </section>
+</main>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
@@ -34,7 +35,7 @@ class Produit
      * @var Collection<int, Tag>
      */
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'produits')]
-    private Collection $Tag;
+    private Collection $tag;
 
     /**
      * @var Collection<int, Categorie>
@@ -48,9 +49,12 @@ class Produit
     #[ORM\ManyToMany(targetEntity: SousCategorie::class, inversedBy: 'produits')]
     private Collection $souscategorie;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $description = null;
+
     public function __construct()
     {
-        $this->Tag = new ArrayCollection();
+        $this->tag = new ArrayCollection();
         $this->categorie = new ArrayCollection();
         $this->souscategorie = new ArrayCollection();
     }
@@ -125,13 +129,13 @@ class Produit
      */
     public function getTag(): Collection
     {
-        return $this->Tag;
+        return $this->tag;
     }
 
     public function addTag(Tag $tag): static
     {
-        if (!$this->Tag->contains($tag)) {
-            $this->Tag->add($tag);
+        if (!$this->tag->contains($tag)) {
+            $this->tag->add($tag);
         }
 
         return $this;
@@ -139,7 +143,7 @@ class Produit
 
     public function removeTag(Tag $tag): static
     {
-        $this->Tag->removeElement($tag);
+        $this->tag->removeElement($tag);
 
         return $this;
     }
@@ -188,6 +192,18 @@ class Produit
     public function removeSouscategorie(SousCategorie $souscategorie): static
     {
         $this->souscategorie->removeElement($souscategorie);
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

@@ -23,6 +23,12 @@ class Article
     #[ORM\Column(type: Types::TEXT)]
     private ?string $contneu = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $resume = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +66,30 @@ class Article
     public function setContenu(string $contneu): static
     {
         $this->contneu = $contneu;
+
+        return $this;
+    }
+
+    public function getResume(): ?string
+    {
+        return $this->resume;
+    }
+
+    public function setResume(string $resume): static
+    {
+        $this->resume = $resume;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

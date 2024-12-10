@@ -1,0 +1,243 @@
+/*=============== HEADER ===============*/
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color4;
+  box-shadow: 0 2px 16px hsla(220, 32%, 8%, .3);
+  z-index: 100;
+  padding: 1vh 5vw;
+}
+
+/*=============== NAV ===============*/
+.nav {
+
+  &__burger,
+  &__close {
+    color: white;
+  }
+
+  &__logo{
+    img{
+      height: 6vh;
+      width: auto;
+    }
+  }
+
+  &__data {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__toggle {
+    position: relative;
+    width: 5vw;
+    height: 5vh;
+  }
+
+  &__burger,
+  &__close {
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    inset: 0;
+    margin: auto;
+    font-size: 6vw;
+    cursor: pointer;
+    transition: opacity 0.1s, transform 0.4s;
+  }
+
+  &__close {
+    opacity: 0;
+  }
+}
+
+/* Navigation for mobile devices */
+@media screen and (max-width: 1023px) {
+
+  .nav__menu {
+    position: absolute;
+    left: 0;
+    top: 8vh;
+    width: 100%;
+    height: calc(100vh - 2vh);
+    overflow: auto;
+    pointer-events: none;
+    opacity: 0;
+    transition: top .4s, opacity .3s;
+  }
+  .nav__menu::-webkit-scrollbar {
+    width: 0;
+  }
+  .nav__list {
+    background-color: $color4;
+    padding-top: 1vh;
+  }
+}
+
+.nav__link {
+  color: white;
+  background-color: $color4;
+  @include mobileMenu;
+  padding: 2vh 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all .3s;
+}
+
+/* Show menu */
+.show-menu {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+/* Show icon */
+.show-icon .nav__burger {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+.show-icon .nav__close {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+/*=============== DROPDOWN ===============*/
+.dropdown__item {
+  cursor: pointer;
+}
+
+.dropdown__arrow {
+  font-size: 5vw;
+  font-weight: initial;
+  transition: transform .4s;
+}
+
+.dropdown__link {
+  padding: 2vh 10vw;
+  color: $color4;
+  background-color: $color1;
+  display: flex;
+  align-items: center;
+  gap: 2vh;
+  @include mobileSubMenu;
+  transition: all .3s;
+}
+
+.dropdown__menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s ease-out;
+}
+
+/* Menu dropdown au clic */
+.dropdown__menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+}
+
+.dropdown__menu.open {
+  max-height: 1000px;
+}
+
+/* Rotation de la flèche */
+.dropdown__arrow {
+  transition: transform 0.4s ease-in-out;
+}
+
+.dropdown__arrow.rotated {
+  transform: rotate(180deg);
+}
+
+
+/*=============== BREAKPOINTS ===============*/
+@media screen and (min-width: 768px) {
+  .nav__link {
+    @include tabletMenu;
+  }
+
+  .dropdown__link {
+    font-size: 2.5vw;
+  }
+}
+
+/* For large devices */
+@media screen and (min-width: 1024px) {
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+
+    &__logo{
+      img{
+        height: 6vh;
+        width: auto;
+      }
+    }
+  }
+  .nav__toggle {
+    display: none;
+  }
+  .nav__list {
+    height: 100%;
+    display: flex;
+    gap: 3vw;
+  }
+  .nav__link {
+    height: 100%;
+    padding: 0;
+    justify-content: initial;
+    @include desktopMenu;
+  }
+  .nav__link:hover {
+    background-color: transparent;
+  }
+
+  .nav__link--underline:hover{
+    text-decoration: underline;
+  }
+
+  .dropdown__item{
+    position: relative;
+  }
+
+  .dropdown__arrow {
+    font-size: 2vw;
+  }
+
+  .dropdown__menu{
+    max-height: initial;
+    overflow: initial;
+    position: absolute;
+    left: 0;
+    top: 8vh;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s, top .3s;
+  }
+
+  .dropdown__link {
+    padding: 2vh 1vw;
+    @include desktopSubMenu;
+    background-color: $color4;
+    color: white;
+  }
+
+  
+.dropdown__link:hover {
+  background-color: $color2;
+  color: white;
+}
+
+  /* Show dropdown menu */
+  .dropdown__item:hover .dropdown__menu {
+    opacity: 1;
+    top: 6vh;
+    pointer-events: initial;
+    transition: top .3s;
+  }
+}

@@ -9,68 +9,65 @@ use App\Entity\Produit;
 use App\Entity\Tag;
 use App\Entity\Categorie;
 use App\Entity\SousCategorie;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ProduitFixtures extends Fixture
+class ProduitFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
-        // Générer 5 tags
-        $tags = [];
-        for ($i = 0; $i < 5; $i++) {
-            $tag = new Tag();
-            $tag->setNom($faker->word());
-            $manager->persist($tag);
-            $tags[] = $tag; // Stocker pour réutilisation
-        }
+        // Récupération des entités existantes (tags, catégories et sous-catégories)
+        $tags = $manager->getRepository(Tag::class)->findAll();
+        $categories = $manager->getRepository(Categorie::class)->findAll();
+        $SousCategories = $manager->getRepository(SousCategorie::class)->findAll();
 
-        // Générer 5 catégories
-        $categories = [];
-        for ($i = 0; $i < 5; $i++) {
-            $categorie = new Categorie();
-            $categorie->setNom($faker->word());
-            $manager->persist($categorie);
-            $categories[] = $categorie; // Stocker pour réutilisation
-        }
-
-        // Générer 5 sous-catégories
-        $souscategories = [];
-        for ($i = 0; $i < 5; $i++) {
-            $souscategorie = new SousCategorie();
-            $souscategorie->setNom($faker->word());
-            $manager->persist($souscategorie);
-            $souscategories[] = $souscategorie; // Stocker pour réutilisation
+        // Vérification que les entités nécessaires existent
+        if (empty($tags) || empty($categories)) {
+            throw new \Exception('Veuillez charger les fixtures des Tags, Catégories et Sous-Catégories avant celles des Produits.');
         }
 
         // Générer 50 produits
         for ($i = 0; $i < 50; $i++) {
             $produit = new Produit();
+
+            // Remplir les propriétés du produit
             $produit->setNom($faker->words(3, true)); // Nom aléatoire
             $produit->setImage($faker->imageUrl()); // URL d'image aléatoire
             $produit->setLien($faker->url()); // Lien aléatoire
             $produit->setPrix($faker->randomFloat(2, 10, 100)); // Prix entre 10 et 100 €
             $produit->setPromo($faker->optional(0.5)->numberBetween(5, 50)); // Promo aléatoire ou null
+            $produit->setDescription($faker->paragraph()); // Paragraphe de texte aléatoire
 
-            // Associer entre 1 et 3 tags au produit
-            for ($j = 0; $j < rand(1, 3); $j++) {
-                $produit->addTag($faker->randomElement($tags));
+            // Assigner un tag aléatoire
+            $randomTag = $tags[array_rand($tags)];
+            $produit->addTag($randomTag);
+
+            // Assigner une catégorie aléatoire
+            $randomCategorie = $categories[array_rand($categories)];
+            $produit->addCategorie($randomCategorie);
+
+            // Si la catégorie est "Gaming", assigner une sous-catégorie aléatoire
+            if ($randomCategorie->getNom() === 'Gaming' && !empty($SousCategories)) {
+                $randomSousCategorie = $SousCategories[array_rand($SousCategories)];
+                $produit->addSousCategorie($randomSousCategorie);
             }
 
-            // Associer entre 1 et 2 catégories au produit
-            for ($j = 0; $j < rand(1, 2); $j++) {
-                $produit->addCategorie($faker->randomElement($categories));
-            }
-
-            // Associer entre 1 et 2 sous-catégories au produit
-            for ($j = 0; $j < rand(1, 2); $j++) {
-                $produit->addSouscategorie($faker->randomElement($souscategories));
-            }
-
-            $manager->persist($produit); // Persist le produit
+            // Persist le produit
+            $manager->persist($produit);
         }
 
-        $manager->flush(); // Enregistre tout en base de données
+        // Enregistrer tout en base de données
+        $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            TagFixtures::class,
+            CategorieFixtures::class,
+            SousCategorieFixtures::class,
+        ];
     }
 
 }

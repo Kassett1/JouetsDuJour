@@ -1,0 +1,44 @@
+.footer {
+    margin: 3vh 0;
+    @include mobileMenu;
+
+    &__list{
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+        align-items: center;
+    }
+
+    img{
+        height: 6vh;
+        width: auto;
+    }
+
+    &__link{
+        color: $color4;
+        text-decoration: underline;
+        transition: all 0.3s ease;
+    }
+}
+
+@media (min-width: 768px) {
+    .footer{
+        @include tabletMenu;
+    }
+}
+
+@media (min-width: 1024px) {
+    .footer{
+        @include desktopMenu;
+
+        &__list{
+            flex-direction: row;
+            gap: 2vw;
+            justify-content: center;
+        }
+
+        &__link:hover{
+            text-decoration: none;
+        }
+    }
+}

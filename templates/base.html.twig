@@ -1,16 +1,82 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <script src="js/menu.js" defer></script>
+    {% block javascripts %}{% endblock %}
+  </head>
+  <body>
+     <body>
+      <!--=============== HEADER ===============-->
+      <header class="header">
+         <nav class="nav container">
+          <div class="nav__data">
+            <a href="#" class="nav__logo">
+               <img src="images/logo_reperehub.webp">
+            </a>
+            
+            <div class="nav__toggle" id="nav-toggle">
+               <i class="ri-menu-line nav__burger"></i>
+               <i class="ri-close-line nav__close"></i>
+            </div>
+         </div>
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+            <!--=============== NAV MENU ===============-->
+            <div class="nav__menu" id="nav-menu">
+               <ul class="nav__list">
+                  <li><a href="#" class="nav__link nav__link--underline">Accueil</a></li>
+
+                  <!--=============== DROPDOWN 1 ===============-->
+                  <li class="dropdown__item">
+                    <div class="nav__link">
+                       Catégories <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                      {% for categorie in categories %}
+                       <li>
+                          <a href="#" class="dropdown__link">{{ categorie.getNom() }}</a>                          
+                       </li>
+                       {% endfor %}
+                    </ul>
+                 </li>
+
+                  <li><a href="#" class="nav__link nav__link--underline">Top ventes</a></li>
+                  
+                  <li><a href="#" class="nav__link nav__link--underline">Promotions</a></li>
+
+               </ul>
+            </div>
+         </nav>
+      </header>
+
+    {% block body %}{% endblock %}
+
+    <footer class="footer">
+      <nav class="footer__nav">
+        <ul class="footer__list">
+          <li class="footer__item">
+            <a href="#" class="footer__link"
+              ><img src="images/logo_reperehub.webp" alt="Acuueil"
+            /></a>
+          </li>
+          <li class="footer__item">
+            <a href="#" class="footer__link">Mentions légales</a>
+          </li>
+          <li class="footer__item">
+            <a href="#" class="footer__link">Plan du site</a>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+  </body>
 </html>

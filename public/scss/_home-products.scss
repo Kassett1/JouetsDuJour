@@ -1,0 +1,454 @@
+.section {
+    padding: 5vh 5vw;
+    color: white;
+
+    &__title {
+        @include mobileH2;
+    }
+
+    &__item-title {
+        @include mobileH3;
+        text-align: center;
+    }
+
+    &__item-image {
+        width: 50vw;
+        height: 20vh;
+        object-fit: cover;
+        border-radius: 8px;
+        @include boxShadow;
+    }
+
+    &__item-description {
+        @include mobileP;
+
+        text-align: center;
+    }
+
+    &__list {
+        margin-top: 3vh;
+        display: flex;
+        flex-direction: column;
+        gap: 3vh;
+        margin-bottom: 3vh;
+    }
+
+    &__item {
+        border-radius: 8px;
+        padding: 3vh 5vw;
+        @include boxShadow;
+    }
+
+    &__item-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2vh;
+        gap: 2vh;
+    }
+
+    &__item-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2vh;
+    }
+
+    &__item-link-icon {
+        width: 6vw;
+        height: auto;
+        margin-left: 3vw;
+    }
+
+    &__item-link {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        @include mobileP;
+
+        font-weight: bold;
+        background-color: $color5;
+        color: black;
+        border-radius: 8px;
+        padding: 1vh 3vw;
+        @include boxShadow;
+        margin-top: 2vh;
+    }
+
+    &__item-prices {
+        position: relative;
+    }
+
+    &__item-price {
+        align-items: center;
+        @include mobileH3;
+    }
+
+    &__item-promo {
+        @include mobileP;
+
+        font-weight: bold;
+        position: relative;
+        background-color: red;
+        border-radius: 8px;
+        padding: 0.3vh 2vw;
+        width: fit-content;
+        margin-bottom: 1vh;
+        right: -5vw;
+    }
+
+    &__item-price-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__more-link {
+        text-decoration: underline;
+        text-align: center;
+        @include mobileH3;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 3vw;
+        transition: all 0.3s ease;
+    }
+
+    &__more-link-icone {
+        width: 3vw;
+        height: auto;
+    }
+
+    &__descriptions {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2vh;
+        gap: 2vh;
+
+    }
+}
+
+.section--top-ventes {
+    .section {
+        &__title {
+            color: $color4;
+        }
+
+        &__item:nth-child(odd) {
+            background-color: $color2;
+        }
+
+        &__item:nth-child(even) {
+            background-color: $color3;
+        }
+
+        &__more-link {
+            color: $color4;
+        }
+
+        &__description {
+            color: $color4;
+            @include mobileP;
+
+
+            strong {
+                color: black;
+            }
+        }
+
+    }
+}
+
+.section--promotions {
+    background-color: $color4;
+
+    .section {
+        &__title {
+            color: white;
+        }
+
+        &__item:nth-child(odd) {
+            background-color: $color3;
+        }
+
+        &__item:nth-child(even) {
+            background-color: $color1;
+
+            .section__item-title,
+            .section__item-description,
+            .section__item-price {
+                color: $color4;
+            }
+        }
+
+        &__more-link {
+            color: white;
+        }
+
+        &__description {
+            @include mobileP;
+
+
+            strong {
+                color: $color1;
+            }
+        }
+
+    }
+}
+
+/* Styles pour tablettes */
+@media (min-width: 768px) {
+    .section {
+
+        &__title,
+        &__descriptions {
+            margin-left: 3vw;
+            margin-right: 3vw
+        }
+
+        &__title {
+            @include tabletH2;
+        }
+
+        &__item-title {
+            @include tabletH3;
+        }
+
+        &__item-description {
+            @include tabletP;
+        }
+
+        &__item-link {
+            @include tabletP;
+        }
+
+        &__item-price {
+            @include tabletH3;
+        }
+
+        &__item-promo {
+            @include tabletP;
+        }
+
+        &__more-link {
+            @include tabletH3;
+            gap: 1vw;
+        }
+
+        &__list {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 3vw;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &__item {
+            flex: 0 0 calc(50% - 3vw);
+            height: 100%;
+        }
+
+        &__item-image {
+            width: 100%;
+            height: 20vh;
+        }
+
+        &__more-link-icone {
+            width: 2vw;
+            height: auto;
+        }
+    }
+
+    .section--top-ventes {
+        .section {
+            &__description {
+                @include tabletP;
+            }
+
+            &__item:nth-child(3) {
+                background-color: $color3;
+            }
+
+            &__item:nth-child(4) {
+                background-color: $color2;
+            }
+        }
+    }
+
+    .section--promotions {
+        .section {
+            &__description {
+                @include tabletP;
+            }
+
+            &__item:nth-child(3) {
+                background-color: $color1;
+
+                .section__item-title,
+                .section__item-description,
+                .section__item-price {
+                    color: $color4;
+                }
+            }
+
+            &__item:nth-child(4) {
+                background-color: $color3;
+
+                .section__item-title,
+                .section__item-description,
+                .section__item-price {
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+/* Styles pour desktop */
+@media (min-width: 1024px) {
+    .section {
+        padding: 5vh 10vw;
+
+        &__title {
+            @include desktopH2;
+        }
+
+        &__item-title {
+            @include desktopH3;
+            text-align: inherit;
+        }
+
+        &__item-image {
+            width: 15vw;
+            height: 20vh;
+        }
+
+        &__item-description {
+            @include desktopP;
+            text-align: inherit;
+        }
+
+        &__list {
+            margin-top: 5vh;
+            display: flex;
+            flex-direction: row;
+            gap: 3vw;
+            margin-bottom: 3vh;
+            flex-wrap: wrap;
+        }
+
+        &__item {
+            padding: 3vh 2vw;
+            @include boxShadow;
+            flex: 0 0 calc(50% - 3vw);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        &__item-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 2vh;
+            gap: 2vw;
+        }
+
+        &__item-link-icon {
+            width: 2vw;
+            margin-left: 1vw;
+        }
+
+        &__item-link {
+            @include desktopP;
+            padding: 0.5vh 1vw;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: #ffcf56;
+                color: black;
+            }
+        }
+
+        &__item-prices {
+            position: relative;
+        }
+
+        &__item-price {
+            align-items: center;
+            @include desktopH3;
+        }
+
+        &__item-promo {
+            @include desktopP;
+            padding: 0.3vh 0.5vw;
+            right: -2vw;
+        }
+
+        &__item-price-wrapper {
+            flex-direction: row;
+            gap: 3vw;
+        }
+
+        &__more-link {
+            @include desktopH3;
+            gap: 1vw;
+            margin-top: 5vh;
+
+            &:hover{
+                text-decoration: none;
+            }
+        }
+
+        &__more-link-icone {
+            width: 1vw;
+        }
+    }
+
+    .section--top-ventes {
+        .section {
+            &__description {
+                @include desktopP;
+            }
+
+            &__item:nth-child(3) {
+                background-color: $color3;
+            }
+
+            &__item:nth-child(4) {
+                background-color: $color2;
+            }
+        }
+    }
+
+    .section--promotions {
+        .section {
+            &__description {
+                @include desktopP;
+            }
+
+            &__item:nth-child(3) {
+                background-color: $color1;
+
+                .section__item-title,
+                .section__item-description,
+                .section__item-price {
+                    color: $color4;
+                }
+            }
+
+            &__item:nth-child(4) {
+                background-color: $color3;
+
+                .section__item-title,
+                .section__item-description,
+                .section__item-price {
+                    color: white;
+                }
+            }
+        }
+    }
+}
