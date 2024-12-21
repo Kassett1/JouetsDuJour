@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %} {% block title %} Accueil {% endblock %} {% block
+    stylesheets %}
+    <link rel="stylesheet" href="css/categories.css" />
+    {% endblock %}  {% block body %}
+    <main class="category-page">
+      <h1 class="category-page__title">{{ categorie.getNom() }}</h1>
+    
+      <section class="intro">
+        <h2 class="intro__title">Les jeux de société populaires</h2>
+        <p class="intro__text">
+            Plongez dans l'univers des <strong class="intro__text--highlight">jeux de société</strong>, parfaits pour réunir famille et amis autour de moments conviviaux. Ces articles, parmi les plus recherchés, offrent une grande variété de styles, allant des jeux stratégiques aux classiques intemporels. Que vous soyez amateur de défis intellectuels ou simplement à la recherche de divertissements légers, vous trouverez des options adaptées à tous les goûts.
+        </p>
+    
+        <h2 class="intro__title">Les offres en promotion</h2>
+        <p class="intro__text">
+            Profitez de remises intéressantes sur une large gamme de <strong class="intro__text--highlight">jeux de société en promotion</strong>. Ces réductions vous permettent de compléter votre collection tout en maîtrisant votre budget. Explorez notre sélection pour découvrir des <strong class="intro__text--highlight">opportunités uniques</strong>, idéales pour des cadeaux ou des soirées de jeu mémorables.
+        </p>
+    
+        <h2 class="intro__title">Les meilleures ventes</h2>
+        <p class="intro__text">
+            Découvrez les <strong class="intro__text--highlight">jeux de société les plus populaires</strong>, plébiscités par les joueurs de tous horizons. Ces produits phares sont reconnus pour leur qualité, leur originalité et leur capacité à rassembler. Consultez cette sélection pour trouver des <strong class="intro__text--highlight">valeurs sûres</strong> qui animeront vos soirées.
+        </p>
+    
+        <h2 class="intro__title">Nos suggestions</h2>
+        <p class="intro__text">
+            Explorez des <strong class="intro__text--highlight">jeux de société variés</strong>, recommandés pour leur capacité à divertir et à rapprocher. Que vous recherchiez des nouveautés ou des classiques indémodables, cette sélection met en avant des jeux adaptés à tous les âges et toutes les envies.
+        </p>
+    </section>
+    
+    
+      <section class="products-section">
+        <h2 class="products-section__title">Jeux de société populaires</h2>
+<p class="products-section__description">
+    Découvrez les <strong>jeux de société populaires</strong>, parfaits pour rassembler famille et amis autour de moments conviviaux. Ces <strong>produits phares</strong> incluent des classiques intemporels, des jeux stratégiques et des nouveautés captivantes. Trouvez votre prochain coup de cœur parmi ces <strong>jeux incontournables</strong>, appréciés par les joueurs de tous âges en 2024.
+</p>
+        
+    
+        <ul class="products">
+            {% for produit in produits %}
+            <li class="products__item">
+                <div class="products__icons">
+                    {% for tag in produit.getTag() %}
+                        {% if tag.getNom() == 'Choix Amazon' %}
+                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+                        {% elseif tag.getNom() == 'Top Ventes' %}
+                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+                        {% elseif tag.getNom() == 'Promo' %}
+                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <img 
+                    src={{ produit.getImage() }}
+                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
+                    class="products__image" 
+                >
+                
+                <h3 class="products__title">{{ produit.getNom() }}</h3>
+                <p class="products__description">{{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}</p>
+                
+                <div class="products__pricing">
+                    {% if produit.getPromo() %}
+                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
+                    {% endif %}
+                    <p class="products__price">{{ produit.getPrix() }}€</p>
+                </div>
+                
+                <a href="{{ produit.getLien() }}" class="products__link">
+                    Voir l'offre 
+                    <i class="ri-amazon-fill products__amazon-logo"></i>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    
+    <section class="products-section products-section--2">
+        <h2 class="products-section__title products-section--2__title">Bonnes affaires / Promotions</h2>
+<p class="products-section__description products-section--2__description">
+    Profitez des meilleures <strong>promotions sur les jeux de société</strong> pour partager des moments ludiques tout en respectant votre budget. Découvrez une sélection de <strong>produits en réduction</strong>, incluant des classiques incontournables, des jeux stratégiques et des nouveautés à prix avantageux. Ne manquez pas ces <strong>offres exclusives</strong> pour enrichir vos soirées jeux à moindre coût !
+</p>
+
+        
+    
+        <ul class="products">
+            {% for promo in promos %}
+            <li class="products__item">
+                <div class="products__icons">
+                    {% for tag in promo.getTag() %}
+                        {% if tag.getNom() == 'Choix Amazon' %}
+                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+                        {% elseif tag.getNom() == 'Top Ventes' %}
+                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+                        {% elseif tag.getNom() == 'Promo' %}
+                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <img 
+                    src={{ promo.getImage() }}
+                    alt="{{ promo.getNom()|length > 50 ? promo.getNom()|slice(0, 47) ~ '...' : promo.getNom() }}" 
+                    class="products__image" 
+                >
+                
+                <h3 class="products__title">{{ promo.getNom() }}</h3>
+                <p class="products__description">
+                    {{ promo.getDescription()|length > 100 ? promo.getDescription()|slice(0, 97) ~ '...' : promo.getDescription() }}
+                </p>
+                
+                
+                <div class="products__pricing">
+                    {% if promo.getPromo() %}
+                    <p class="products__promo">-{{ promo.getPromo() }}%</p>
+                    {% endif %}
+                    <p class="products__price">{{ promo.getPrix() }}€</p>
+                </div>
+                
+                <a href="{{ promo.getLien() }}" class="products__link">
+                    Voir l'offre 
+                    <i class="ri-amazon-fill products__amazon-logo"></i>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    
+    <section class="products-section">
+        <h2 class="products-section__title">Jeux de société populaires</h2>
+<p class="products-section__description">
+    Découvrez une sélection de <strong>jeux de société</strong> adaptés à tous les âges et toutes les occasions. Ces jeux incluent des classiques intemporels ainsi que des nouveautés appréciées, parfaits pour partager des moments conviviaux en famille ou entre amis. Offrez du divertissement et du plaisir grâce à ces <strong>valeurs sûres</strong>.
+</p>
+    
+      <ul class="products">
+          {% for produit in produits2 %}
+          <li class="products__item">
+              <div class="products__icons">
+                  {% for tag in produit.getTag() %}
+                      {% if tag.getNom() == 'Choix Amazon' %}
+                      <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+                      {% elseif tag.getNom() == 'Top Ventes' %}
+                      <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+                      {% elseif tag.getNom() == 'Promo' %}
+                      <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+                      {% endif %}
+                  {% endfor %}
+              </div>
+    
+              <img 
+                  src={{ produit.getImage() }}
+                  alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
+                  class="products__image" 
+              >
+    
+              <h3 class="products__title">{{ produit.getNom() }}</h3>
+              <p class="products__description">{{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}</p>
+    
+              <div class="products__pricing">
+                  {% if produit.getPromo() %}
+                  <p class="products__promo">-{{ produit.getPromo() }}%</p>
+                  {% endif %}
+                  <p class="products__price">{{ produit.getPrix() }}€</p>
+              </div>
+    
+              <a href="{{ produit.getLien() }}" class="products__link">
+                  Voir l'offre 
+                  <i class="ri-amazon-fill products__amazon-logo"></i>
+              </a>
+          </li>
+          {% endfor %}
+      </ul>
+    </section>
+
+    </main>
+    
+    {% endblock %}
+    

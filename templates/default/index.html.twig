@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %} {% block title %} Accueil {% endblock %} {% block
 stylesheets %}
 <link rel="stylesheet" href="css/home.css" />
-{% endblock %} {% block javascripts %}
-<script src="js/home.js"></script>
 {% endblock %} {% block body %}
 <main class="main">
   <section class="main__header">
@@ -119,11 +117,11 @@ stylesheets %}
         <div class="section__item-content">
           <img 
             src={{ topVente.getImage() }} 
-            alt={{ topVente.getNom() }} 
+            alt="{{ topVente.getNom()|length > 50 ? topVente.getNom()[:47] ~ '...' : topVente.getNom() }}"
             class="section__item-image" 
           />
           <div class="section__item-details">
-            <p class="section__item-description">{{ topVente.getDescription()|slice(0, 100) ~ (topVente.getDescription()|length > 120 ? '...' : '') }}</p>
+            <p class="section__item-description">{{ topVente.getDescription()|slice(0, 100) ~ (topVente.getDescription()|length > 100 ? '...' : '') }}</p>
             <div class="section__item-price-wrapper">
               <div class="section__item-prices">
                 {% if topVente.getPromo() %}
@@ -174,11 +172,11 @@ stylesheets %}
         <div class="section__item-content">
           <img 
             src={{ promo.getImage() }} 
-            alt={{ promo.getNom() }} 
+            alt="{{ promo.getNom()|length > 50 ? promo.getNom()[:47] ~ '...' : promo.getNom() }}"
             class="section__item-image" 
           />
           <div class="section__item-details">
-            <p class="section__item-description">{{ promo.getDescription()|slice(0, 100) ~ (promo.getDescription()|length > 120 ? '...' : '') }}</p>
+            <p class="section__item-description">{{ promo.getDescription()|slice(0, 100) ~ (promo.getDescription()|length > 100 ? '...' : '') }}</p>
             <div class="section__item-price-wrapper">
               <div class="section__item-prices">
                 {% if promo.getPromo() %}

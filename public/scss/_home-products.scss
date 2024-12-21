@@ -29,11 +29,16 @@
         margin-top: 3vh;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
         gap: 3vh;
         margin-bottom: 3vh;
     }
 
     &__item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         border-radius: 8px;
         padding: 3vh 5vw;
         @include boxShadow;
@@ -70,7 +75,7 @@
         background-color: $color5;
         color: black;
         border-radius: 8px;
-        padding: 1vh 3vw;
+        padding: 0.5vh 3vw;
         @include boxShadow;
         margin-top: 2vh;
     }
@@ -242,17 +247,20 @@
             flex-wrap: wrap;
             gap: 3vw;
             justify-content: center;
-            align-items: center;
         }
 
         &__item {
             flex: 0 0 calc(50% - 3vw);
-            height: 100%;
         }
 
         &__item-image {
             width: 100%;
             height: 20vh;
+        }
+
+        &__item-link-icon {
+            width: 4vw;
+            margin-left: 1vw;
         }
 
         &__more-link-icone {
@@ -359,7 +367,7 @@
 
         &__item-link-icon {
             width: 2vw;
-            margin-left: 1vw;
+            margin-left: 0.5vw;
         }
 
         &__item-link {
@@ -390,7 +398,7 @@
 
         &__item-price-wrapper {
             flex-direction: row;
-            gap: 3vw;
+            gap: 2vw;
         }
 
         &__more-link {
@@ -398,7 +406,7 @@
             gap: 1vw;
             margin-top: 5vh;
 
-            &:hover{
+            &:hover {
                 text-decoration: none;
             }
         }

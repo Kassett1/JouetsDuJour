@@ -1,0 +1,339 @@
+.products{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3vh;
+    color: white;
+
+    &__image{
+        width: 50vw;
+        height: 20vh;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    &__item:nth-child(odd) {
+        background-color: $color2;
+    }
+
+    &__item:nth-child(even) {
+        background-color: $color3;
+    }
+
+    &__title{
+        @include mobileH3;
+        text-align: center;
+    }
+
+    &__description{
+        @include mobileP;
+        text-align: center;
+    }
+
+    &__item{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        padding: 3vh 5vw;
+        gap: 2vh;
+    }
+
+    &__pricing{
+        position: relative;
+    }
+
+    &__promo{
+        position: relative;
+        @include mobileP;
+        font-weight: bold;
+        background-color: red;
+        border-radius: 8px;
+        padding: 0.3vh 2vw;
+        width: fit-content;
+        margin-bottom: 1vh;
+        right: -5vw;
+        color: white;
+    }
+
+    &__price{
+        @include mobileH3;
+    }
+
+    &__link{
+        @include mobileP;
+        font-weight: bold;
+        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $color5;
+        border-radius: 8px;
+        padding: 0.5vh 5vw;
+        @include boxShadow;
+    }
+
+    &__amazon-logo{
+        font-size: 5vw;
+        margin-left: 1vw;
+    }
+
+    &__icons{
+        font-size: 10vw;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 5vw;
+    }
+
+    &__icon--amazon-choice{
+        color: red;
+    }
+
+    &__icon--top-sales{
+        color: #FF4400;
+    }
+
+    &__icon--promo{
+        color: #2BD700;
+    }
+}
+
+.products-section{
+    padding: 3vh 5vw;
+
+    &__title{
+        color: $color4;
+        @include mobileH3;
+    }
+
+    &__description{
+        @include mobileP;
+        color: $color4;
+        margin-bottom: 3vh;
+        margin-top: 2vh;
+
+        strong{
+            color: black;
+        }
+    }
+}
+
+.products-section--2{
+    background-color: $color4;
+    color: white;
+
+    &__title{
+        @include mobileH3;
+        color: white;
+    }
+
+    &__description{
+        @include mobileP;
+        color: white;
+
+        strong{
+            color: white;
+        }
+    }
+
+    .products{
+        &__item:nth-child(odd) {
+            background-color: $color1;
+            color: $color4;
+        }
+
+        &__item:nth-child(even) {
+            background-color: $color3;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .products{
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 3vw;
+    
+        &__image{
+            width: 100%;
+            height: 20vh;
+        }
+    
+        &__item:nth-child(3) {
+            background-color: $color3;
+        }
+    
+        &__item:nth-child(4) {
+            background-color: $color2;
+        }
+
+        &__title{
+            @include tabletH3;
+        }
+    
+        &__description{
+            @include tabletP;
+        }
+    
+        &__item{
+            flex: 1 1 calc(50% - 3vw);
+            padding: 2vh 3vw;
+        }
+    
+        &__price{
+            @include tabletH3;
+        }
+    
+        &__promo{
+            @include tabletP;
+        }
+        
+        &__link{
+            @include tabletP;
+            padding: 0.5vh 3vw;
+        }
+    
+        &__amazon-logo{
+            font-size: 3vw;
+            margin-left: 1vw;
+        }
+    
+        &__icons{
+            font-size: 6vw;
+        }
+    }
+    
+    .products-section{
+        padding: 3vh 5vw;
+    
+        &__title{
+            @include tabletH3;
+        }
+    
+        &__description{
+            @include tabletP;
+        }
+    }
+    
+    .products-section--2{
+    
+        &__title{
+            @include tabletH3;
+        }
+    
+        &__description{
+            @include tabletP;
+        }
+    
+        .products{
+            &__item:nth-child(3) {
+                background-color: $color3;
+                color: white;
+            }
+    
+            &__item:nth-child(4) {
+                background-color: $color1;
+                color: $color4;
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .products{
+        gap: 1vw;
+    
+        &__image{
+            width: 60%;
+            height: 15vh;
+        }
+    
+        &__item:nth-child(3) {
+            background-color: $color3;
+        }
+    
+        &__item:nth-child(4) {
+            background-color: $color2;
+        }
+
+        &__title{
+            @include desktopH3;
+        }
+    
+        &__description{
+            @include desktopP;
+        }
+    
+        &__item{
+            flex: 1 1 calc(25% - 1vw);
+            padding: 3vh 1vw;
+        }
+    
+        &__price{
+            @include desktopH3;
+        }
+    
+        &__promo{
+            right: -2vw;
+            padding: 0.3vh 1vw;
+            @include desktopP;
+        }
+        
+        &__link{
+            @include desktopP;
+            padding: 0.5vh 1vw;
+            transition: all 0.3s ease;
+
+            &:hover{
+                background-color: #ffcf56;
+            }
+        }
+    
+        &__amazon-logo{
+            font-size: 1vw;
+            margin-left: 0.5vw;
+        }
+    
+        &__icons{
+            font-size: 2vw;
+        }
+    }
+    
+    .products-section{
+        padding: 5vh 10vw;
+    
+        &__title{
+            @include desktopH3;
+        }
+    
+        &__description{
+            @include desktopP;
+        }
+    }
+    
+    .products-section--2{
+    
+        &__title{
+            @include desktopH3;
+        }
+    
+        &__description{
+            @include desktopP;
+        }
+    
+        .products{
+            &__item:nth-child(3) {
+                background-color: $color3;
+                color: white;
+            }
+    
+            &__item:nth-child(4) {
+                background-color: $color1;
+                color: $color4;
+            }
+        }
+    }
+}
