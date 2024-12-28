@@ -372,4 +372,46 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    #[Route('/top-ventes', name: 'top_ventes')]
+    public function topVentes(
+        CategorieRepository $categorieRepository
+    ): Response {
+        $categories = $categorieRepository->findAll();
+        $produitsParCategorie = [];
+
+        foreach ($categories as $categorie) {
+            $produitsParCategorie[$categorie->getNom()] = $categorie->getProduits()->slice(0, 4);
+        }
+
+        return $this->render('default/top-ventes.html.twig', [
+            'categories' => $categories,
+            'produitsParCategorie' => $produitsParCategorie,
+        ]);
+    }
+
+    #[Route('/promotions', name: 'promotions')]
+    public function promotions(
+        CategorieRepository $categorieRepository
+    ): Response {
+        // Récupérer toutes les catégories
+        $categories = $categorieRepository->findAll();
+        $produitsParCategorie = [];
+
+        // Parcourir les catégories
+        foreach ($categories as $categorie) {
+            // Filtrer les produits ayant une promotion > 0
+            $produitsAvecPromos = $categorie->getProduits()->filter(function ($produit) {
+                return $produit->getPromo() !== null && $produit->getPromo() > 0;
+            });
+
+            // Limiter à 4 produits
+            $produitsParCategorie[$categorie->getNom()] = $produitsAvecPromos->slice(0, 4);
+        }
+
+        return $this->render('default/promotions.html.twig', [
+            'categories' => $categories,
+            'produitsParCategorie' => $produitsParCategorie,
+        ]);
+    }
+
 }
