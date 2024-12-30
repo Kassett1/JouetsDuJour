@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %} {% block title %} Accueil {% endblock %} {% block
+    stylesheets %}
+    <link rel="stylesheet" href="css/plan-de-site.css" />
+    {% endblock %}  {% block body %}
+
+    <main class="site-plan">
+        <h1 class="site-plan__title">Plan du site</h1>
+    
+        <p class="site-plan__description">Retrouvez ci-dessous tous les liens utiles pour naviguer sur notre site :</p>
+    
+        <div class="site-plan__sections">
+    
+            <!-- Section des liens principaux -->
+            <section class="site-plan__section">
+                <h2 class="site-plan__section-title">Liens Principaux</h2>
+                <ul class="site-plan__list">
+                    <li class="site-plan__item">
+                        <a href="{{ path('home') }}" class="site-plan__link" title="Retour à l'accueil">Accueil</a>
+                    </li>
+                    <li class="site-plan__item">
+                        <a href="{{ path('top_ventes') }}" class="site-plan__link" title="Découvrir les meilleures ventes">Top ventes</a>
+                    </li>
+                    <li class="site-plan__item">
+                        <a href="{{ path('promotions') }}" class="site-plan__link" title="Voir les promotions en cours">Promotions</a>
+                    </li>
+                </ul>
+            </section>
+    
+            <!-- Section des catégories -->
+            <section class="site-plan__section">
+                <h2 class="site-plan__section-title">Liens des catégories de produits</h2>
+                <ul class="site-plan__dropdown">
+                    {% for categorie in categories %}
+                    <li class="site-plan__dropdown-item">
+                        {% if categorie.getSlug() == 'gaming' %}
+                            <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="site-plan__link">
+                        {% elseif categorie.getSlug() == 'jouets' %}
+                            <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="site-plan__link">
+                        {% else %}
+                            <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="site-plan__link">
+                        {% endif %}
+                            {{ categorie.getNom() }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+    
+            <!-- Section des liens secondaires -->
+            <section class="site-plan__section">
+                <h2 class="site-plan__section-title">Liens Secondaires</h2>
+                <ul class="site-plan__list">
+                    <li class="site-plan__item">
+                        <a href="#" class="site-plan__link" title="Consulter les mentions légales">Mentions légales</a>
+                    </li>
+                    <li class="site-plan__item">
+                        <a href="{{ path('plan_site') }}" class="site-plan__link" title="Voir le plan du site">Plan du site</a>
+                    </li>
+                </ul>
+            </section>
+    
+        </div>
+    </main>
+    
+    {% endblock %}
+    

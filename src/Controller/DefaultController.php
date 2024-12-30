@@ -414,4 +414,16 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    #[Route('/plan-du-site', name: 'plan_site')]
+    public function planSite(
+        CategorieRepository $categorieRepository
+    ): Response {
+        // Récupérer toutes les catégories
+        $categories = $categorieRepository->findAll();
+
+        return $this->render('default/plan-de-site.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
 }

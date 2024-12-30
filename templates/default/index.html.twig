@@ -10,11 +10,20 @@ stylesheets %}
 
     <ul class="categories">
       {% for categorie in categories %}
-      <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
-        <a class="categories__link" href="#"><strong>{{ categorie.getNom() }}</strong></a>
-      </li>
+          <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+              {% if categorie.getSlug() == 'gaming' %}
+                  <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% elseif categorie.getSlug() == 'jouets' %}
+                  <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% else %}
+                  <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% endif %}
+                  <strong>{{ categorie.getNom() }}</strong>
+              </a>
+          </li>
       {% endfor %}
-    </ul>
+  </ul>
+  
 
     <div class="main__intro">
       <div class="main__intro-item">
@@ -48,26 +57,39 @@ stylesheets %}
       <div class="main__intro-item">
         <h3 class="main__intro-title main__intro-title--center">Partager</h3>
         <ul class="main__social-list">
-          <li class="main__social-list-item">
-            <a href="#"><img src="images/logo_facebook.webp" alt="Facebook" class="main__social-icon"></a>
-          </li>
-          <li class="main__social-list-item">
-            <a href="#"><img src="images/logo_instagram.webp" alt="Instagram" class="main__social-icon"></a>
-          </li>
-          <li class="main__social-list-item">
-            <a href="#"><img src="images/logo_linkedin.webp" alt="Linkedin" class="main__social-icon"></a>
-          </li>
-          <li class="main__social-list-item">
-            <a href="#"><img src="images/logo_reddit.webp" alt="Reddit" class="main__social-icon"></a>
-          </li>
-          <li class="main__social-list-item">
-            <a href="#"><img src="images/logo_snapchat.webp" alt="Snapchat" class="main__social-icon"></a>
-          </li>
-          <li class="main__social-list-item">
-            <a href="#"><img src="images/logo_x.webp" alt="X" class="main__social-icon"></a>
-          </li>
+            <li class="main__social-list-item">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                    <img src="images/logo_facebook.webp" alt="Facebook" class="main__social-icon">
+                </a>
+            </li>
+            <li class="main__social-list-item">
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                    <img src="images/logo_instagram.webp" alt="Instagram" class="main__social-icon">
+                </a>
+            </li>
+            <li class="main__social-list-item">
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                    <img src="images/logo_linkedin.webp" alt="Linkedin" class="main__social-icon">
+                </a>
+            </li>
+            <li class="main__social-list-item">
+                <a href="https://www.reddit.com" target="_blank" rel="noopener noreferrer">
+                    <img src="images/logo_reddit.webp" alt="Reddit" class="main__social-icon">
+                </a>
+            </li>
+            <li class="main__social-list-item">
+                <a href="https://www.snapchat.com" target="_blank" rel="noopener noreferrer">
+                    <img src="images/logo_snapchat.webp" alt="Snapchat" class="main__social-icon">
+                </a>
+            </li>
+            <li class="main__social-list-item">
+                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                    <img src="images/logo_x.webp" alt="X" class="main__social-icon">
+                </a>
+            </li>
         </ul>
-      </div>
+    </div>
+    
     </div>
   </section>
 
@@ -143,7 +165,7 @@ stylesheets %}
       {% endfor %}
     </ul>
   
-    <a href="#" class="section__more-link">Voir Plus<img class="section__more-link-icone" src="images/arrow5.webp" alt=">"/></a>
+    <a href="{{ path('top_ventes') }}" class="section__more-link">Voir Plus<img class="section__more-link-icone" src="images/arrow5.webp" alt=">"/></a>
   </section>
 
   <section class="section section--promotions">
@@ -198,7 +220,7 @@ stylesheets %}
       {% endfor %}
     </ul>
   
-    <a href="#" class="section__more-link">Voir plus<img class="section__more-link-icone" src="images/arrow2.webp" alt=">"/></a>
+    <a href="{{ path('promotions') }}" class="section__more-link">Voir plus<img class="section__more-link-icone" src="images/arrow2.webp" alt=">"/></a>
   </section>
 </main>
 {% endblock %}

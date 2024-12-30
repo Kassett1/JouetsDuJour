@@ -18,46 +18,57 @@
      <body>
       <!--=============== HEADER ===============-->
       <header class="header">
-         <nav class="nav container">
-          <div class="nav__data">
-            <a href="#" class="nav__logo">
-               <img src="images/logo_reperehub.webp">
-            </a>
-            
-            <div class="nav__toggle" id="nav-toggle">
-               <i class="ri-menu-line nav__burger"></i>
-               <i class="ri-close-line nav__close"></i>
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="{{ path('home') }}" class="nav__logo">
+                    <img src="images/logo_reperehub.webp">
+                </a>
+                
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line nav__burger"></i>
+                    <i class="ri-close-line nav__close"></i>
+                </div>
             </div>
-         </div>
-
+    
             <!--=============== NAV MENU ===============-->
             <div class="nav__menu" id="nav-menu">
-               <ul class="nav__list">
-                  <li><a href="#" class="nav__link nav__link--underline">Accueil</a></li>
-
-                  <!--=============== DROPDOWN 1 ===============-->
-                  <li class="dropdown__item">
-                    <div class="nav__link">
-                       Catégories <i class="ri-arrow-down-s-line dropdown__arrow"></i>
-                    </div>
-
-                    <ul class="dropdown__menu">
-                      {% for categorie in categories %}
-                       <li>
-                          <a href="#" class="dropdown__link">{{ categorie.getNom() }}</a>                          
-                       </li>
-                       {% endfor %}
-                    </ul>
-                 </li>
-
-                  <li><a href="#" class="nav__link nav__link--underline">Top ventes</a></li>
-                  
-                  <li><a href="#" class="nav__link nav__link--underline">Promotions</a></li>
-
-               </ul>
+                <ul class="nav__list">
+                    <!-- Lien vers l'accueil -->
+                    <li><a href="{{ path('home') }}" class="nav__link nav__link--underline">Accueil</a></li>
+    
+                    <!--=============== DROPDOWN 1 ===============-->
+                    <li class="dropdown__item">
+                        <div class="nav__link">
+                            Catégories <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+    
+                        <ul class="dropdown__menu">
+                          {% for categorie in categories %}
+                              <li>
+                                  {% if categorie.getSlug() == 'gaming' %}
+                                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="dropdown__link">
+                                  {% elseif categorie.getSlug() == 'jouets' %}
+                                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="dropdown__link">
+                                  {% else %}
+                                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="dropdown__link">
+                                  {% endif %}
+                                      {{ categorie.getNom() }}
+                                  </a>
+                              </li>
+                          {% endfor %}
+                      </ul>
+                    </li>
+    
+                    <!-- Lien vers Top ventes -->
+                    <li><a href="{{ path('top_ventes') }}" class="nav__link nav__link--underline">Top ventes</a></li>
+    
+                    <!-- Lien vers Promotions -->
+                    <li><a href="{{ path('promotions') }}" class="nav__link nav__link--underline">Promotions</a></li>
+                </ul>
             </div>
-         </nav>
-      </header>
+        </nav>
+    </header>
+    
 
     {% block body %}{% endblock %}
 
@@ -65,7 +76,7 @@
       <nav class="footer__nav">
         <ul class="footer__list">
           <li class="footer__item">
-            <a href="#" class="footer__link"
+            <a href="{{ path('home') }}" class="footer__link"
               ><img src="images/logo_reperehub.webp" alt="Acuueil"
             /></a>
           </li>
