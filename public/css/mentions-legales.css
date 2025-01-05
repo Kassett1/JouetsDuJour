@@ -440,103 +440,68 @@ a {
     text-decoration: none;
   }
 }
-.site-plan {
+.legal {
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
   padding: 0 5vw;
 }
-.site-plan__title {
+.legal__title {
   margin-top: 12vh;
   font-family: "OpenSans", sans-serif;
   font-size: 5.5vw;
   font-weight: bold;
   text-align: center;
 }
-.site-plan__description {
-  margin-top: 3vh;
-  font-family: "OpenSans", sans-serif;
-  font-size: 3.5vw;
-  line-height: 1.5;
-  text-align: center;
-}
-.site-plan__sections {
-  margin-top: 3vh;
-  display: flex;
-  flex-direction: column;
-  gap: 3vh;
-  justify-content: center;
-}
-.site-plan__section-title {
+.legal__subtitle {
   font-family: "OpenSans", sans-serif;
   font-size: 5vw;
   font-weight: bold;
-  margin-bottom: 1vh;
 }
-.site-plan__link {
+.legal__text {
   font-family: "OpenSans", sans-serif;
   font-size: 3.5vw;
   line-height: 1.5;
-  color: #322C2B;
-  text-decoration: underline;
-}
-.site-plan__list, .site-plan__dropdown {
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
+  margin-top: 2vh;
 }
 
 @media (min-width: 768px) {
-  .site-plan {
+  .legal {
     padding: 0 8vw;
   }
-  .site-plan__title {
+  .legal__title {
     font-family: "OpenSans", sans-serif;
     font-size: 4vw;
     font-weight: bold;
   }
-  .site-plan__description {
-    font-family: "OpenSans", sans-serif;
-    font-size: 2vw;
-    line-height: 1.5;
-  }
-  .site-plan__section-title {
+  .legal__subtitle {
     font-family: "OpenSans", sans-serif;
     font-size: 3.5vw;
     font-weight: bold;
   }
-  .site-plan__link {
+  .legal__text {
     font-family: "OpenSans", sans-serif;
     font-size: 2vw;
     line-height: 1.5;
   }
 }
 @media (min-width: 1024px) {
-  .site-plan {
-    padding: 0 10vw;
+  .legal {
+    padding: 0 20vw;
   }
-  .site-plan__title {
+  .legal__title {
     font-family: "OpenSans", sans-serif;
     font-size: 2vw;
     font-weight: bold;
   }
-  .site-plan__description {
-    font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
-    line-height: 1.5;
-    margin-top: 5vh;
-  }
-  .site-plan__sections {
-    flex-direction: row;
-    gap: 5vw;
-    margin-top: 5vh;
-    margin-bottom: 15gvh;
-  }
-  .site-plan__section-title {
+  .legal__subtitle {
     font-family: "OpenSans", sans-serif;
     font-size: 1.5vw;
     font-weight: bold;
   }
-  .site-plan__link {
+  .legal__text {
     font-family: "OpenSans", sans-serif;
     font-size: 1vw;
     line-height: 1.5;
   }
-}/*# sourceMappingURL=plan-de-site.css.map */
+}/*# sourceMappingURL=mentions-legales.css.map */

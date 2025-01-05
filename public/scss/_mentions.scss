@@ -1,0 +1,59 @@
+.legal{
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+    padding: 0 5vw;
+
+    &__title{
+        margin-top: 12vh;
+        @include mobileH1;
+        text-align: center;
+    }
+
+    &__subtitle{
+        @include mobileH2;
+    }
+
+    &__text{
+        @include mobileP;
+        margin-top: 2vh;
+    }
+}
+
+@media (min-width: 768px) {
+    .legal{
+        padding: 0 8vw;
+    
+        &__title{
+            @include tabletH1;
+        }
+    
+        &__subtitle{
+            @include tabletH2;
+        }
+    
+        &__text{
+            @include tabletP;
+        }
+    
+        
+    }
+}
+
+@media (min-width: 1024px) {
+    .legal{
+        padding: 0 20vw;
+    
+        &__title{
+            @include desktopH1;
+        }
+    
+        &__subtitle{
+            @include desktopH2;
+        }
+    
+        &__text{
+            @include desktopP;
+        }
+    }    
+}

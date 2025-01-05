@@ -426,4 +426,16 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    #[Route('/mentions-legales', name: 'mentions_legales')]
+    public function mentionsLegales(
+        CategorieRepository $categorieRepository
+    ): Response {
+        // Récupérer toutes les catégories
+        $categories = $categorieRepository->findAll();
+
+        return $this->render('default/mentions-legales.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
 }

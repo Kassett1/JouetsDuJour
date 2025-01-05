@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="css/mentions-legales.css" />{% endblock %}
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+<main class="legal">
+    <h1 class="legal__title">Mentions légales</h1>
+    <section class="legal__section">
+        <h2 class="legal__subtitle">1. Éditeur du site</h2>
+        <p class="legal__text">
+            Le site <strong>{{ app.request.host }}</strong> est édité par un particulier dans un cadre non professionnel.
+            <br>Email : <strong>skyllow80@gmail.com</strong>
+        </p>
+    </section>
+
+    <section class="legal__section">
+        <h2 class="legal__subtitle">2. Hébergement</h2>
+        <p class="legal__text">
+            Le site est hébergé par : 
+            <br>Hébergeur : <strong>HOSTINGER operations, UAB</strong>
+            <br>Adresse : <strong>Švitrigailos str. 34, Vilnius 03230 Lithuania</strong>
+            <br>Téléphone : <strong>+37064503378</strong>
+            <br>Email : <strong>domains@hostinger.com</strong>
+        </p>
+    </section>
+    
+
+    <section class="legal__section">
+        <h2 class="legal__subtitle">3. Propriété intellectuelle</h2>
+        <p class="legal__text">
+            Tous les contenus présents sur le site, incluant les textes, images, vidéos, et graphiques, sont protégés par le droit d'auteur. Toute reproduction, distribution ou utilisation non autorisée est interdite sans l'accord préalable de l'éditeur.
+        </p>
+    </section>
+
+    <section class="legal__section">
+        <h2 class="legal__subtitle">4. Limitation de responsabilité</h2>
+        <p class="legal__text">
+            L'éditeur décline toute responsabilité en cas d'erreurs ou d'omissions dans les informations fournies sur le site. Les utilisateurs sont invités à vérifier l'exactitude des informations directement auprès des sources concernées.
+        </p>
+    </section>
+
+    <section class="legal__section">
+        <h2 class="legal__subtitle">5. Affiliation Amazon</h2>
+        <p class="legal__text">
+            Ce site participe au Programme Partenaires d’Amazon EU, un programme d’affiliation conçu pour permettre à des sites de percevoir une rémunération grâce à la création de liens vers <a href="https://www.amazon.fr" target="_blank" rel="nofollow">Amazon.fr</a> et tout autre site affilié.
+        </p>
+    </section>
+
+    <section class="legal__section">
+        <h2 class="legal__subtitle">6. Données personnelles</h2>
+        <p class="legal__text">
+            Aucune donnée personnelle n'est collectée directement par ce site. Toutefois, des cookies peuvent être utilisés pour des finalités statistiques ou d'amélioration de l'expérience utilisateur. Les utilisateurs peuvent configurer leur navigateur pour refuser les cookies.
+        </p>
+    </section>
+
+    <section class="legal__section">
+        <h2 class="legal__subtitle">7. Contact</h2>
+        <p class="legal__text">
+            Pour toute question ou réclamation, veuillez nous contacter via l'adresse email suivante : <strong>skyllow80@gmail.com</strong>.
+        </p>
+    </section>
+</main>
+{% endblock %}
