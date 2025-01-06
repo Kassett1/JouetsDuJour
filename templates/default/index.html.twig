@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %} {% block title %} Accueil {% endblock %} {% block
 stylesheets %}
-<link rel="stylesheet" href="css/home.css" />
+<link rel="stylesheet" href="{{ asset('css/home.css') }}" />
 {% endblock %} {% block body %}
 <main class="main">
   <section class="main__header">
@@ -59,32 +59,32 @@ stylesheets %}
         <ul class="main__social-list">
             <li class="main__social-list-item">
                 <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                    <img src="images/logo_facebook.webp" alt="Facebook" class="main__social-icon">
+                    <img src="{{ asset('images/logo_facebook.webp') }}" alt="Facebook" class="main__social-icon">
                 </a>
             </li>
             <li class="main__social-list-item">
                 <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                    <img src="images/logo_instagram.webp" alt="Instagram" class="main__social-icon">
+                    <img src="{{ asset('images/logo_instagram.webp') }}" alt="Instagram" class="main__social-icon">
                 </a>
             </li>
             <li class="main__social-list-item">
                 <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-                    <img src="images/logo_linkedin.webp" alt="Linkedin" class="main__social-icon">
+                    <img src="{{ asset('images/logo_linkedin.webp') }}" alt="Linkedin" class="main__social-icon">
                 </a>
             </li>
             <li class="main__social-list-item">
                 <a href="https://www.reddit.com" target="_blank" rel="noopener noreferrer">
-                    <img src="images/logo_reddit.webp" alt="Reddit" class="main__social-icon">
+                    <img src="{{ asset('images/logo_reddit.webp') }}" alt="Reddit" class="main__social-icon">
                 </a>
             </li>
             <li class="main__social-list-item">
                 <a href="https://www.snapchat.com" target="_blank" rel="noopener noreferrer">
-                    <img src="images/logo_snapchat.webp" alt="Snapchat" class="main__social-icon">
+                    <img src="{{ asset('images/logo_snapchat.webp') }}" alt="Snapchat" class="main__social-icon">
                 </a>
             </li>
             <li class="main__social-list-item">
                 <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-                    <img src="images/logo_x.webp" alt="X" class="main__social-icon">
+                    <img src="{{ asset('images/logo_x.webp') }}" alt="X" class="main__social-icon">
                 </a>
             </li>
         </ul>
@@ -156,7 +156,7 @@ stylesheets %}
                 class="section__item-link"
               >
                 Voir l'offre 
-                <img src="images/logo_amazon.webp" class="section__item-link-icon" />
+                <img src="{{ asset('images/logo_amazon.webp') }}" class="section__item-link-icon" />
               </a>
             </div>
           </div>
@@ -165,7 +165,7 @@ stylesheets %}
       {% endfor %}
     </ul>
   
-    <a href="{{ path('top_ventes') }}" class="section__more-link">Voir Plus<img class="section__more-link-icone" src="images/arrow5.webp" alt=">"/></a>
+    <a href="{{ path('top_ventes') }}" class="section__more-link">Voir Plus<img class="section__more-link-icone" src="{{ asset('images/arrow5.webp') }}" alt=">"/></a>
   </section>
 
   <section class="section section--promotions">
@@ -211,7 +211,7 @@ stylesheets %}
                 class="section__item-link"
               >
                 Voir l'offre 
-                <img src="images/logo_amazon.webp" class="section__item-link-icon" />
+                <img src="{{ asset('images/logo_amazon.webp') }}" class="section__item-link-icon" />
               </a>
             </div>
           </div>
@@ -220,7 +220,7 @@ stylesheets %}
       {% endfor %}
     </ul>
   
-    <a href="{{ path('promotions') }}" class="section__more-link">Voir plus<img class="section__more-link-icone" src="images/arrow2.webp" alt=">"/></a>
+    <a href="{{ path('promotions') }}" class="section__more-link">Voir plus<img class="section__more-link-icone" src="{{ asset('images/arrow2.webp') }}" alt=">"/></a>
   </section>
 </main>
 {% endblock %}

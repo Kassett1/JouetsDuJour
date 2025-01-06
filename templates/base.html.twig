@@ -11,17 +11,18 @@
     />
     <title>{% block title %}{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
-    <script src="js/menu.js" defer></script>
+    <script src="{{ asset('js/menu.js') }}" defer></script>
     {% block javascripts %}{% endblock %}
   </head>
   <body>
      <body>
+      {% block content %}
       <!--=============== HEADER ===============-->
       <header class="header">
         <nav class="nav container">
             <div class="nav__data">
                 <a href="{{ path('home') }}" class="nav__logo">
-                    <img src="images/logo_reperehub.webp">
+                    <img src="{{ asset('images/logo_reperehub.webp') }}">
                 </a>
                 
                 <div class="nav__toggle" id="nav-toggle">
@@ -77,7 +78,7 @@
         <ul class="footer__list">
           <li class="footer__item">
             <a href="{{ path('home') }}" class="footer__link"
-              ><img src="images/logo_reperehub.webp" alt="Acuueil"
+              ><img src="{{ asset('images/logo_reperehub.webp') }}" alt="Acueil"
             /></a>
           </li>
           <li class="footer__item">
@@ -89,5 +90,6 @@
         </ul>
       </nav>
     </footer>
+    {% endblock %}
   </body>
 </html>

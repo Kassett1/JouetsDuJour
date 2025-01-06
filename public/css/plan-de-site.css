@@ -442,6 +442,7 @@ a {
 }
 .site-plan {
   padding: 0 5vw;
+  color: #322C2B;
 }
 .site-plan__title {
   margin-top: 12vh;
@@ -527,7 +528,7 @@ a {
     flex-direction: row;
     gap: 5vw;
     margin-top: 5vh;
-    margin-bottom: 15gvh;
+    margin-bottom: 15vh;
   }
   .site-plan__section-title {
     font-family: "OpenSans", sans-serif;

@@ -1,5 +1,6 @@
 .site-plan{
     padding: 0 5vw;
+    color: $color4;
 
     &__title{
         margin-top: 12vh;
@@ -78,7 +79,7 @@
             flex-direction: row;
             gap: 5vw;
             margin-top: 5vh;
-            margin-bottom: 15gvh;
+            margin-bottom: 15vh;
         }
     
         &__section-title{

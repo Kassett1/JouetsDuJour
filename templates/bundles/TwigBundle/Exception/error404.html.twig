@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %} 
+
+{% block title %} Erreur 404 - Page non trouvée {% endblock %} 
+
+{% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/errors.css') }}" /> {% endblock %} 
+
+{% block content %}
+<main class="error-page">
+    <p class="error-page__logo">
+        <a href="{{ path('home') }}" >
+            <img src="{{ asset('images/logo_reperehub.webp') }}" alt="Accueil" class="error-page__logo-image" />
+        </a>
+    </p>
+    
+    <h1 class="error-page__title">Erreur 404 - Page non trouvée</h1>
+
+    <p class="error-page__message">
+        Désolé, la page que vous recherchez n'existe pas ou a été déplacée.
+    </p>
+
+    <p class="error-page__link">
+        <a class="error-page__link" href="{{ path('home') }}" class="error-page__link-anchor">Retourner à l'accueil</a>
+    </p>
+</main>
+
+{% endblock %}

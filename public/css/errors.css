@@ -440,69 +440,79 @@ a {
     text-decoration: none;
   }
 }
-.legal {
+.error-page {
+  color: #322C2B;
   display: flex;
   flex-direction: column;
-  gap: 5vh;
+  gap: 3vh;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
   padding: 0 5vw;
-  color: #322C2B;
 }
-.legal__title {
-  margin-top: 12vh;
+.error-page__title, .error-page__message, .error-page__link, .error-page__logo {
+  text-align: center;
+}
+.error-page__title {
   font-family: "OpenSans", sans-serif;
   font-size: 5.5vw;
   font-weight: bold;
-  text-align: center;
 }
-.legal__subtitle {
-  font-family: "OpenSans", sans-serif;
-  font-size: 5vw;
-  font-weight: bold;
-}
-.legal__text {
+.error-page__message, .error-page__link {
   font-family: "OpenSans", sans-serif;
   font-size: 3.5vw;
   line-height: 1.5;
-  margin-top: 2vh;
+}
+.error-page__link, .error-page__link a {
+  padding: 1vh 3vw;
+}
+.error-page__link a {
+  color: black;
+  background-color: #FFB500;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.error-page__logo-image {
+  width: 30vw;
+  height: auto;
 }
 
 @media (min-width: 768px) {
-  .legal {
+  .error-page {
     padding: 0 8vw;
   }
-  .legal__title {
+  .error-page__title {
     font-family: "OpenSans", sans-serif;
     font-size: 4vw;
     font-weight: bold;
   }
-  .legal__subtitle {
-    font-family: "OpenSans", sans-serif;
-    font-size: 3.5vw;
-    font-weight: bold;
-  }
-  .legal__text {
+  .error-page__message, .error-page__link {
     font-family: "OpenSans", sans-serif;
     font-size: 2vw;
     line-height: 1.5;
   }
+  .error-page__logo-image {
+    width: 25vw;
+  }
 }
 @media (min-width: 1024px) {
-  .legal {
-    padding: 0 20vw;
+  .error-page {
+    padding: 0 10vw;
   }
-  .legal__title {
+  .error-page__title {
     font-family: "OpenSans", sans-serif;
     font-size: 2vw;
     font-weight: bold;
   }
-  .legal__subtitle {
-    font-family: "OpenSans", sans-serif;
-    font-size: 1.5vw;
-    font-weight: bold;
-  }
-  .legal__text {
+  .error-page__message, .error-page__link {
     font-family: "OpenSans", sans-serif;
     font-size: 1vw;
     line-height: 1.5;
   }
-}/*# sourceMappingURL=mentions-legales.css.map */
+  .error-page__logo-image {
+    width: 15vw;
+  }
+  .error-page__link a:hover {
+    background-color: #ffcf56;
+  }
+}/*# sourceMappingURL=errors.css.map */
