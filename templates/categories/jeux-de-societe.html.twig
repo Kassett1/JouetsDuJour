@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %} Jeux de société {% endblock %} {% block
+{% extends 'base.html.twig' %} 
+{% block head %}
+<meta name="description" content="Découvrez une large sélection de jeux de société pour toute la famille : classiques, coopératifs, éducatifs ou stratégiques. Amusez-vous ensemble autour de parties captivantes." />
+{% endblock %}
+
+{% block title %} Jeux de société {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
     {% endblock %}  {% block body %}

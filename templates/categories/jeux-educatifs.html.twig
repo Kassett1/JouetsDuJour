@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %} Jeux éducatifs {% endblock %} {% block
+{% extends 'base.html.twig' %} 
+{% block head %}
+<meta name="description" content="Apprenez tout en vous amusant avec notre sélection de jeux éducatifs pour enfants. Développez leurs compétences tout en passant des moments enrichissants en famille." />
+{% endblock %}
+
+{% block title %} Jeux éducatifs {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
     {% endblock %}  {% block body %}

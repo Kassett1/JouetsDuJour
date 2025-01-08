@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %} Jeux plein air {% endblock %} {% block
+{% extends 'base.html.twig' %}
+{% block head %}
+<meta name="description" content="Profitez de jeux de plein air pour enfants : activités ludiques, sportives et créatives à partager en extérieur. Idéal pour des journées actives et amusantes." />
+{% endblock %}
+
+{% block title %} Jeux plein air {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
     {% endblock %}  {% block body %}

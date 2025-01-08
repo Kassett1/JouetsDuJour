@@ -10,6 +10,7 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    {% block head %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <script src="{{ asset('js/menu.js') }}" defer></script>

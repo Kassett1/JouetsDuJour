@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %} Top ventes {% endblock %} {% block
+{% extends 'base.html.twig' %} 
+{% block head %}
+<meta name="description" content="Découvrez les top ventes de jouets et jeux de société, les articles les plus appréciés et recommandés par les familles. Faites votre choix parmi les incontournables du moment !" />
+{% endblock %}
+
+{% block title %} Top ventes {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
     {% endblock %}  {% block body %}

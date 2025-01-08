@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %} Accueil {% endblock %} {% block
+{% extends 'base.html.twig' %} 
+{% block head %}
+  <meta name="description" content="Découvrez notre sélection des meilleurs jouets, jeux de société et idées cadeaux pour tous les âges. Trouvez l'inspiration pour vos achats grâce à nos guides et tops détaillés." />
+{% endblock %}
+
+{% block title %} Accueil {% endblock %} {% block
 stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
 {% endblock %} {% block body %}

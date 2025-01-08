@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %} Livres {% endblock %} {% block
+{% extends 'base.html.twig' %}
+{% block head %}
+<meta name="description" content="Plongez dans l'univers des livres pour enfants : histoires captivantes, contes éducatifs et albums illustrés pour développer l'imagination et l'amour de la lecture." />
+{% endblock %}
+
+{% block title %} Livres {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
     {% endblock %}  {% block body %}

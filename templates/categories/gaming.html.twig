@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %} Gaming {% endblock %} {% block
+{% extends 'base.html.twig' %} 
+{% block head %}
+<meta name="description" content="Retrouvez tout l'univers du gaming : jeux vidéo, consoles, accessoires et périphériques. Découvrez nos sélections pour optimiser votre expérience de jeu." />
+{% endblock %}
+
+{% block title %} Gaming {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
     {% endblock %}  {% block body %}

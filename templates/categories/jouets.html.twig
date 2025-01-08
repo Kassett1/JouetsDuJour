@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %} {% block title %} Jouets {% endblock %} {% block
+{% extends 'base.html.twig' %}
+{% block head %}
+<meta name="description" content="Explorez notre sélection de jouets pour tous les âges : jouets éducatifs, figurines, peluches, jeux de construction et bien plus. Des idées pour tous les enfants !" />
+{% endblock %}
+
+{% block title %} Jouets {% endblock %} {% block
 stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
 {% endblock %}  {% block body %}
