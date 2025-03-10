@@ -140,7 +140,9 @@ stylesheets %}
     <ul class="section__list">
       {% for topVente in topVentes %}
       <li class="section__item">
-        <h3 class="section__item-title">{{ topVente.getNom() }}</h3>
+        
+        <h3 class="section__item-title">{{ topVente.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+
         <div class="section__item-content">
           <img 
             src={{ topVente.getImage() }} 
@@ -148,7 +150,11 @@ stylesheets %}
             class="section__item-image" 
           />
           <div class="section__item-details">
-            <p class="section__item-description">{{ topVente.getDescription()|slice(0, 100) ~ (topVente.getDescription()|length > 100 ? '...' : '') }}</p>
+
+            <p class="section__item-description">
+              {{ topVente.getDescription()|slice(0, 200) ~ (topVente.getDescription()|length > 200 ? '...' : '') }}
+            </p>      
+
             <div class="section__item-price-wrapper">
               <div class="section__item-prices">
                 {% if topVente.getPromo() %}
@@ -195,7 +201,7 @@ stylesheets %}
     <ul class="section__list">
       {% for promo in promos %}
       <li class="section__item">
-        <h3 class="section__item-title">{{ promo.getNom() }}</h3>
+        <h3 class="section__item-title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
         <div class="section__item-content">
           <img 
             src={{ promo.getImage() }} 
@@ -203,7 +209,7 @@ stylesheets %}
             class="section__item-image" 
           />
           <div class="section__item-details">
-            <p class="section__item-description">{{ promo.getDescription()|slice(0, 100) ~ (promo.getDescription()|length > 100 ? '...' : '') }}</p>
+            <p class="section__item-description">{{ promo.getDescription()|slice(0, 200) ~ (promo.getDescription()|length > 200 ? '...' : '') }}</p>
             <div class="section__item-price-wrapper">
               <div class="section__item-prices">
                 {% if promo.getPromo() %}

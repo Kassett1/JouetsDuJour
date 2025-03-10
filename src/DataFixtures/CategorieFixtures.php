@@ -12,26 +12,26 @@ class CategorieFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
         $slugify = new Slugify();
 
         $categories = [
-            'Jouets',
-            'Jeux de société',
-            'Gaming',
-            'Jeux éducatifs',
-            'Jeux plein air',
-            'Livres',
+            'Jouets' => 'images/categories/jouets.webp',
+            'Jeux de société' => 'images/categories/jeux-de-societe.webp',
+            'Gaming' => 'images/categories/gaming.webp',
+            'Jeux éducatifs' => 'images/categories/jeux-educatifs.webp',
+            'Jeux plein air' => 'images/categories/jeux-plein-air.webp',
+            'Livres' => 'images/categories/livres.webp',
         ];
 
-        foreach ($categories as $categoryName) {
+        foreach ($categories as $categoryName => $imagePath) {
             $category = new Categorie();
             $category->setNom($categoryName);
             $category->setSlug($slugify->slugify($categoryName)); // Génération du slug
-            $category->setImage($faker->imageUrl());
+            $category->setImage($imagePath);
             $manager->persist($category);
         }
 
         $manager->flush();
     }
 }
+

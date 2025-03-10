@@ -53,9 +53,9 @@
                     class="products__image" 
                 >
                 
-                <h3 class="products__title">{{ produit.getNom() }}</h3>
+                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
                 <p class="products__description">
-                    {{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}
+                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
                 </p>
                 
                 <div class="products__pricing">
@@ -100,9 +100,9 @@
                     class="products__image" 
                 >
                 
-                <h3 class="products__title">{{ produit.getNom() }}</h3>
+                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
                 <p class="products__description">
-                    {{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}
+                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
                 </p>
                 
                 <div class="products__pricing">
@@ -147,9 +147,9 @@
                     class="products__image" 
                 >
                 
-                <h3 class="products__title">{{ produit.getNom() }}</h3>
+                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
                 <p class="products__description">
-                    {{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}
+                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
                 </p>
                 
                 <div class="products__pricing">
@@ -194,9 +194,9 @@
                     class="products__image" 
                 >
                 
-                <h3 class="products__title">{{ produit.getNom() }}</h3>
+                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
                 <p class="products__description">
-                    {{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}
+                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
                 </p>
                 
                 <div class="products__pricing">
@@ -241,9 +241,9 @@
                     class="products__image" 
                 >
                 
-                <h3 class="products__title">{{ produit.getNom() }}</h3>
+                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
                 <p class="products__description">
-                    {{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}
+                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
                 </p>
                 
                 <div class="products__pricing">
@@ -288,9 +288,9 @@
                     class="products__image" 
                 >
                 
-                <h3 class="products__title">{{ produit.getNom() }}</h3>
+                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
                 <p class="products__description">
-                    {{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}
+                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
                 </p>
                 
                 <div class="products__pricing">

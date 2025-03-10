@@ -352,7 +352,7 @@ a {
     padding: 0;
     justify-content: initial;
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     font-weight: bold;
   }
   .nav__link:hover {
@@ -380,7 +380,7 @@ a {
   .dropdown__link {
     padding: 2vh 1vw;
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     background-color: #322C2B;
     color: white;
   }
@@ -428,7 +428,7 @@ a {
 @media (min-width: 1024px) {
   .footer {
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     font-weight: bold;
   }
   .footer__list {
@@ -501,12 +501,12 @@ a {
   }
   .error-page__title {
     font-family: "OpenSans", sans-serif;
-    font-size: 2vw;
+    font-size: min(2vw, 38.4px);
     font-weight: bold;
   }
   .error-page__message, .error-page__link {
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     line-height: 1.5;
   }
   .error-page__logo-image {

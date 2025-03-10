@@ -186,7 +186,7 @@
 
             &__item:hover::after {
                 opacity: 1;
-                background-color: $color3;
+                background-color: rgb(126, 23, 23, 0.8);
             }
         }
         
@@ -209,7 +209,7 @@
             }
         
             &__intro-item {
-                padding: 3vh 5vw;
+                padding: 3vh 3vw;
             }
         
             &__intro-title {

@@ -352,7 +352,7 @@ a {
     padding: 0;
     justify-content: initial;
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     font-weight: bold;
   }
   .nav__link:hover {
@@ -380,7 +380,7 @@ a {
   .dropdown__link {
     padding: 2vh 1vw;
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     background-color: #322C2B;
     color: white;
   }
@@ -428,7 +428,7 @@ a {
 @media (min-width: 1024px) {
   .footer {
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     font-weight: bold;
   }
   .footer__list {
@@ -496,21 +496,21 @@ a {
   .category-page__title {
     margin-top: 15vh;
     font-family: "OpenSans", sans-serif;
-    font-size: 2vw;
+    font-size: min(2vw, 38.4px);
     font-weight: bold;
   }
   .intro {
-    margin: 3vh 10vw;
-    padding: 3vh 5vw;
+    margin: 3vh 15vw;
+    padding: 3vh 3vw;
   }
   .intro__title {
     font-family: "OpenSans", sans-serif;
-    font-size: 1.2vw;
+    font-size: min(1.2vw, 23px);
     font-weight: bold;
   }
   .intro__text {
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     line-height: 1.5;
   }
 }
@@ -752,8 +752,8 @@ a {
     gap: 1vw;
   }
   .products__image {
-    width: 60%;
-    height: 15vh;
+    width: 10vw;
+    height: 10vw;
   }
   .products__item:nth-child(3) {
     background-color: #7E1717;
@@ -763,33 +763,33 @@ a {
   }
   .products__title {
     font-family: "OpenSans", sans-serif;
-    font-size: 1.2vw;
+    font-size: min(1.2vw, 23px);
     font-weight: bold;
   }
   .products__description {
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     line-height: 1.5;
   }
   .products__item {
     flex: 1 1 calc(25% - 1vw);
-    padding: 3vh 1vw;
+    padding: 1.5vh 1vw;
   }
   .products__price {
     font-family: "OpenSans", sans-serif;
-    font-size: 1.2vw;
+    font-size: min(1.2vw, 23px);
     font-weight: bold;
   }
   .products__promo {
     right: -2vw;
     padding: 0.3vh 1vw;
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     line-height: 1.5;
   }
   .products__link {
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     line-height: 1.5;
     padding: 0.5vh 1vw;
     transition: all 0.3s ease;
@@ -809,22 +809,22 @@ a {
   }
   .products-section__title {
     font-family: "OpenSans", sans-serif;
-    font-size: 1.2vw;
+    font-size: min(1.2vw, 23px);
     font-weight: bold;
   }
   .products-section__description {
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     line-height: 1.5;
   }
   .products-section--2__title {
     font-family: "OpenSans", sans-serif;
-    font-size: 1.2vw;
+    font-size: min(1.2vw, 23px);
     font-weight: bold;
   }
   .products-section--2__description {
     font-family: "OpenSans", sans-serif;
-    font-size: 1vw;
+    font-size: min(1vw, 21px);
     line-height: 1.5;
   }
   .products-section--2 .products__item:nth-child(3) {

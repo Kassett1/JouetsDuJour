@@ -247,8 +247,8 @@
         gap: 1vw;
     
         &__image{
-            width: 60%;
-            height: 15vh;
+            width: 10vw;
+            height: 10vw;
         }
     
         &__item:nth-child(3) {
@@ -269,7 +269,7 @@
     
         &__item{
             flex: 1 1 calc(25% - 1vw);
-            padding: 3vh 1vw;
+            padding: 1.5vh 1vw;
         }
     
         &__price{

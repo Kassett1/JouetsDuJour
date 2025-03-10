@@ -91,14 +91,14 @@ stylesheets %}
                 class="products__image" 
             >
             
-            <h3 class="products__title">{{ produit.getNom() }}</h3>
-            <p class="products__description">{{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}</p>
+            <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+            <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
             
             <div class="products__pricing">
                 {% if produit.getPromo() %}
-                <p class="products__promo">-{{ produit.getPromo() }}%</p>
+                <p class="products__promo">-{{ produit.getPromo() }} %</p>
                 {% endif %}
-                <p class="products__price">{{ produit.getPrix() }}€</p>
+                <p class="products__price">{{ produit.getPrix() }} €</p>
             </div>
             
             <a href="{{ produit.getLien() }}" class="products__link">
@@ -138,9 +138,9 @@ stylesheets %}
                 class="products__image" 
             >
             
-            <h3 class="products__title">{{ promo.getNom() }}</h3>
+            <h3 class="products__title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
             <p class="products__description">
-                {{ promo.getDescription()|length > 100 ? promo.getDescription()|slice(0, 97) ~ '...' : promo.getDescription() }}
+                {{ promo.getDescription()|slice(0, 150) ~ (promo.getDescription()|length > 150 ? '...' : '') }}
             </p>
             
             
@@ -188,14 +188,14 @@ stylesheets %}
               class="products__image" 
           >
 
-          <h3 class="products__title">{{ produit.getNom() }}</h3>
-          <p class="products__description">{{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}</p>
+          <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+          <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
 
           <div class="products__pricing">
               {% if produit.getPromo() %}
-              <p class="products__promo">-{{ produit.getPromo() }}%</p>
+              <p class="products__promo">-{{ produit.getPromo() }} %</p>
               {% endif %}
-              <p class="products__price">{{ produit.getPrix() }}€</p>
+              <p class="products__price">{{ produit.getPrix() }} €</p>
           </div>
 
           <a href="{{ produit.getLien() }}" class="products__link">
@@ -235,14 +235,14 @@ stylesheets %}
               class="products__image" 
           >
 
-          <h3 class="products__title">{{ produit.getNom() }}</h3>
-          <p class="products__description">{{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}</p>
+          <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+          <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
 
           <div class="products__pricing">
               {% if produit.getPromo() %}
-              <p class="products__promo">-{{ produit.getPromo() }}%</p>
+              <p class="products__promo">-{{ produit.getPromo() }} %</p>
               {% endif %}
-              <p class="products__price">{{ produit.getPrix() }}€</p>
+              <p class="products__price">{{ produit.getPrix() }} €</p>
           </div>
 
           <a href="{{ produit.getLien() }}" class="products__link">
@@ -284,14 +284,14 @@ stylesheets %}
               class="products__image" 
           >
 
-          <h3 class="products__title">{{ produit.getNom() }}</h3>
-          <p class="products__description">{{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}</p>
+          <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+          <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
 
           <div class="products__pricing">
               {% if produit.getPromo() %}
-              <p class="products__promo">-{{ produit.getPromo() }}%</p>
+              <p class="products__promo">-{{ produit.getPromo() }} %</p>
               {% endif %}
-              <p class="products__price">{{ produit.getPrix() }}€</p>
+              <p class="products__price">{{ produit.getPrix() }} €</p>
           </div>
 
           <a href="{{ produit.getLien() }}" class="products__link">
@@ -331,14 +331,14 @@ stylesheets %}
               class="products__image" 
           >
 
-          <h3 class="products__title">{{ produit.getNom() }}</h3>
-          <p class="products__description">{{ produit.getDescription()|length > 100 ? produit.getDescription()|slice(0, 97) ~ '...' : produit.getDescription() }}</p>
+          <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+          <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
 
           <div class="products__pricing">
               {% if produit.getPromo() %}
-              <p class="products__promo">-{{ produit.getPromo() }}%</p>
+              <p class="products__promo">-{{ produit.getPromo() }} %</p>
               {% endif %}
-              <p class="products__price">{{ produit.getPrix() }}€</p>
+              <p class="products__price">{{ produit.getPrix() }} €</p>
           </div>
 
           <a href="{{ produit.getLien() }}" class="products__link">

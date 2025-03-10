@@ -8,37 +8,37 @@
 
 @mixin desktopH1 {
   font-family: "OpenSans", sans-serif;
-  font-size: 2vw;
+  font-size: min(2vw, 38.4px);
   font-weight: bold;
 }
 
 @mixin desktopH2 {
   font-family: "OpenSans", sans-serif;
-  font-size: 1.5vw;
+  font-size: min(1.5vw, 28.8px);
   font-weight: bold;
 }
 
 @mixin desktopH3 {
   font-family: "OpenSans", sans-serif;
-  font-size: 1.2vw;
+  font-size: min(1.2vw, 23px);
   font-weight: bold;
 }
 
 @mixin desktopP {
   font-family: "OpenSans", sans-serif;
-  font-size: 1vw;
+  font-size: min(1vw, 21px);
   line-height: 1.5;
 }
 
 @mixin desktopMenu {
   font-family: "OpenSans", sans-serif;
-  font-size: 1vw;
+  font-size: min(1vw, 21px);
   font-weight: bold;
 }
 
 @mixin desktopSubMenu {
   font-family: "OpenSans", sans-serif;
-  font-size: 1vw;
+  font-size: min(1vw, 21px);;
 }
 
 

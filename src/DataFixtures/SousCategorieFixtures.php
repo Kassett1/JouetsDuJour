@@ -12,7 +12,7 @@ class SousCategorieFixtures extends Fixture
     {
         $subCategories = [
             'Jeux vidéo',
-            'Consoles',
+            'Consoles de jeux',
             'Accessoires Gaming',
         ];
 
