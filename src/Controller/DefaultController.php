@@ -251,7 +251,7 @@ class DefaultController extends AbstractController
             ->andWhere('sc.nom = :sousCategorieNom') // Filtrer par le nom de la sous-catégorie
             ->andWhere('p.id NOT IN (:exclus)') // Exclure les produits déjà affichés
             ->setParameter('categorieId', $categorie->getId())
-            ->setParameter('sousCategorieNom', 'Consoles') // Nom de la sous-catégorie
+            ->setParameter('sousCategorieNom', 'Consoles de jeux') // Nom de la sous-catégorie
             ->setParameter('exclus', $produitsAffiches)
             ->setMaxResults(4) // Limiter à 4 résultats
             ->getQuery()
