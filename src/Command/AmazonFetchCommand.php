@@ -87,7 +87,7 @@ class AmazonFetchCommand extends Command
             $maxPages = ($range['min'] === 1 && $range['max'] === 2000) ? 2 : 1; // 2 pages pour la première plage, sinon 1
 
             for ($page = 1; $page <= $maxPages; $page++) {
-                $output->writeln("📄 Page $page/$maxPages pour cette plage de prix");
+                // $output->writeln("📄 Page $page/$maxPages pour cette plage de prix");
 
                 $url = "https://webservices.amazon.fr/paapi5/searchitems";
                 $payload = json_encode([
@@ -183,7 +183,7 @@ class AmazonFetchCommand extends Command
         $output->writeln("Récupération des " . $searchCategorie);
 
         for ($page = 1; $page <= 3; $page++) {
-            $output->writeln("📄 Page $page/3 pour cette catégorie");
+            // $output->writeln("📄 Page $page/3 pour cette catégorie");
 
             $url = "https://webservices.amazon.fr/paapi5/searchitems";
             $payload = json_encode([
@@ -274,7 +274,7 @@ class AmazonFetchCommand extends Command
         $output->writeln("Récupération des " . $searchCategorie);
 
         for ($page = 1; $page <= 1; $page++) {
-            $output->writeln("📄 Page $page/1 pour cette catégorie");
+            // $output->writeln("📄 Page $page/1 pour cette catégorie");
 
             $url = "https://webservices.amazon.fr/paapi5/searchitems";
             $payload = json_encode([
@@ -356,7 +356,7 @@ class AmazonFetchCommand extends Command
         $connection->executeStatement('TRUNCATE TABLE produit_categorie');
         $connection->executeStatement('TRUNCATE TABLE produit');
         $connection->executeStatement('SET FOREIGN_KEY_CHECKS = 1');
-        $output->writeln('Table produit vidée avec TRUNCATE.');
+        // $output->writeln('Table produit vidée avec TRUNCATE.');
 
         // Insérer tous les produits en base
         $allProducts = [];
@@ -379,7 +379,7 @@ class AmazonFetchCommand extends Command
         }
         $this->entityManager->flush();
 
-        $output->writeln(count($allProducts) . ' produits Amazon mis à jour avec succès !');
+        $output->writeln(date('[Y-m-d H:i:s]') . ' ' . count($allProducts) . ' produits Amazon mis à jour avec succès !');
         return Command::SUCCESS;
     }
 }
