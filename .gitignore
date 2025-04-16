@@ -8,4 +8,5 @@
 /var/
 /vendor/
 /.htaccess/
+/.env
 ###< symfony/framework-bundle ###
