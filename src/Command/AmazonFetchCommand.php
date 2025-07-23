@@ -173,7 +173,7 @@ class AmazonFetchCommand extends Command
         // 🔹 Récupération des catégories en base de données
         $categorieRepo = $entityManager->getRepository(Categorie::class);
 
-        if ($searchCategorie == "Livres pour enfants") {
+        if ($searchCategorie == "Livre pour enfant") {
             $categorie = $categorieRepo->findOneBy(['nom' => "Livres"]);
         } else {
             $categorie = $categorieRepo->findOneBy(['nom' => $searchCategorie]);
@@ -355,8 +355,17 @@ class AmazonFetchCommand extends Command
         $connection->executeStatement('TRUNCATE TABLE produit_tag');
         $connection->executeStatement('TRUNCATE TABLE produit_categorie');
         $connection->executeStatement('TRUNCATE TABLE produit');
+        $connection->executeStatement('TRUNCATE TABLE refresh_date');
         $connection->executeStatement('SET FOREIGN_KEY_CHECKS = 1');
         // $output->writeln('Table produit vidée avec TRUNCATE.');
+
+
+        // Insère la date actuelle dans la colonne d de la table refresh_date
+        $now = new \DateTime();
+        $connection->insert('refresh_date', [
+            'd' => $now->format('Y-m-d'),  // format date sans heure
+        ]);
+
 
         // Insérer tous les produits en base
         $allProducts = [];
@@ -367,7 +376,7 @@ class AmazonFetchCommand extends Command
             $this->requete_2("Jeux de société", $output, $this->httpClient, $this->entityManager),
             $this->requete_2("Jeux éducatifs", $output, $this->httpClient, $this->entityManager),
             $this->requete_2("Jeux plein air", $output, $this->httpClient, $this->entityManager),
-            $this->requete_2("Livres pour enfants", $output, $this->httpClient, $this->entityManager),
+            $this->requete_2("Livre pour enfant", $output, $this->httpClient, $this->entityManager),
             $this->requete_2("Gaming", $output, $this->httpClient, $this->entityManager),
             $this->requete_3("Consoles de jeux", $output, $this->httpClient, $this->entityManager),
             $this->requete_3("Jeux vidéo", $output, $this->httpClient, $this->entityManager),

@@ -5,18 +5,36 @@ namespace App\Controller;
 use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\RefreshDateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class DefaultController extends AbstractController
 {
+    private function formatDateFr(?\DateTimeInterface $date): ?string
+    {
+        if (!$date) {
+            return null;
+     }
+
+        setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra', 'fr_FR', 'fr_FR@euro', 'fr_FR.utf8');
+        return strftime('%e %B %Y', $date->getTimestamp());
+    }
+
     #[Route('/', name: 'home')]
-    public function index(ProduitRepository $produitRepository, CategorieRepository $categorieRepository, ArticleRepository $articleRepository): Response
+    public function index(ProduitRepository $produitRepository, CategorieRepository $categorieRepository, ArticleRepository $articleRepository, RefreshDateRepository $refreshDateRepository): Response
     {
 
         $categories = $categorieRepository->findAll();
         $articles = $articleRepository->findBy([], ['date' => 'DESC'], 3);
+
+        $refreshDate = $refreshDateRepository->find(1);
+
+        $formattedDate = null;
+        if ($refreshDate) {
+            $formattedDate = $this->formatDateFr($refreshDate->getDate());
+        }
 
         $topVentes = $produitRepository->createQueryBuilder('p')
             ->join('p.tag', 't') // Jointure avec la table des tags
@@ -33,12 +51,31 @@ class DefaultController extends AbstractController
             ->getQuery()
             ->getResult();
 
+        $allProducts = array_merge($topVentes, $promos);
+
+        $offerCount = count($allProducts);
+        $lowPrice = null;
+        $highPrice = null;
+    
+        foreach ($allProducts as $produit) {
+            $prix = $produit->getPrix();
+            if ($lowPrice === null || $prix < $lowPrice) {
+                $lowPrice = $prix;
+            }
+            if ($highPrice === null || $prix > $highPrice) {
+                $highPrice = $prix;
+            }
+        }
 
         return $this->render('default/index.html.twig', [
             'categories' => $categories,
             'articles' => $articles,
             'topVentes' => $topVentes,
             'promos' => $promos,
+            'offerCount' => $offerCount,
+            'lowPrice' => $lowPrice,
+            'highPrice' => $highPrice,
+            'formattedDate' => $formattedDate,
         ]);
     }
 
@@ -47,7 +84,8 @@ class DefaultController extends AbstractController
     public function jouets(
         string $slug,
         CategorieRepository $categorieRepository,
-        ProduitRepository $produitRepository
+        ProduitRepository $produitRepository,
+        RefreshDateRepository $refreshDateRepository
     ): Response {
         $categories = $categorieRepository->findAll();
 
@@ -159,6 +197,29 @@ class DefaultController extends AbstractController
             $produitsAffiches[] = $produit->getId();
         }
 
+        $allProducts = array_merge($produits, $promos, $moinsDe20, $moinsDe50, $moinsDe100, $plusDe100);
+
+        $offerCount = count($allProducts);
+        $lowPrice = null;
+        $highPrice = null;
+
+        foreach ($allProducts as $produit) {
+            $prix = $produit->getPrix();
+            if ($lowPrice === null || $prix < $lowPrice) {
+                $lowPrice = $prix;
+            }
+            if ($highPrice === null || $prix > $highPrice) {
+                $highPrice = $prix;
+            }
+        }
+
+        $refreshDate = $refreshDateRepository->find(1);
+
+        $formattedDate = null;
+        if ($refreshDate) {
+            $formattedDate = $this->formatDateFr($refreshDate->getDate());
+        }
+
         // Rendre un fichier Twig spécifique à la catégorie
         $template = sprintf('categories/%s.html.twig', $slug);
 
@@ -171,6 +232,11 @@ class DefaultController extends AbstractController
             'moinsDe50' => $moinsDe50,
             'moinsDe100' => $moinsDe100,
             'plusDe100' => $plusDe100,
+            'offerCount' => $offerCount,
+            'lowPrice' => $lowPrice,
+            'highPrice' => $highPrice,
+            'formattedDate' => $formattedDate,
+            
         ]);
     }
 
@@ -178,7 +244,8 @@ class DefaultController extends AbstractController
     public function gaming(
         string $slug,
         CategorieRepository $categorieRepository,
-        ProduitRepository $produitRepository
+        ProduitRepository $produitRepository,
+        RefreshDateRepository $refreshDateRepository
     ): Response {
         $categories = $categorieRepository->findAll();
 
@@ -281,6 +348,30 @@ class DefaultController extends AbstractController
             $produitsAffiches[] = $produit->getId();
         }
 
+        $allProducts = array_merge($produits, $promos, $jeuxVideo, $consoles, $accessoiresGaming);
+
+        $offerCount = count($allProducts);
+        $lowPrice = null;
+        $highPrice = null;
+
+        foreach ($allProducts as $produit) {
+            $prix = $produit->getPrix();
+            if ($lowPrice === null || $prix < $lowPrice) {
+                $lowPrice = $prix;
+            }
+            if ($highPrice === null || $prix > $highPrice) {
+                $highPrice = $prix;
+            }
+        }
+
+        $refreshDate = $refreshDateRepository->find(1);
+
+        $formattedDate = null;
+        if ($refreshDate) {
+            $formattedDate = $this->formatDateFr($refreshDate->getDate());
+        }
+
+
         // Rendre un fichier Twig spécifique à la catégorie
         $template = sprintf('categories/%s.html.twig', $slug);
 
@@ -292,6 +383,10 @@ class DefaultController extends AbstractController
             'jeuxVideo' => $jeuxVideo,
             'consoles' => $consoles,
             'accessoiresGaming' => $accessoiresGaming,
+            'offerCount' => $offerCount,
+            'lowPrice' => $lowPrice,
+            'highPrice' => $highPrice,
+            'formattedDate' => $formattedDate,
         ]);
     }
 
@@ -299,7 +394,8 @@ class DefaultController extends AbstractController
     public function autresCategories(
         string $slug,
         CategorieRepository $categorieRepository,
-        ProduitRepository $produitRepository
+        ProduitRepository $produitRepository,
+        RefreshDateRepository $refreshDateRepository
     ): Response {
         $categories = $categorieRepository->findAll();
 
@@ -360,6 +456,29 @@ class DefaultController extends AbstractController
             $produitsAffiches[] = $produit->getId();
         }
 
+        $allProducts = array_merge($produits, $promos, $produits2);
+
+        $offerCount = count($allProducts);
+        $lowPrice = null;
+        $highPrice = null;
+
+        foreach ($allProducts as $produit) {
+            $prix = $produit->getPrix();
+            if ($lowPrice === null || $prix < $lowPrice) {
+                $lowPrice = $prix;
+            }
+            if ($highPrice === null || $prix > $highPrice) {
+                $highPrice = $prix;
+            }
+        }
+
+        $refreshDate = $refreshDateRepository->find(1);
+
+        $formattedDate = null;
+        if ($refreshDate) {
+            $formattedDate = $this->formatDateFr($refreshDate->getDate());
+        }
+
         // Rendre un fichier Twig spécifique à la catégorie
         $template = sprintf('categories/%s.html.twig', $slug);
 
@@ -369,12 +488,17 @@ class DefaultController extends AbstractController
             'produits' => $produits,
             'promos' => $promos,
             'produits2' => $produits2,
+            'offerCount' => $offerCount,
+            'lowPrice' => $lowPrice,
+            'highPrice' => $highPrice,
+            'formattedDate' => $formattedDate,
         ]);
     }
 
     #[Route('/top-ventes', name: 'top_ventes')]
     public function topVentes(
-        CategorieRepository $categorieRepository
+        CategorieRepository $categorieRepository,
+        RefreshDateRepository $refreshDateRepository
     ): Response {
         $categories = $categorieRepository->findAll();
         $produitsParCategorie = [];
@@ -383,15 +507,51 @@ class DefaultController extends AbstractController
             $produitsParCategorie[$categorie->getNom()] = $categorie->getProduits()->slice(0, 4);
         }
 
+        $allProducts = array_merge(
+            $produitsParCategorie['Jouets'] ?? [],
+            $produitsParCategorie['Jeux de société'] ?? [],
+            $produitsParCategorie['Gaming'] ?? [],
+            $produitsParCategorie['Jeux éducatifs'] ?? [],
+            $produitsParCategorie['Jeux plein air'] ?? [],
+            $produitsParCategorie['Livres'] ?? []
+        );
+
+        $offerCount = count($allProducts);
+        $lowPrice = null;
+        $highPrice = null;
+
+        foreach ($allProducts as $produit) {
+            $prix = $produit->getPrix();
+            if ($lowPrice === null || $prix < $lowPrice) {
+                $lowPrice = $prix;
+            }
+            if ($highPrice === null || $prix > $highPrice) {
+                $highPrice = $prix;
+            }
+        }
+
+        $refreshDate = $refreshDateRepository->find(1);
+
+        $formattedDate = null;
+        if ($refreshDate) {
+            $formattedDate = $this->formatDateFr($refreshDate->getDate());
+        }
+
+
         return $this->render('default/top-ventes.html.twig', [
             'categories' => $categories,
             'produitsParCategorie' => $produitsParCategorie,
+            'offerCount' => $offerCount,
+            'lowPrice' => $lowPrice,
+            'highPrice' => $highPrice,
+            'formattedDate' => $formattedDate,
         ]);
     }
 
     #[Route('/promotions', name: 'promotions')]
     public function promotions(
-        CategorieRepository $categorieRepository
+        CategorieRepository $categorieRepository,
+        RefreshDateRepository $refreshDateRepository
     ): Response {
         // Récupérer toutes les catégories
         $categories = $categorieRepository->findAll();
@@ -408,9 +568,43 @@ class DefaultController extends AbstractController
             $produitsParCategorie[$categorie->getNom()] = $produitsAvecPromos->slice(0, 4);
         }
 
+        $allProducts = array_merge(
+            $produitsParCategorie['Jouets'] ?? [],
+            $produitsParCategorie['Jeux de société'] ?? [],
+            $produitsParCategorie['Gaming'] ?? [],
+            $produitsParCategorie['Jeux éducatifs'] ?? [],
+            $produitsParCategorie['Jeux plein air'] ?? [],
+            $produitsParCategorie['Livres'] ?? []
+        );
+
+        $offerCount = count($allProducts);
+        $lowPrice = null;
+        $highPrice = null;
+
+        foreach ($allProducts as $produit) {
+            $prix = $produit->getPrix();
+            if ($lowPrice === null || $prix < $lowPrice) {
+                $lowPrice = $prix;
+            }
+            if ($highPrice === null || $prix > $highPrice) {
+                $highPrice = $prix;
+            }
+        }
+
+        $refreshDate = $refreshDateRepository->find(1);
+
+        $formattedDate = null;
+        if ($refreshDate) {
+            $formattedDate = $this->formatDateFr($refreshDate->getDate());
+        }
+
         return $this->render('default/promotions.html.twig', [
             'categories' => $categories,
             'produitsParCategorie' => $produitsParCategorie,
+            'offerCount' => $offerCount,
+            'lowPrice' => $lowPrice,
+            'highPrice' => $highPrice,
+            'formattedDate' => $formattedDate,
         ]);
     }
 
@@ -436,6 +630,40 @@ class DefaultController extends AbstractController
         return $this->render('default/mentions-legales.html.twig', [
             'categories' => $categories,
         ]);
+    }
+
+    #[Route('/sitemap.xml', name: 'sitemap')]
+    public function sitemap(RefreshDateRepository $refreshDateRepository): Response
+    {
+
+        $refreshDate = $refreshDateRepository->find(1);
+        $date = $refreshDate->getDate()->format('Y-m-d');
+
+        $urls = [
+            ['loc' => 'https://reperehub.com/', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/jouets', 'lastmod' => '2025-07-20', 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/jeux-de-societe', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/gaming', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/jeux-educatifs', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/jeux-plein-air', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/livres', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/top-ventes', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/promotions', 'lastmod' => $date, 'priority' => '1.0'],
+        ];
+
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
+
+        foreach ($urls as $url) {
+            $urlTag = $xml->addChild('url');
+            $urlTag->addChild('loc', $url['loc']);
+            $urlTag->addChild('lastmod', $url['lastmod']);
+            $urlTag->addChild('priority', $url['priority']);
+        }
+
+        $response = new Response($xml->asXML());
+        $response->headers->set('Content-Type', 'application/xml');
+
+        return $response;
     }
 
 }

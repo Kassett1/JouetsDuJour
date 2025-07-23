@@ -3,6 +3,31 @@
 <meta name="description" content="Plongez dans l'univers des livres pour enfants : histoires captivantes, contes éducatifs et albums illustrés pour développer l'imagination et l'amour de la lecture." />
 {% endblock %}
 
+{% block javascripts %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Livres pour enfants : histoires, contes éducatifs et albums illustrés",
+  "mainEntity": {
+    "@type": "Product",
+    "name": "Livres jeunesse : albums, contes, histoires éducatives et illustrées pour enfants",
+    "image": "https://reperehub.com/images/logo_reperehub.webp",
+    "description": "Découvrez notre sélection de livres pour enfants, avec des histoires captivantes, contes éducatifs et albums illustrés pour stimuler l'imagination et l'apprentissage.",
+    "offers": {
+      "@type": "AggregateOffer",
+      "offerCount": {{ offerCount|default(0) }},
+      "lowPrice": {{ lowPrice|default(0) }},
+      "highPrice": {{ highPrice|default(0) }},
+      "priceCurrency": "EUR"
+    }
+  },
+  "description": "Trouvez les meilleurs livres jeunesse pour accompagner le développement et la passion de la lecture chez les enfants."
+}
+</script>
+{% endblock %}
+
+
 {% block title %} Livres pour enfants : Meilleures Sélections | Repère Hub {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
@@ -184,6 +209,28 @@
           {% endfor %}
       </ul>
     </section>
+    
+    <section class="products-section products-section--2 main__header">
+        <h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+        <ul class="categories">
+          {% for categorie in categories %}
+              <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+                  {% if categorie.getSlug() == 'gaming' %}
+                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% elseif categorie.getSlug() == 'jouets' %}
+                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% else %}
+                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% endif %}
+                      <strong>{{ categorie.getNom() }}</strong>
+                  </a>
+              </li>
+          {% endfor %}
+      </ul>  
+    </section>
+
+    <p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour : {{ formattedDate }}</p>
 
     </main>
     

@@ -3,6 +3,31 @@
 <meta name="description" content="Explorez notre sélection de jouets pour tous les âges : jouets éducatifs, figurines, peluches, jeux de construction et bien plus. Des idées pour tous les enfants !" />
 {% endblock %}
 
+{% block javascripts %}
+<script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "name": "Sélection de jouets pour tous les âges - Jouets éducatifs, figurines, peluches, jeux de construction",
+                "mainEntity": {
+                    "@type": "Product",
+                    "name": "Jouets éducatifs, figurines, peluches et jeux de construction pour enfants",
+                    "image": "https://reperehub.com/images/logo_reperehub.webp",
+                    "description": "Découvrez notre collection variée de jouets adaptés à tous les âges : éducatifs, figurines, peluches et jeux de construction.",
+                    "offers": {
+                        "@type" : "AggregateOffer",
+                        "offerCount": {{ offerCount }},
+                        "lowPrice": {{ lowPrice }},
+                        "highPrice": {{ highPrice }},
+                        "priceCurrency": "EUR"
+                    }
+                    
+                },
+                "description": "Trouvez le jouet parfait pour chaque enfant grâce à notre sélection complète et régulièrement mise à jour."
+            }
+        </script>
+{% endblock %}
+
 {% block title %} Jouets : Sélections pour Tous les Âges | Repère Hub {% endblock %} {% block
 stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
@@ -350,6 +375,27 @@ stylesheets %}
   </ul>
 </section>
 
+<section class="products-section main__header">
+    <h2 class="products-section__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+    <ul class="categories">
+      {% for categorie in categories %}
+          <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+              {% if categorie.getSlug() == 'gaming' %}
+                  <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% elseif categorie.getSlug() == 'jouets' %}
+                  <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% else %}
+                  <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% endif %}
+                  <strong>{{ categorie.getNom() }}</strong>
+              </a>
+          </li>
+      {% endfor %}
+  </ul>  
+</section>
+
+<p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour : {{ formattedDate }}</p>
 
 </main>
 

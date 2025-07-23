@@ -3,6 +3,31 @@
 <meta name="description" content="Découvrez une large sélection de jeux de société pour toute la famille : classiques, coopératifs, éducatifs ou stratégiques. Amusez-vous ensemble autour de parties captivantes." />
 {% endblock %}
 
+{% block javascripts %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Sélection de jeux de société : classiques, coopératifs, éducatifs et stratégiques",
+  "mainEntity": {
+    "@type": "Product",
+    "name": "Jeux de société pour tous : famille, enfants et amateurs de stratégie",
+    "image": "https://reperehub.com/images/logo_reperehub.webp",
+    "description": "Explorez notre collection de jeux de société variés : jeux classiques, coopératifs, éducatifs et stratégiques pour des moments conviviaux en famille ou entre amis.",
+    "offers": {
+      "@type": "AggregateOffer",
+      "offerCount": {{ offerCount|default(0) }},
+      "lowPrice": {{ lowPrice|default(0) }},
+      "highPrice": {{ highPrice|default(0) }},
+      "priceCurrency": "EUR"
+    }
+  },
+  "description": "Trouvez le jeu de société idéal pour toutes les occasions, que ce soit pour des soirées en famille, entre amis ou pour développer la réflexion des plus jeunes."
+}
+</script>
+{% endblock %}
+
+
 {% block title %} Jeux de Société : Meilleurs Choix & Recommandations | Repère Hub {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
@@ -176,6 +201,28 @@
           {% endfor %}
       </ul>
     </section>
+    
+    <section class="products-section products-section--2 main__header">
+        <h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+        <ul class="categories">
+          {% for categorie in categories %}
+              <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+                  {% if categorie.getSlug() == 'gaming' %}
+                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% elseif categorie.getSlug() == 'jouets' %}
+                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% else %}
+                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% endif %}
+                      <strong>{{ categorie.getNom() }}</strong>
+                  </a>
+              </li>
+          {% endfor %}
+      </ul>  
+    </section>
+
+    <p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour : {{ formattedDate }}</p>
 
     </main>
     

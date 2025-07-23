@@ -3,6 +3,30 @@
 <meta name="description" content="Retrouvez tout l'univers du gaming : jeux vidéo, consoles, accessoires et périphériques. Découvrez nos sélections pour optimiser votre expérience de jeu." />
 {% endblock %}
 
+{% block javascripts %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Sélection gaming : jeux vidéo, consoles, accessoires et périphériques de haute qualité",
+  "mainEntity": {
+    "@type": "Product",
+    "name": "Jeux vidéo, consoles de jeux, casques gaming et accessoires pour joueurs passionnés",
+    "image": "https://reperehub.com/images/logo_reperehub.webp",
+    "description": "Explorez notre vaste gamme de produits gaming : dernières consoles, jeux vidéo populaires, casques audio, claviers, souris et autres accessoires pour une expérience immersive.",
+    "offers": {
+      "@type": "AggregateOffer",
+      "offerCount": {{ offerCount|default(0) }},
+      "lowPrice": {{ lowPrice|default(0) }},
+      "highPrice": {{ highPrice|default(0) }},
+      "priceCurrency": "EUR"
+    }
+  },
+  "description": "Trouvez les meilleurs équipements gaming : consoles, jeux, périphériques et accessoires sélectionnés pour booster vos performances et votre confort de jeu."
+}
+</script>
+{% endblock %}
+
 {% block title %} Gaming : Consoles, Jeux & Accessoires | Repère Hub {% endblock %} {% block
     stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
@@ -298,7 +322,29 @@
           {% endfor %}
       </ul>
     </section>
-    
+
+    <section class="products-section products-section--2 main__header">
+        <h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+        <ul class="categories">
+          {% for categorie in categories %}
+              <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+                  {% if categorie.getSlug() == 'gaming' %}
+                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% elseif categorie.getSlug() == 'jouets' %}
+                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% else %}
+                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+                  {% endif %}
+                      <strong>{{ categorie.getNom() }}</strong>
+                  </a>
+              </li>
+          {% endfor %}
+      </ul>  
+    </section>
+
+    <p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour : {{ formattedDate }}</p>
+
     </main>
     
     {% endblock %}
