@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %} 
+{% block head %}
+<meta name="description" content="Découvrez notre sélection des meilleurs jouets, jeux de société, jeux éducatifs, produits gaming, jeux en plein air et livres pour enfants. Trouvez l'inspiration pour tous les âges grâce à nos guides et tops détaillés." />
+{% endblock %}
+
+{% block javascripts %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Sélection complète de jouets, jeux de société, gaming, jeux éducatifs et livres pour enfants",
+  "mainEntity": {
+    "@type": "Product",
+    "name": "Jouets, jeux de société, jeux éducatifs, produits gaming et livres jeunesse pour toute la famille",
+    "image": "https://reperehub.com/images/logo_reperehub.webp",
+    "description": "Explorez notre large gamme de produits : jouets variés, jeux de société, consoles et accessoires gaming, jeux éducatifs, jeux en plein air et livres pour enfants, pour tous les âges et tous les goûts.",
+    "offers": {
+      "@type": "AggregateOffer",
+      "offerCount": {{ offerCount|default(0) }},
+      "lowPrice": {{ lowPrice|default(0) }},
+      "highPrice": {{ highPrice|default(0) }},
+      "priceCurrency": "EUR"
+    }
+  },
+  "description": "Trouvez facilement les meilleurs produits pour enfants et familles : jouets, jeux, accessoires gaming et livres, avec des sélections régulièrement mises à jour."
+}
+</script>
+{% endblock %}
+
+{% block title %} Repère Hub – Comparatifs & Bons Plans Jouets et Jeux {% endblock %} {% block
+stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+{% endblock %} {% block body %}
+
+
+<main class="main">
+  <section class="main__header">
+    <h1 class="main__title">Articles</h1>
+
+   
+    
+  </section>
+
+  <section class="section section--promotions main__header">
+    <h2 class="section__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+    <ul class="categories">
+      {% for categorie in categories %}
+          <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+              {% if categorie.getSlug() == 'gaming' %}
+                  <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% elseif categorie.getSlug() == 'jouets' %}
+                  <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% else %}
+                  <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+              {% endif %}
+                  <strong>{{ categorie.getNom() }}</strong>
+              </a>
+          </li>
+      {% endfor %}
+  </ul>  
+</section>
+
+<p class="main__intro-text" style="text-align: center;">Dernière mise à jour : 28 juillet 2025</p>
+
+</main>
+{% endblock %}

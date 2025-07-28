@@ -15,69 +15,45 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $titre = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $contneu = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $resume = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lien = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitre(): ?string
+    public function getNom(): ?string
     {
-        return $this->titre;
+        return $this->nom;
     }
 
-    public function setTitre(string $titre): static
+    public function setNom(string $nom): static
     {
-        $this->titre = $titre;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDescription(): ?string
     {
-        return $this->date;
+        return $this->description;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDescription(string $description): static
     {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    public function getContenu(): ?string
-    {
-        return $this->contneu;
-    }
-
-    public function setContenu(string $contneu): static
-    {
-        $this->contneu = $contneu;
-
-        return $this;
-    }
-
-    public function getResume(): ?string
-    {
-        return $this->resume;
-    }
-
-    public function setResume(string $resume): static
-    {
-        $this->resume = $resume;
+        $this->description = $description;
 
         return $this;
     }
@@ -90,6 +66,30 @@ class Article
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLien(): ?string
+    {
+        return $this->lien;
+    }
+
+    public function setLien(string $lien): static
+    {
+        $this->lien = $lien;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
 
         return $this;
     }
