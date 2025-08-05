@@ -650,6 +650,7 @@ class DefaultController extends AbstractController
             ['loc' => 'https://reperehub.com/livres', 'lastmod' => $date, 'priority' => '1.0'],
             ['loc' => 'https://reperehub.com/top-ventes', 'lastmod' => $date, 'priority' => '1.0'],
             ['loc' => 'https://reperehub.com/promotions', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://reperehub.com/articles', 'lastmod' => $date, 'priority' => '1.0'],
         ];
 
         foreach ($articles as $article) {
