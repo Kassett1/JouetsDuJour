@@ -1,351 +1,363 @@
-{% extends 'base.html.twig' %} 
+{% extends 'base.html.twig' %}
 {% block head %}
-<meta name="description" content="Retrouvez tout l'univers du gaming : jeux vidéo, consoles, accessoires et périphériques. Découvrez nos sélections pour optimiser votre expérience de jeu." />
+	<meta name="description" content="Retrouvez tout l'univers du gaming : jeux vidéo, consoles, accessoires et périphériques. Découvrez nos sélections pour optimiser votre expérience de jeu."/>
 {% endblock %}
 
 {% block javascripts %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Sélection gaming : jeux vidéo, consoles, accessoires et périphériques de haute qualité",
-  "mainEntity": {
-    "@type": "Product",
-    "name": "Jeux vidéo, consoles de jeux, casques gaming et accessoires pour joueurs passionnés",
-    "image": "https://reperehub.com/images/logo_reperehub.webp",
-    "description": "Explorez notre vaste gamme de produits gaming : dernières consoles, jeux vidéo populaires, casques audio, claviers, souris et autres accessoires pour une expérience immersive.",
-    "offers": {
-      "@type": "AggregateOffer",
-      "offerCount": {{ offerCount|default(0) }},
-      "lowPrice": {{ lowPrice|default(0) }},
-      "highPrice": {{ highPrice|default(0) }},
-      "priceCurrency": "EUR"
-    }
-  },
-  "description": "Trouvez les meilleurs équipements gaming : consoles, jeux, périphériques et accessoires sélectionnés pour booster vos performances et votre confort de jeu."
-}
-</script>
+	 <script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "WebPage",
+	  "name": "Sélection gaming : jeux vidéo, consoles, accessoires et périphériques de haute qualité",
+	  "mainEntity": {
+	    "@type": "Product",
+	    "name": "Jeux vidéo, consoles de jeux, casques gaming et accessoires pour joueurs passionnés",
+	    "image": "https://reperehub.com/images/logo_reperehub.webp",
+	    "description": "Explorez notre vaste gamme de produits gaming : dernières consoles, jeux vidéo populaires, casques audio, claviers, souris et autres accessoires pour une expérience immersive.",
+	    "offers": {
+	      "@type": "AggregateOffer",
+	      "offerCount": {{ offerCount|default(0) }},
+	      "lowPrice": {{ lowPrice|default(0) }},
+	      "highPrice": {{ highPrice|default(0) }},
+	      "priceCurrency": "EUR"
+	    }
+	  },
+	  "description": "Trouvez les meilleurs équipements gaming : consoles, jeux, périphériques et accessoires sélectionnés pour booster vos performances et votre confort de jeu."
+	}
+	</script>
 {% endblock %}
 
-{% block title %} Gaming : Consoles, Jeux & Accessoires | Repère Hub {% endblock %} {% block
+{% block title %}
+	Gaming : Consoles, Jeux & Accessoires | Repère Hub
+{% endblock %}
+{% block
     stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
-    {% endblock %}  {% block body %}
-    <main class="category-page">
-      <h1 class="category-page__title">Gaming : Consoles, Jeux & Accessoires</h1>
-    
-      <section class="intro">
-        <h2 class="intro__title">Les jeux vidéo incontournables</h2>
-        <p class="intro__text">
-          Plongez dans notre sélection de
-          <strong class="intro__text--highlight">jeux vidéo populaires et récents</strong>.
-          Que vous soyez fan d'aventures épiques, de compétitions en ligne ou de récits captivants, ces titres offrent des
-          <strong class="intro__text--highlight">expériences immersives</strong> pour tous les joueurs. Découvrez des jeux qui ont marqué
-          <strong class="intro__text--highlight">l'année et la communauté des gamers</strong>.
-        </p>
-      
-        <h2 class="intro__title">Les accessoires gaming essentiels</h2>
-        <p class="intro__text">
-          Améliorez votre setup avec une
-          <strong class="intro__text--highlight">gamme d'accessoires indispensables</strong>.
-          Retrouvez des tapis de souris, des casques, des supports pratiques pour casques, des claviers performants et bien plus. Chaque accessoire est conçu pour
-          <strong class="intro__text--highlight">optimiser votre expérience de jeu</strong>
-          et répondre aux besoins des gamers exigeants.
-        </p>
-      
-        <h2 class="intro__title">Les consoles incontournables</h2>
-        <p class="intro__text">
-          Découvrez les
-          <strong class="intro__text--highlight">consoles de jeu les plus populaires</strong>,
-          qu'il s'agisse des derniers modèles ou des classiques toujours en vogue. Que vous préfériez jouer sur une console portable ou une machine de salon,
-          <strong class="intro__text--highlight">retrouvez l'équipement parfait</strong>
-          pour vos sessions gaming.
-        </p>
-      
-        <h2 class="intro__title">Les meilleures promotions gaming</h2>
-        <p class="intro__text">
-          Profitez des
-          <strong class="intro__text--highlight">offres en promotion sur les jeux, accessoires et consoles</strong>.
-          Ces réductions vous permettent de vous équiper sans dépasser votre budget. Explorez notre sélection pour trouver des
-          <strong class="intro__text--highlight">articles gaming à prix attractifs</strong>,
-          parfaits pour les amateurs et passionnés.
-        </p>
-      
-        <h2 class="intro__title">Nos coups de cœur gaming</h2>
-        <p class="intro__text">
-          Certains produits gaming se démarquent par leur
-          <strong class="intro__text--highlight">design innovant</strong> ou leurs
-          <strong class="intro__text--highlight">performances exceptionnelles</strong>.
-          Que ce soit un jeu vidéo révolutionnaire, un accessoire premium ou une console iconique, ces coups de cœur sauront ravir tous les passionnés.
-        </p>
-      </section>
-      
-      
-    
-      <section class="products-section">
-        <h2 class="products-section__title">Produits gaming tendances</h2>
-<p class="products-section__description">
-  Découvrez les <strong>produits gaming tendances</strong> de cette année, sélectionnés pour améliorer votre expérience de jeu. Cette liste inclut des <strong>accessoires indispensables</strong> tels que des casques, des claviers, des tapis de souris et bien d'autres. Trouvez également des <strong>produits populaires</strong>, comme des consoles ou des gadgets innovants, qui ravissent les gamers en 2024. Que vous soyez joueur occasionnel ou passionné, ces <strong>articles incontournables</strong> répondront à vos attentes.
-</p>
-    
-        <ul class="products">
-            {% for produit in produits %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src={{ produit.getImage() }}
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="products-section products-section--2">
-        <h2 class="products-section__title products-section--2__title">Bonnes affaires / Promotions Gaming</h2>
-<p class="products-section__description products-section--2__description">
-  Découvrez nos <strong>promotions gaming</strong> pour profiter d'excellents produits à prix réduits. Que ce soit des <strong>jeux vidéo</strong>, des <strong>accessoires</strong> ou même des <strong>consoles</strong>, explorez des offres attractives pour enrichir votre expérience de jeu. Saisissez l’opportunité de faire de belles économies sur des articles qui pourraient correspondre à vos besoins !
-</p>
+	<link rel="stylesheet" href="{{ asset('css/categories.css') }}"/>
+{% endblock %}
+{% block body %}
+	<main class="category-page">
+		<h1 class="category-page__title">Gaming : Consoles, Jeux & Accessoires</h1>
+
+		<section class="intro">
+			<h2 class="intro__title">Les jeux vidéo incontournables</h2>
+			<p class="intro__text">
+				Plongez dans notre sélection de
+				<strong class="intro__text--highlight">jeux vidéo populaires et récents</strong>.
+					          Que vous soyez fan d'aventures épiques, de compétitions en ligne ou de récits captivants, ces titres offrent des
+				<strong class="intro__text--highlight">expériences immersives</strong>
+				pour tous les joueurs. Découvrez des jeux qui ont marqué
+				<strong class="intro__text--highlight">l'année et la communauté des gamers</strong>.
+			</p>
+
+			<h2 class="intro__title">Les accessoires gaming essentiels</h2>
+			<p class="intro__text">
+				Améliorez votre setup avec une
+				<strong class="intro__text--highlight">gamme d'accessoires indispensables</strong>.
+					          Retrouvez des tapis de souris, des casques, des supports pratiques pour casques, des claviers performants et bien plus. Chaque accessoire est conçu pour
+				<strong class="intro__text--highlight">optimiser votre expérience de jeu</strong>
+				et répondre aux besoins des gamers exigeants.
+			</p>
+
+			<h2 class="intro__title">Les consoles incontournables</h2>
+			<p class="intro__text">
+				Découvrez les
+				<strong class="intro__text--highlight">consoles de jeu les plus populaires</strong>,
+					          qu'il s'agisse des derniers modèles ou des classiques toujours en vogue. Que vous préfériez jouer sur une console portable ou une machine de salon,
+				<strong class="intro__text--highlight">retrouvez l'équipement parfait</strong>
+				pour vos sessions gaming.
+			</p>
+
+			<h2 class="intro__title">Les meilleures promotions gaming</h2>
+			<p class="intro__text">
+				Profitez des
+				<strong class="intro__text--highlight">offres en promotion sur les jeux, accessoires et consoles</strong>.
+					          Ces réductions vous permettent de vous équiper sans dépasser votre budget. Explorez notre sélection pour trouver des
+				<strong class="intro__text--highlight">articles gaming à prix attractifs</strong>,
+					          parfaits pour les amateurs et passionnés.
+			</p>
+
+			<h2 class="intro__title">Nos coups de cœur gaming</h2>
+			<p class="intro__text">
+				Certains produits gaming se démarquent par leur
+				<strong class="intro__text--highlight">design innovant</strong>
+				ou leurs
+				<strong class="intro__text--highlight">performances exceptionnelles</strong>.
+					          Que ce soit un jeu vidéo révolutionnaire, un accessoire premium ou une console iconique, ces coups de cœur sauront ravir tous les passionnés.
+			</p>
+		</section>
 
 
-        
-    
-        <ul class="products">
-            {% for promo in promos %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in promo.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src={{ promo.getImage() }}
-                    alt="{{ promo.getNom()|length > 50 ? promo.getNom()|slice(0, 47) ~ '...' : promo.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ promo.getDescription()|slice(0, 150) ~ (promo.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                
-                <div class="products__pricing">
-                    {% if promo.getPromo() %}
-                    <p class="products__promo">-{{ promo.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ promo.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ promo.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="products-section">
-        <h2 class="products-section__title">Consoles de jeux</h2>
-        <p class="products-section__description">
-          Explorez notre sélection de <strong>consoles de jeux</strong>, parfaites pour les passionnés de jeux vidéo. Que vous recherchiez une <strong>console récente</strong> ou un modèle populaire, découvrez des options pour tous les budgets. Ces <strong>consoles incontournables</strong> offrent des performances optimales et une expérience de jeu immersive pour joueurs occasionnels comme experts.
-        </p>
-    
-    
-      <ul class="products">
-          {% for produit in consoles %}
-          <li class="products__item">
-              <div class="products__icons">
-                  {% for tag in produit.getTag() %}
-                      {% if tag.getNom() == 'Choix Amazon' %}
-                      <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                      {% elseif tag.getNom() == 'Top Ventes' %}
-                      <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                      {% elseif tag.getNom() == 'Promo' %}
-                      <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                      {% endif %}
-                  {% endfor %}
-              </div>
-    
-              <img 
-                  src={{ produit.getImage() }}
-                  alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                  class="products__image" 
-              >
-    
-              <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-              <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
-    
-              <div class="products__pricing">
-                  {% if produit.getPromo() %}
-                  <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                  {% endif %}
-                  <p class="products__price">{{ produit.getPrix() }}€</p>
-              </div>
-    
-              <a href="{{ produit.getLien() }}" class="products__link">
-                  Voir l'offre 
-                  <i class="ri-amazon-fill products__amazon-logo"></i>
-              </a>
-          </li>
-          {% endfor %}
-      </ul>
-    </section>
-    
-    <section class="products-section products-section--2">
-        <h2 class="products-section__title products-section--2__title">Jeux Vidéo</h2>
-<p class="products-section__description products-section--2__description">
-  Explorez notre sélection de <strong>jeux vidéo</strong>, comprenant des titres variés pour tous les goûts. Que vous préfériez des <strong>jeux d'action</strong>, des <strong>RPG</strong>, ou des <strong>jeux multijoueurs</strong>, découvrez des options adaptées à toutes les préférences. Ces <strong>jeux populaires</strong> sont parfaits pour enrichir votre expérience gaming.
-</p>
-    
-    
-      <ul class="products">
-          {% for produit in jeuxVideo %}
-          <li class="products__item">
-              <div class="products__icons">
-                  {% for tag in produit.getTag() %}
-                      {% if tag.getNom() == 'Choix Amazon' %}
-                      <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                      {% elseif tag.getNom() == 'Top Ventes' %}
-                      <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                      {% elseif tag.getNom() == 'Promo' %}
-                      <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                      {% endif %}
-                  {% endfor %}
-              </div>
-    
-              <img 
-                  src={{ produit.getImage() }}
-                  alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                  class="products__image" 
-              >
-    
-              <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-              <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
-    
-              <div class="products__pricing">
-                  {% if produit.getPromo() %}
-                  <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                  {% endif %}
-                  <p class="products__price">{{ produit.getPrix() }}€</p>
-              </div>
-    
-              <a href="{{ produit.getLien() }}" class="products__link">
-                  Voir l'offre 
-                  <i class="ri-amazon-fill products__amazon-logo"></i>
-              </a>
-          </li>
-          {% endfor %}
-      </ul>
-    </section>
-    
-    <section class="products-section">
-        <h2 class="products-section__title">Accessoires Gaming</h2>
-        <p class="products-section__description">
-          Parcourez notre sélection d'<strong>accessoires gaming</strong> pour améliorer votre expérience de jeu et personnaliser votre setup. Vous y trouverez des <strong>périphériques</strong>, comme des claviers, des souris ou des casques, ainsi que des <strong>éléments pratiques</strong> tels que des tapis de souris, des supports pour casque et des décorations gaming. Des solutions idéales pour allier performance et style !
-        </p>        
-    
-    
-      <ul class="products">
-          {% for produit in accessoiresGaming %}
-          <li class="products__item">
-            {% if produit.getTag() is not empty %}
-              <div class="products__icons">
-                  {% for tag in produit.getTag() %}
-                      {% if tag.getNom() == 'Choix Amazon' %}
-                      <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                      {% elseif tag.getNom() == 'Top Ventes' %}
-                      <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                      {% elseif tag.getNom() == 'Promo' %}
-                      <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                      {% endif %}
-                  {% endfor %}
-              </div>
-              {% endif %}
-    
-              <img 
-                  src={{ produit.getImage() }}
-                  alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                  class="products__image" 
-              >
-    
-              <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-              <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
-    
-              <div class="products__pricing">
-                  {% if produit.getPromo() %}
-                  <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                  {% endif %}
-                  <p class="products__price">{{ produit.getPrix() }}€</p>
-              </div>
-    
-              <a href="{{ produit.getLien() }}" class="products__link">
-                  Voir l'offre 
-                  <i class="ri-amazon-fill products__amazon-logo"></i>
-              </a>
-          </li>
-          {% endfor %}
-      </ul>
-    </section>
+		<section class="products-section">
+			<h2 class="products-section__title">Produits gaming tendances</h2>
+			<p class="products-section__description">
+				Découvrez les
+				<strong>produits gaming tendances</strong>
+				de cette année, sélectionnés pour améliorer votre expérience de jeu. Cette liste inclut des
+				<strong>accessoires indispensables</strong>
+				tels que des casques, des claviers, des tapis de souris et bien d'autres. Trouvez également des
+				<strong>produits populaires</strong>, comme des consoles ou des gadgets innovants, qui ravissent les gamers en 2024. Que vous soyez joueur occasionnel ou passionné, ces
+				<strong>articles incontournables</strong>
+				répondront à vos attentes.
+			</p>
 
-    <section class="products-section products-section--2 main__header">
-        <h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+			<ul class="products">
+				{% for produit in produits %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
 
-        <ul class="categories">
-          {% for categorie in categories %}
-              <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
-                  {% if categorie.getSlug() == 'gaming' %}
-                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% elseif categorie.getSlug() == 'jouets' %}
-                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% else %}
-                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% endif %}
-                      <strong>{{ categorie.getNom() }}</strong>
-                  </a>
-              </li>
-          {% endfor %}
-      </ul>  
-    </section>
+						<img src={{ produit.getImage() }} alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
 
-    <p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour : {{ formattedDate }}</p>
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
 
-    </main>
-    
-    {% endblock %}
-    
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section products-section--2">
+			<h2 class="products-section__title products-section--2__title">Bonnes affaires / Promotions Gaming</h2>
+			<p class="products-section__description products-section--2__description">
+				Découvrez nos
+				<strong>promotions gaming</strong>
+				pour profiter d'excellents produits à prix réduits. Que ce soit des
+				<strong>jeux vidéo</strong>, des
+				<strong>accessoires</strong>
+				ou même des
+				<strong>consoles</strong>, explorez des offres attractives pour enrichir votre expérience de jeu. Saisissez l’opportunité de faire de belles économies sur des articles qui pourraient correspondre à vos besoins !
+			</p>
+
+
+			<ul class="products">
+				{% for promo in promos %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in promo.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src={{ promo.getImage() }} alt="{{ promo.getNom()|length > 50 ? promo.getNom()|slice(0, 47) ~ '...' : promo.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">
+							{{ promo.getDescription()|slice(0, 150) ~ (promo.getDescription()|length > 150 ? '...' : '') }}
+						</p>
+
+
+						<div class="products__pricing">
+							{% if promo.getPromo() %}
+								<p class="products__promo">-{{ promo.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ promo.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ promo.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section">
+			<h2 class="products-section__title">Consoles de jeux</h2>
+			<p class="products-section__description">
+				Explorez notre sélection de
+				<strong>consoles de jeux</strong>, parfaites pour les passionnés de jeux vidéo. Que vous recherchiez une
+				<strong>console récente</strong>
+				ou un modèle populaire, découvrez des options pour tous les budgets. Ces
+				<strong>consoles incontournables</strong>
+				offrent des performances optimales et une expérience de jeu immersive pour joueurs occasionnels comme experts.
+			</p>
+
+
+			<ul class="products">
+				{% for produit in consoles %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src={{ produit.getImage() }} alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section products-section--2">
+			<h2 class="products-section__title products-section--2__title">Jeux Vidéo</h2>
+			<p class="products-section__description products-section--2__description">
+				Explorez notre sélection de
+				<strong>jeux vidéo</strong>, comprenant des titres variés pour tous les goûts. Que vous préfériez des
+				<strong>jeux d'action</strong>, des
+				<strong>RPG</strong>, ou des
+				<strong>jeux multijoueurs</strong>, découvrez des options adaptées à toutes les préférences. Ces
+				<strong>jeux populaires</strong>
+				sont parfaits pour enrichir votre expérience gaming.
+			</p>
+
+
+			<ul class="products">
+				{% for produit in jeuxVideo %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src={{ produit.getImage() }} alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section">
+			<h2 class="products-section__title">Accessoires Gaming</h2>
+			<p class="products-section__description">
+				Parcourez notre sélection d'<strong>accessoires gaming</strong>
+				pour améliorer votre expérience de jeu et personnaliser votre setup. Vous y trouverez des
+				<strong>périphériques</strong>, comme des claviers, des souris ou des casques, ainsi que des
+				<strong>éléments pratiques</strong>
+				tels que des tapis de souris, des supports pour casque et des décorations gaming. Des solutions idéales pour allier performance et style !
+			</p>
+
+
+			<ul class="products">
+				{% for produit in accessoiresGaming %}
+					<li class="products__item">
+						{% if produit.getTag() is not empty %}
+							<div class="products__icons">
+								{% for tag in produit.getTag() %}
+									{% if tag.getNom() == 'Choix Amazon' %}
+										<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+									{% elseif tag.getNom() == 'Top Ventes' %}
+										<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+									{% elseif tag.getNom() == 'Promo' %}
+										<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+									{% endif %}
+								{% endfor %}
+							</div>
+						{% endif %}
+
+						<img src={{ produit.getImage() }} alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section products-section--2 main__header">
+			<h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+			<ul class="categories">
+				{% for categorie in categories %}
+					<li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+						{% if categorie.getSlug() == 'gaming' %}
+							<a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+							{% elseif categorie.getSlug() == 'jouets' %}
+								<a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+								{% else %}
+									<a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+									{% endif %}
+									<strong>{{ categorie.getNom() }}</strong>
+								</a>
+							</li>
+						{% endfor %}
+					</li>
+				</ul>
+			</section>
+
+			<p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour :
+				{{ formattedDate }}</p>
+
+		</main>
+
+	{% endblock %}

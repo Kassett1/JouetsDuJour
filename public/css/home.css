@@ -169,6 +169,23 @@ strong {
 
 a {
   text-decoration: none;
+  color: inherit;
+}
+
+.line-break {
+  display: block;
+}
+
+.jump {
+  margin-top: 2vh;
+}
+
+.bottom {
+  margin-bottom: 5vh;
+}
+
+.center {
+  text-align: center;
 }
 
 /*=============== HEADER ===============*/
@@ -365,7 +382,8 @@ a {
     position: relative;
   }
   .dropdown__arrow {
-    font-size: 2vw;
+    font-size: 1vw;
+    opacity: 0.5;
   }
   .dropdown__menu {
     max-height: initial;
@@ -1060,5 +1078,327 @@ a {
   .section--promotions .section__item:nth-child(4) .section__item-description,
   .section--promotions .section__item:nth-child(4) .section__item-price {
     color: white;
+  }
+}
+.products {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3vh;
+  color: white;
+}
+.products__image {
+  width: 50vw;
+  height: 20vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 8px;
+}
+.products__item:nth-child(odd) {
+  background-color: #068DA9;
+}
+.products__item:nth-child(even) {
+  background-color: #7E1717;
+}
+.products__title {
+  font-family: "OpenSans", sans-serif;
+  font-size: 4.5vw;
+  font-weight: bold;
+  text-align: center;
+}
+.products__description {
+  font-family: "OpenSans", sans-serif;
+  font-size: 3.5vw;
+  line-height: 1.5;
+  text-align: center;
+}
+.products__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 3vh 5vw;
+  gap: 2vh;
+}
+.products__pricing {
+  position: relative;
+}
+.products__promo {
+  position: relative;
+  font-family: "OpenSans", sans-serif;
+  font-size: 3.5vw;
+  line-height: 1.5;
+  font-weight: bold;
+  background-color: red;
+  border-radius: 8px;
+  padding: 0.3vh 2vw;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-bottom: 1vh;
+  right: -5vw;
+  color: white;
+}
+.products__price {
+  font-family: "OpenSans", sans-serif;
+  font-size: 4.5vw;
+  font-weight: bold;
+}
+.products__link {
+  font-family: "OpenSans", sans-serif;
+  font-size: 3.5vw;
+  line-height: 1.5;
+  font-weight: bold;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFB500;
+  border-radius: 8px;
+  padding: 0.5vh 5vw;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+}
+.products__amazon-logo {
+  font-size: 5vw;
+  margin-left: 1vw;
+}
+.products__icons {
+  font-size: 10vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5vw;
+}
+.products__icon--amazon-choice {
+  color: red;
+}
+.products__icon--top-sales {
+  color: #FF4400;
+}
+.products__icon--promo {
+  color: #2BD700;
+}
+
+.products-section {
+  padding: 3vh 5vw;
+}
+.products-section__title {
+  color: #322C2B;
+  font-family: "OpenSans", sans-serif;
+  font-size: 4.5vw;
+  font-weight: bold;
+}
+.products-section__description {
+  font-family: "OpenSans", sans-serif;
+  font-size: 3.5vw;
+  line-height: 1.5;
+  color: #322C2B;
+  margin-bottom: 3vh;
+  margin-top: 2vh;
+}
+.products-section__description strong {
+  color: black;
+}
+
+.products-section--2 {
+  background-color: #322C2B;
+  color: white;
+}
+.products-section--2__title {
+  font-family: "OpenSans", sans-serif;
+  font-size: 4.5vw;
+  font-weight: bold;
+  color: white;
+}
+.products-section--2__description {
+  font-family: "OpenSans", sans-serif;
+  font-size: 3.5vw;
+  line-height: 1.5;
+  color: white;
+}
+.products-section--2__description strong {
+  color: white;
+}
+.products-section--2 .products__item:nth-child(odd) {
+  background-color: #EEE2DE;
+  color: #322C2B;
+}
+.products-section--2 .products__item:nth-child(even) {
+  background-color: #7E1717;
+}
+
+@media (min-width: 768px) {
+  .products {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3vw;
+  }
+  .products__image {
+    width: 80%;
+    height: 20vh;
+  }
+  .products__item:nth-child(3) {
+    background-color: #7E1717;
+  }
+  .products__item:nth-child(4) {
+    background-color: #068DA9;
+  }
+  .products__title {
+    font-family: "OpenSans", sans-serif;
+    font-size: 3vw;
+    font-weight: bold;
+  }
+  .products__description {
+    font-family: "OpenSans", sans-serif;
+    font-size: 2vw;
+    line-height: 1.5;
+  }
+  .products__item {
+    flex: 1 1 calc(50% - 3vw);
+    padding: 2vh 3vw;
+  }
+  .products__price {
+    font-family: "OpenSans", sans-serif;
+    font-size: 3vw;
+    font-weight: bold;
+  }
+  .products__promo {
+    font-family: "OpenSans", sans-serif;
+    font-size: 2vw;
+    line-height: 1.5;
+  }
+  .products__link {
+    font-family: "OpenSans", sans-serif;
+    font-size: 2vw;
+    line-height: 1.5;
+    padding: 0.5vh 3vw;
+  }
+  .products__amazon-logo {
+    font-size: 3vw;
+    margin-left: 1vw;
+  }
+  .products__icons {
+    font-size: 6vw;
+  }
+  .products-section {
+    padding: 3vh 5vw;
+  }
+  .products-section__title {
+    font-family: "OpenSans", sans-serif;
+    font-size: 3vw;
+    font-weight: bold;
+  }
+  .products-section__description {
+    font-family: "OpenSans", sans-serif;
+    font-size: 2vw;
+    line-height: 1.5;
+  }
+  .products-section--2__title {
+    font-family: "OpenSans", sans-serif;
+    font-size: 3vw;
+    font-weight: bold;
+  }
+  .products-section--2__description {
+    font-family: "OpenSans", sans-serif;
+    font-size: 2vw;
+    line-height: 1.5;
+  }
+  .products-section--2 .products__item:nth-child(3) {
+    background-color: #7E1717;
+    color: white;
+  }
+  .products-section--2 .products__item:nth-child(4) {
+    background-color: #EEE2DE;
+    color: #322C2B;
+  }
+}
+@media (min-width: 1024px) {
+  .products {
+    gap: 1vw;
+  }
+  .products__image {
+    width: 10vw;
+    height: 10vw;
+  }
+  .products__item:nth-child(3) {
+    background-color: #7E1717;
+  }
+  .products__item:nth-child(4) {
+    background-color: #068DA9;
+  }
+  .products__title {
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1.2vw, 23px);
+    font-weight: bold;
+  }
+  .products__description {
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1vw, 21px);
+    line-height: 1.5;
+  }
+  .products__item {
+    flex: 1 1 calc(25% - 1vw);
+    padding: 1.5vh 1vw;
+  }
+  .products__price {
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1.2vw, 23px);
+    font-weight: bold;
+  }
+  .products__promo {
+    right: -2vw;
+    padding: 0.3vh 1vw;
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1vw, 21px);
+    line-height: 1.5;
+  }
+  .products__link {
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1vw, 21px);
+    line-height: 1.5;
+    padding: 0.5vh 1vw;
+    transition: all 0.3s ease;
+  }
+  .products__link:hover {
+    background-color: #ffcf56;
+  }
+  .products__amazon-logo {
+    font-size: 1vw;
+    margin-left: 0.5vw;
+  }
+  .products__icons {
+    font-size: 2vw;
+  }
+  .products-section {
+    padding: 5vh 10vw;
+  }
+  .products-section__title {
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1.2vw, 23px);
+    font-weight: bold;
+  }
+  .products-section__description {
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1vw, 21px);
+    line-height: 1.5;
+  }
+  .products-section--2__title {
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1.2vw, 23px);
+    font-weight: bold;
+  }
+  .products-section--2__description {
+    font-family: "OpenSans", sans-serif;
+    font-size: min(1vw, 21px);
+    line-height: 1.5;
+  }
+  .products-section--2 .products__item:nth-child(3) {
+    background-color: #7E1717;
+    color: white;
+  }
+  .products-section--2 .products__item:nth-child(4) {
+    background-color: #EEE2DE;
+    color: #322C2B;
   }
 }/*# sourceMappingURL=home.css.map */

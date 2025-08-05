@@ -1,373 +1,371 @@
-{% extends 'base.html.twig' %} 
+{% extends 'base.html.twig' %}
 {% block head %}
-<meta name="description" content="Profitez des meilleures offres et promotions sur les jouets, jeux de société et bien plus. Trouvez des idées cadeaux à prix réduits pour faire plaisir sans vous ruiner." />
+	<meta name="description" content="Profitez des meilleures offres et promotions sur les jouets, jeux de société et bien plus. Trouvez des idées cadeaux à prix réduits pour faire plaisir sans vous ruiner."/>
 {% endblock %}
 
 {% block javascripts %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Sélection de jeux de société : classiques, coopératifs, éducatifs et stratégiques",
-  "mainEntity": {
-    "@type": "Product",
-    "name": "Jeux de société pour tous : famille, enfants et amateurs de stratégie",
-    "image": "https://reperehub.com/images/logo_reperehub.webp",
-    "description": "Explorez notre collection de jeux de société variés : jeux classiques, coopératifs, éducatifs et stratégiques pour des moments conviviaux en famille ou entre amis.",
-    "offers": {
-      "@type": "AggregateOffer",
-      "offerCount": {{ offerCount|default(0) }},
-      "lowPrice": {{ lowPrice|default(0) }},
-      "highPrice": {{ highPrice|default(0) }},
-      "priceCurrency": "EUR"
-    }
-  },
-  "description": "Trouvez le jeu de société idéal pour toutes les occasions, que ce soit pour des soirées en famille, entre amis ou pour développer la réflexion des plus jeunes."
-}
-</script>
+	 <script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "WebPage",
+	  "name": "Sélection de jeux de société : classiques, coopératifs, éducatifs et stratégiques",
+	  "mainEntity": {
+	    "@type": "Product",
+	    "name": "Jeux de société pour tous : famille, enfants et amateurs de stratégie",
+	    "image": "https://reperehub.com/images/logo_reperehub.webp",
+	    "description": "Explorez notre collection de jeux de société variés : jeux classiques, coopératifs, éducatifs et stratégiques pour des moments conviviaux en famille ou entre amis.",
+	    "offers": {
+	      "@type": "AggregateOffer",
+	      "offerCount": {{ offerCount|default(0) }},
+	      "lowPrice": {{ lowPrice|default(0) }},
+	      "highPrice": {{ highPrice|default(0) }},
+	      "priceCurrency": "EUR"
+	    }
+	  },
+	  "description": "Trouvez le jeu de société idéal pour toutes les occasions, que ce soit pour des soirées en famille, entre amis ou pour développer la réflexion des plus jeunes."
+	}
+	</script>
 {% endblock %}
 
-{% block title %} Jouets en Promotion : Meilleurs Bons Plans | Repère Hub {% endblock %} {% block
+{% block title %}
+	Jouets en Promotion : Meilleurs Bons Plans | Repère Hub
+{% endblock %}
+{% block
     stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
-    {% endblock %}  {% block body %}
-    <main class="category-page">
-      <h1 class="category-page__title">Jouets en Promotion : Meilleurs Bons Plans</h1>
-    
-      <section class="intro">
-        <h2 class="intro__title">Les livres tendances</h2>
-        <p class="intro__text">
-            Plongez dans une sélection variée de
-            <strong class="intro__text--highlight">livres captivants</strong>, incluant des bandes dessinées, des mangas, des albums illustrés et des magazines. Ces ouvrages, adaptés à tous les goûts et à différents âges, offrent des moments de détente, d’apprentissage et d’évasion. Trouvez l’inspiration pour des lectures qui sauront plaire à toute la famille.
-        </p>
-    
-        <h2 class="intro__title">Les offres en promotion</h2>
-        <p class="intro__text">
-            Découvrez une sélection de
-            <strong class="intro__text--highlight">livres et magazines en promotion</strong>. Ces réductions permettent de profiter d’ouvrages de qualité tout en respectant votre budget. Parcourez notre collection pour dénicher des
-            <strong class="intro__text--highlight">lectures à prix réduit</strong>, parfaites pour toutes les occasions.
-        </p>
-    
-        <h2 class="intro__title">Les plus populaires</h2>
-        <p class="intro__text">
-            Retrouvez une sélection de
-            <strong class="intro__text--highlight">livres largement plébiscités</strong>. Ces ouvrages, très demandés, incluent des titres récents ou des séries appréciées qui captivent petits et grands. Découvrez des choix variés adaptés à tous les lecteurs.
-        </p>
-    
-        <h2 class="intro__title">Suggestions à découvrir</h2>
-        <p class="intro__text">
-            Explorez une sélection variée de
-            <strong class="intro__text--highlight">livres qui attirent l’attention</strong>. Que vous recherchiez des aventures palpitantes, des récits drôles ou des histoires enrichissantes, ces titres offrent de belles découvertes pour chaque lecteur.
-        </p>
-    </section>
-    
-    <section class="products-section">
-        <h2 class="products-section__title">Jouets</h2>
-        <p class="products-section__description">
-            Découvrez une sélection de <strong>jouets captivants en promotion</strong> qui éveillent l’imagination des enfants. Ces produits, à prix réduit, offrent une excellente opportunité pour allier <strong>créativité</strong> et moments de jeu inoubliables. Parfaits pour faire plaisir sans se ruiner, ces jouets raviront petits et grands.
-        </p>
-        <ul class="products">
-            {% for produit in produitsParCategorie['Jouets'] %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src="{{ produit.getImage() }}"
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="products-section products-section--2">
-        <h2 class="products-section__title products-section--2__title">Jeux de société</h2>
-        <p class="products-section__description products-section--2__description">
-            Profitez de <strong>jeux de société en promotion</strong> pour animer vos soirées en famille ou entre amis. Ces incontournables, adaptés à toutes les <strong>générations</strong>, permettent de passer des moments conviviaux et mémorables tout en faisant des économies. Une belle façon de partager et s’amuser à moindre coût.
-        </p>
-        <ul class="products">
-            {% for produit in produitsParCategorie['Jeux de société'] %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src="{{ produit.getImage() }}"
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="products-section">
-        <h2 class="products-section__title">Gaming</h2>
-        <p class="products-section__description">
-            Plongez dans des <strong>aventures immersives à prix réduit</strong> avec une sélection de produits de <strong>gaming</strong>. Accessoires ou indispensables du moment, ces articles permettent de profiter pleinement des jeux vidéo tout en maîtrisant votre budget. Idéal pour les passionnés ou ceux qui découvrent cet univers.
-        </p>
-        <ul class="products">
-            {% for produit in produitsParCategorie['Gaming'] %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src="{{ produit.getImage() }}"
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="products-section products-section--2">
-        <h2 class="products-section__title products-section--2__title">Jeux éducatifs</h2>
-        <p class="products-section__description products-section--2__description">
-            Stimulez la curiosité des enfants avec des <strong>jeux éducatifs en promotion</strong>. Ces produits combinent <strong>apprentissage</strong> et divertissement à prix abordable. Parfaits pour accompagner les enfants dans leur développement, ces jeux permettent d’apprendre tout en s’amusant.
-        </p>
-        <ul class="products">
-            {% for produit in produitsParCategorie['Jeux éducatifs'] %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src="{{ produit.getImage() }}"
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="products-section">
-        <h2 class="products-section__title">Jeux plein air</h2>
-        <p class="products-section__description">
-            Apportez du plaisir au grand air avec des <strong>jeux plein air en promotion</strong>. Offrez-vous des moments d'activités physiques et de loisirs en extérieur, le tout à des prix attractifs. Parfaits pour les enfants comme pour les adultes, ces jeux promettent de belles expériences partagées.
-        </p>
-        <ul class="products">
-            {% for produit in produitsParCategorie['Jeux plein air'] %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src="{{ produit.getImage() }}"
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    {% if produitsParCategorie['Livres']|length >= 4  %}
-    <section class="products-section products-section--2">
-        <h2 class="products-section__title products-section--2__title">Livres</h2>
-        <p class="products-section__description products-section--2__description">
-            Explorez une sélection de <strong>livres captivants à prix réduit</strong>, adaptés à tous les âges. Romans, bandes dessinées ou albums illustrés, ces ouvrages en promotion sont parfaits pour enrichir une bibliothèque ou offrir des moments de <strong>détente</strong> et d'<strong>évasion</strong>. Une belle occasion de découvrir de nouvelles histoires sans dépasser votre budget.
-        </p>
-        <ul class="products">
-            {% for produit in produitsParCategorie['Livres'] %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src="{{ produit.getImage() }}"
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    {% endif %}
+	<link rel="stylesheet" href="{{ asset('css/categories.css') }}"/>
+{% endblock %}
+{% block body %}
+	<main class="category-page">
+		<h1 class="category-page__title">Jouets en Promotion : Meilleurs Bons Plans</h1>
 
-    <section class="products-section products-section--2 main__header">
-        <h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
-    
-        <ul class="categories">
-          {% for categorie in categories %}
-              <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
-                  {% if categorie.getSlug() == 'gaming' %}
-                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% elseif categorie.getSlug() == 'jouets' %}
-                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% else %}
-                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% endif %}
-                      <strong>{{ categorie.getNom() }}</strong>
-                  </a>
-              </li>
-          {% endfor %}
-      </ul>  
-    </section>
+		<section class="intro">
+			<h2 class="intro__title">Les livres tendances</h2>
+			<p class="intro__text">
+				Plongez dans une sélection variée de
+				<strong class="intro__text--highlight">livres captivants</strong>, incluant des bandes dessinées, des mangas, des albums illustrés et des magazines. Ces ouvrages, adaptés à tous les goûts et à différents âges, offrent des moments de détente, d’apprentissage et d’évasion. Trouvez l’inspiration pour des lectures qui sauront plaire à toute la famille.
+			</p>
 
-    <p class="products__description" style="text-align: center;">Dernière mise à jour : {{ formattedDate }}</p>
+			<h2 class="intro__title">Les offres en promotion</h2>
+			<p class="intro__text">
+				Découvrez une sélection de
+				<strong class="intro__text--highlight">livres et magazines en promotion</strong>. Ces réductions permettent de profiter d’ouvrages de qualité tout en respectant votre budget. Parcourez notre collection pour dénicher des
+				<strong class="intro__text--highlight">lectures à prix réduit</strong>, parfaites pour toutes les occasions.
+			</p>
 
-    </main>
-    
-    {% endblock %}
-    
+			<h2 class="intro__title">Les plus populaires</h2>
+			<p class="intro__text">
+				Retrouvez une sélection de
+				<strong class="intro__text--highlight">livres largement plébiscités</strong>. Ces ouvrages, très demandés, incluent des titres récents ou des séries appréciées qui captivent petits et grands. Découvrez des choix variés adaptés à tous les lecteurs.
+			</p>
+
+			<h2 class="intro__title">Suggestions à découvrir</h2>
+			<p class="intro__text">
+				Explorez une sélection variée de
+				<strong class="intro__text--highlight">livres qui attirent l’attention</strong>. Que vous recherchiez des aventures palpitantes, des récits drôles ou des histoires enrichissantes, ces titres offrent de belles découvertes pour chaque lecteur.
+			</p>
+		</section>
+
+		<section class="products-section">
+			<h2 class="products-section__title">Jouets</h2>
+			<p class="products-section__description">
+				Découvrez une sélection de
+				<strong>jouets captivants en promotion</strong>
+				qui éveillent l’imagination des enfants. Ces produits, à prix réduit, offrent une excellente opportunité pour allier
+				<strong>créativité</strong>
+				et moments de jeu inoubliables. Parfaits pour faire plaisir sans se ruiner, ces jouets raviront petits et grands.
+			</p>
+			<ul class="products">
+				{% for produit in produitsParCategorie['Jouets'] %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src="{{ produit.getImage() }}" alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">
+							{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
+						</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section products-section--2">
+			<h2 class="products-section__title products-section--2__title">Jeux de société</h2>
+			<p class="products-section__description products-section--2__description">
+				Profitez de
+				<strong>jeux de société en promotion</strong>
+				pour animer vos soirées en famille ou entre amis. Ces incontournables, adaptés à toutes les
+				<strong>générations</strong>, permettent de passer des moments conviviaux et mémorables tout en faisant des économies. Une belle façon de partager et s’amuser à moindre coût.
+			</p>
+			<ul class="products">
+				{% for produit in produitsParCategorie['Jeux de société'] %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src="{{ produit.getImage() }}" alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">
+							{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
+						</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section">
+			<h2 class="products-section__title">Gaming</h2>
+			<p class="products-section__description">
+				Plongez dans des
+				<strong>aventures immersives à prix réduit</strong>
+				avec une sélection de produits de
+				<strong>gaming</strong>. Accessoires ou indispensables du moment, ces articles permettent de profiter pleinement des jeux vidéo tout en maîtrisant votre budget. Idéal pour les passionnés ou ceux qui découvrent cet univers.
+			</p>
+			<ul class="products">
+				{% for produit in produitsParCategorie['Gaming'] %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src="{{ produit.getImage() }}" alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">
+							{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
+						</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section products-section--2">
+			<h2 class="products-section__title products-section--2__title">Jeux éducatifs</h2>
+			<p class="products-section__description products-section--2__description">
+				Stimulez la curiosité des enfants avec des
+				<strong>jeux éducatifs en promotion</strong>. Ces produits combinent
+				<strong>apprentissage</strong>
+				et divertissement à prix abordable. Parfaits pour accompagner les enfants dans leur développement, ces jeux permettent d’apprendre tout en s’amusant.
+			</p>
+			<ul class="products">
+				{% for produit in produitsParCategorie['Jeux éducatifs'] %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src="{{ produit.getImage() }}" alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">
+							{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
+						</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section">
+			<h2 class="products-section__title">Jeux plein air</h2>
+			<p class="products-section__description">
+				Apportez du plaisir au grand air avec des
+				<strong>jeux plein air en promotion</strong>. Offrez-vous des moments d'activités physiques et de loisirs en extérieur, le tout à des prix attractifs. Parfaits pour les enfants comme pour les adultes, ces jeux promettent de belles expériences partagées.
+			</p>
+			<ul class="products">
+				{% for produit in produitsParCategorie['Jeux plein air'] %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src="{{ produit.getImage() }}" alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">
+							{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
+						</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		{% if produitsParCategorie['Livres']|length >= 4  %}
+			<section class="products-section products-section--2">
+				<h2 class="products-section__title products-section--2__title">Livres</h2>
+				<p class="products-section__description products-section--2__description">
+					Explorez une sélection de
+					<strong>livres captivants à prix réduit</strong>, adaptés à tous les âges. Romans, bandes dessinées ou albums illustrés, ces ouvrages en promotion sont parfaits pour enrichir une bibliothèque ou offrir des moments de
+					<strong>détente</strong>
+					et d'<strong>évasion</strong>. Une belle occasion de découvrir de nouvelles histoires sans dépasser votre budget.
+				</p>
+				<ul class="products">
+					{% for produit in produitsParCategorie['Livres'] %}
+						<li class="products__item">
+							<div class="products__icons">
+								{% for tag in produit.getTag() %}
+									{% if tag.getNom() == 'Choix Amazon' %}
+										<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+									{% elseif tag.getNom() == 'Top Ventes' %}
+										<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+									{% elseif tag.getNom() == 'Promo' %}
+										<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+									{% endif %}
+								{% endfor %}
+							</div>
+
+							<img src="{{ produit.getImage() }}" alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+							<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+							<p class="products__description">
+								{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}
+							</p>
+
+							<div class="products__pricing">
+								{% if produit.getPromo() %}
+									<p class="products__promo">-{{ produit.getPromo() }}%</p>
+								{% endif %}
+								<p class="products__price">{{ produit.getPrix() }}€</p>
+							</div>
+
+							<a href="{{ produit.getLien() }}" class="products__link">
+								Voir l'offre
+								<i class="ri-amazon-fill products__amazon-logo"></i>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</section>
+		{% endif %}
+
+		<section class="products-section products-section--2 main__header">
+			<h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+			<ul class="categories">
+				{% for categorie in categories %}
+					<li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+						{% if categorie.getSlug() == 'gaming' %}
+							<a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+							{% elseif categorie.getSlug() == 'jouets' %}
+								<a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+								{% else %}
+									<a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+									{% endif %}
+									<strong>{{ categorie.getNom() }}</strong>
+								</a>
+							</li>
+						{% endfor %}
+					</li>
+				</ul>
+			</section>
+
+			<p class="products__description" style="text-align: center;">Dernière mise à jour :
+				{{ formattedDate }}</p>
+
+		</main>
+
+	{% endblock %}

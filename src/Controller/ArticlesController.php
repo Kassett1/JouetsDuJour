@@ -31,7 +31,7 @@ class ArticlesController extends AbstractController
     {   
         $categories = $categorieRepository->findAll();       
 
-        return $this->render('default/lego-voitures.html.twig', [
+        return $this->render('articles/lego-voitures.html.twig', [
             'categories' => $categories,
        
         ]);

@@ -633,11 +633,12 @@ class DefaultController extends AbstractController
     }
 
     #[Route('/sitemap.xml', name: 'sitemap')]
-    public function sitemap(RefreshDateRepository $refreshDateRepository): Response
+    public function sitemap(RefreshDateRepository $refreshDateRepository, ArticleRepository $articleRepository): Response
     {
 
         $refreshDate = $refreshDateRepository->find(1);
         $date = $refreshDate->getDate()->format('Y-m-d');
+        $articles = $articleRepository->findAll();
 
         $urls = [
             ['loc' => 'https://reperehub.com/', 'lastmod' => $date, 'priority' => '1.0'],
@@ -651,6 +652,13 @@ class DefaultController extends AbstractController
             ['loc' => 'https://reperehub.com/promotions', 'lastmod' => $date, 'priority' => '1.0'],
         ];
 
+        foreach ($articles as $article) {
+            $urls[] = [
+                'loc' => $article->getLien(),
+                'lastmod' => $article->getDate()->format('Y-m-d'),
+                'priority' => '1.0'
+            ];
+        }
         $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
 
         foreach ($urls as $url) {

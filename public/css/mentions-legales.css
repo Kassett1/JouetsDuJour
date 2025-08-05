@@ -169,6 +169,23 @@ strong {
 
 a {
   text-decoration: none;
+  color: inherit;
+}
+
+.line-break {
+  display: block;
+}
+
+.jump {
+  margin-top: 2vh;
+}
+
+.bottom {
+  margin-bottom: 5vh;
+}
+
+.center {
+  text-align: center;
 }
 
 /*=============== HEADER ===============*/
@@ -365,7 +382,8 @@ a {
     position: relative;
   }
   .dropdown__arrow {
-    font-size: 2vw;
+    font-size: 1vw;
+    opacity: 0.5;
   }
   .dropdown__menu {
     max-height: initial;

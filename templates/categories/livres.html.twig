@@ -1,238 +1,238 @@
 {% extends 'base.html.twig' %}
 {% block head %}
-<meta name="description" content="Plongez dans l'univers des livres pour enfants : histoires captivantes, contes éducatifs et albums illustrés pour développer l'imagination et l'amour de la lecture." />
+	<meta name="description" content="Plongez dans l'univers des livres pour enfants : histoires captivantes, contes éducatifs et albums illustrés pour développer l'imagination et l'amour de la lecture."/>
 {% endblock %}
 
 {% block javascripts %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Livres pour enfants : histoires, contes éducatifs et albums illustrés",
-  "mainEntity": {
-    "@type": "Product",
-    "name": "Livres jeunesse : albums, contes, histoires éducatives et illustrées pour enfants",
-    "image": "https://reperehub.com/images/logo_reperehub.webp",
-    "description": "Découvrez notre sélection de livres pour enfants, avec des histoires captivantes, contes éducatifs et albums illustrés pour stimuler l'imagination et l'apprentissage.",
-    "offers": {
-      "@type": "AggregateOffer",
-      "offerCount": {{ offerCount|default(0) }},
-      "lowPrice": {{ lowPrice|default(0) }},
-      "highPrice": {{ highPrice|default(0) }},
-      "priceCurrency": "EUR"
-    }
-  },
-  "description": "Trouvez les meilleurs livres jeunesse pour accompagner le développement et la passion de la lecture chez les enfants."
-}
-</script>
+	 <script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "WebPage",
+	  "name": "Livres pour enfants : histoires, contes éducatifs et albums illustrés",
+	  "mainEntity": {
+	    "@type": "Product",
+	    "name": "Livres jeunesse : albums, contes, histoires éducatives et illustrées pour enfants",
+	    "image": "https://reperehub.com/images/logo_reperehub.webp",
+	    "description": "Découvrez notre sélection de livres pour enfants, avec des histoires captivantes, contes éducatifs et albums illustrés pour stimuler l'imagination et l'apprentissage.",
+	    "offers": {
+	      "@type": "AggregateOffer",
+	      "offerCount": {{ offerCount|default(0) }},
+	      "lowPrice": {{ lowPrice|default(0) }},
+	      "highPrice": {{ highPrice|default(0) }},
+	      "priceCurrency": "EUR"
+	    }
+	  },
+	  "description": "Trouvez les meilleurs livres jeunesse pour accompagner le développement et la passion de la lecture chez les enfants."
+	}
+	</script>
 {% endblock %}
 
 
-{% block title %} Livres pour enfants : Meilleures Sélections | Repère Hub {% endblock %} {% block
+{% block title %}
+	Livres pour enfants : Meilleures Sélections | Repère Hub
+{% endblock %}
+{% block
     stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
-    {% endblock %}  {% block body %}
-    <main class="category-page">
-      <h1 class="category-page__title">Livres pour enfants : Meilleures Sélections</h1>
-    
-      <section class="intro">
-        <h2 class="intro__title">Les livres tendances</h2>
-        <p class="intro__text">
-            Plongez dans une sélection variée de
-            <strong class="intro__text--highlight">livres captivants</strong>, incluant des bandes dessinées, des mangas, des albums illustrés et des magazines. Ces ouvrages, adaptés à tous les goûts et à différents âges, offrent des moments de détente, d’apprentissage et d’évasion. Trouvez l’inspiration pour des lectures qui sauront plaire à toute la famille.
-        </p>
-    
-        <h2 class="intro__title">Les offres en promotion</h2>
-        <p class="intro__text">
-            Découvrez une sélection de
-            <strong class="intro__text--highlight">livres et magazines en promotion</strong>. Ces réductions permettent de profiter d’ouvrages de qualité tout en respectant votre budget. Parcourez notre collection pour dénicher des
-            <strong class="intro__text--highlight">lectures à prix réduit</strong>, parfaites pour toutes les occasions.
-        </p>
-    
-        <h2 class="intro__title">Les plus populaires</h2>
-        <p class="intro__text">
-            Retrouvez une sélection de
-            <strong class="intro__text--highlight">livres largement plébiscités</strong>. Ces ouvrages, très demandés, incluent des titres récents ou des séries appréciées qui captivent petits et grands. Découvrez des choix variés adaptés à tous les lecteurs.
-        </p>
-    
-        <h2 class="intro__title">Suggestions à découvrir</h2>
-        <p class="intro__text">
-            Explorez une sélection variée de
-            <strong class="intro__text--highlight">livres qui attirent l’attention</strong>. Que vous recherchiez des aventures palpitantes, des récits drôles ou des histoires enrichissantes, ces titres offrent de belles découvertes pour chaque lecteur.
-        </p>
-    </section>
-    
-      <section class="products-section">
-        <h2 class="products-section__title">Livres tendances</h2>
-<p class="products-section__description">
-    Explorez une sélection de <strong>livres tendances</strong> qui captivent l’imagination des plus jeunes. Qu’il s’agisse de bandes dessinées, de mangas ou de magazines, ces ouvrages populaires sont parfaits pour éveiller la curiosité et encourager la lecture. Trouvez des histoires qui feront rêver et divertir les enfants de tout âge !
-</p>
-        
-    
-        <ul class="products">
-            {% for produit in produits %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src={{ produit.getImage() }}
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
- {% if promos|length >= 4  %}
+	<link rel="stylesheet" href="{{ asset('css/categories.css') }}"/>
+{% endblock %}
+{% block body %}
+	<main class="category-page">
+		<h1 class="category-page__title">Livres pour enfants : Meilleures Sélections</h1>
 
-    <section class="products-section products-section--2">
-        <h2 class="products-section__title products-section--2__title">Bonnes affaires / Promotions</h2>
-<p class="products-section__description products-section--2__description">
-    Faites plaisir tout en maîtrisant votre budget avec des <strong>livres en promotion</strong>. Découvrez des bandes dessinées, mangas et autres ouvrages pour enfants à prix réduit. Ces <strong>offres avantageuses</strong> sont idéales pour enrichir les bibliothèques des plus jeunes sans vous ruiner !
-</p> 
-        
-    
-        <ul class="products">
-            {% for promo in promos %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in promo.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src={{ promo.getImage() }}
-                    alt="{{ promo.getNom()|length > 50 ? promo.getNom()|slice(0, 47) ~ '...' : promo.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ promo.getDescription()|slice(0, 150) ~ (promo.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                
-                <div class="products__pricing">
-                    {% if promo.getPromo() %}
-                    <p class="products__promo">-{{ promo.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ promo.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ promo.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
+		<section class="intro">
+			<h2 class="intro__title">Les livres tendances</h2>
+			<p class="intro__text">
+				Plongez dans une sélection variée de
+				<strong class="intro__text--highlight">livres captivants</strong>, incluant des bandes dessinées, des mangas, des albums illustrés et des magazines. Ces ouvrages, adaptés à tous les goûts et à différents âges, offrent des moments de détente, d’apprentissage et d’évasion. Trouvez l’inspiration pour des lectures qui sauront plaire à toute la famille.
+			</p>
 
-    {% endif %}
-    
-    <section class="products-section">
-        <h2 class="products-section__title">Livres populaires</h2>
-        <p class="products-section__description">
-            Découvrez des <strong>livres appréciés des enfants</strong> pour toutes les envies. Notre sélection inclut des histoires captivantes, des bandes dessinées humoristiques ou encore des mangas passionnants. Ces titres populaires promettent des moments de lecture amusants et enrichissants pour les plus jeunes lecteurs.
-        </p>
-    
-    
-      <ul class="products">
-          {% for produit in produits2 %}
-          <li class="products__item">
-              <div class="products__icons">
-                  {% for tag in produit.getTag() %}
-                      {% if tag.getNom() == 'Choix Amazon' %}
-                      <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                      {% elseif tag.getNom() == 'Top Ventes' %}
-                      <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                      {% elseif tag.getNom() == 'Promo' %}
-                      <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                      {% endif %}
-                  {% endfor %}
-              </div>
-    
-              <img 
-                  src={{ produit.getImage() }}
-                  alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                  class="products__image" 
-              >
-    
-              <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-              <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
-    
-              <div class="products__pricing">
-                  {% if produit.getPromo() %}
-                  <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                  {% endif %}
-                  <p class="products__price">{{ produit.getPrix() }}€</p>
-              </div>
-    
-              <a href="{{ produit.getLien() }}" class="products__link">
-                  Voir l'offre 
-                  <i class="ri-amazon-fill products__amazon-logo"></i>
-              </a>
-          </li>
-          {% endfor %}
-      </ul>
-    </section>
-    
-    <section class="products-section products-section--2 main__header">
-        <h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+			<h2 class="intro__title">Les offres en promotion</h2>
+			<p class="intro__text">
+				Découvrez une sélection de
+				<strong class="intro__text--highlight">livres et magazines en promotion</strong>. Ces réductions permettent de profiter d’ouvrages de qualité tout en respectant votre budget. Parcourez notre collection pour dénicher des
+				<strong class="intro__text--highlight">lectures à prix réduit</strong>, parfaites pour toutes les occasions.
+			</p>
 
-        <ul class="categories">
-          {% for categorie in categories %}
-              <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
-                  {% if categorie.getSlug() == 'gaming' %}
-                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% elseif categorie.getSlug() == 'jouets' %}
-                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% else %}
-                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% endif %}
-                      <strong>{{ categorie.getNom() }}</strong>
-                  </a>
-              </li>
-          {% endfor %}
-      </ul>  
-    </section>
+			<h2 class="intro__title">Les plus populaires</h2>
+			<p class="intro__text">
+				Retrouvez une sélection de
+				<strong class="intro__text--highlight">livres largement plébiscités</strong>. Ces ouvrages, très demandés, incluent des titres récents ou des séries appréciées qui captivent petits et grands. Découvrez des choix variés adaptés à tous les lecteurs.
+			</p>
 
-    <p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour : {{ formattedDate }}</p>
+			<h2 class="intro__title">Suggestions à découvrir</h2>
+			<p class="intro__text">
+				Explorez une sélection variée de
+				<strong class="intro__text--highlight">livres qui attirent l’attention</strong>. Que vous recherchiez des aventures palpitantes, des récits drôles ou des histoires enrichissantes, ces titres offrent de belles découvertes pour chaque lecteur.
+			</p>
+		</section>
 
-    </main>
-    
-    {% endblock %}
-    
+		<section class="products-section">
+			<h2 class="products-section__title">Livres tendances</h2>
+			<p class="products-section__description">
+				Explorez une sélection de
+				<strong>livres tendances</strong>
+				qui captivent l’imagination des plus jeunes. Qu’il s’agisse de bandes dessinées, de mangas ou de magazines, ces ouvrages populaires sont parfaits pour éveiller la curiosité et encourager la lecture. Trouvez des histoires qui feront rêver et divertir les enfants de tout âge !
+			</p>
+
+
+			<ul class="products">
+				{% for produit in produits %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src={{ produit.getImage() }} alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		{% if promos|length >= 4  %}
+
+			<section class="products-section products-section--2">
+				<h2 class="products-section__title products-section--2__title">Bonnes affaires / Promotions</h2>
+				<p class="products-section__description products-section--2__description">
+					Faites plaisir tout en maîtrisant votre budget avec des
+					<strong>livres en promotion</strong>. Découvrez des bandes dessinées, mangas et autres ouvrages pour enfants à prix réduit. Ces
+					<strong>offres avantageuses</strong>
+					sont idéales pour enrichir les bibliothèques des plus jeunes sans vous ruiner !
+				</p>
+
+
+				<ul class="products">
+					{% for promo in promos %}
+						<li class="products__item">
+							<div class="products__icons">
+								{% for tag in promo.getTag() %}
+									{% if tag.getNom() == 'Choix Amazon' %}
+										<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+									{% elseif tag.getNom() == 'Top Ventes' %}
+										<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+									{% elseif tag.getNom() == 'Promo' %}
+										<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+									{% endif %}
+								{% endfor %}
+							</div>
+
+							<img src={{ promo.getImage() }} alt="{{ promo.getNom()|length > 50 ? promo.getNom()|slice(0, 47) ~ '...' : promo.getNom() }}" class="products__image">
+
+							<h3 class="products__title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+							<p class="products__description">
+								{{ promo.getDescription()|slice(0, 150) ~ (promo.getDescription()|length > 150 ? '...' : '') }}
+							</p>
+
+
+							<div class="products__pricing">
+								{% if promo.getPromo() %}
+									<p class="products__promo">-{{ promo.getPromo() }}%</p>
+								{% endif %}
+								<p class="products__price">{{ promo.getPrix() }}€</p>
+							</div>
+
+							<a href="{{ promo.getLien() }}" class="products__link">
+								Voir l'offre
+								<i class="ri-amazon-fill products__amazon-logo"></i>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</section>
+
+		{% endif %}
+
+		<section class="products-section">
+			<h2 class="products-section__title">Livres populaires</h2>
+			<p class="products-section__description">
+				Découvrez des
+				<strong>livres appréciés des enfants</strong>
+				pour toutes les envies. Notre sélection inclut des histoires captivantes, des bandes dessinées humoristiques ou encore des mangas passionnants. Ces titres populaires promettent des moments de lecture amusants et enrichissants pour les plus jeunes lecteurs.
+			</p>
+
+
+			<ul class="products">
+				{% for produit in produits2 %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src={{ produit.getImage() }} alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section products-section--2 main__header">
+			<h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+			<ul class="categories">
+				{% for categorie in categories %}
+					<li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+						{% if categorie.getSlug() == 'gaming' %}
+							<a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+							{% elseif categorie.getSlug() == 'jouets' %}
+								<a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+								{% else %}
+									<a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+									{% endif %}
+									<strong>{{ categorie.getNom() }}</strong>
+								</a>
+							</li>
+						{% endfor %}
+					</li>
+				</ul>
+			</section>
+
+			<p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour :
+				{{ formattedDate }}</p>
+
+		</main>
+
+	{% endblock %}

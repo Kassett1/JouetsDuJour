@@ -1,260 +1,255 @@
-{% extends 'base.html.twig' %} 
+{% extends 'base.html.twig' %}
 {% block head %}
-<meta name="description" content="Apprenez tout en vous amusant avec notre sélection de jeux éducatifs pour enfants. Développez leurs compétences tout en passant des moments enrichissants en famille." />
+	<meta name="description" content="Apprenez tout en vous amusant avec notre sélection de jeux éducatifs pour enfants. Développez leurs compétences tout en passant des moments enrichissants en famille."/>
 {% endblock %}
 
 {% block javascripts %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Jeux éducatifs pour enfants - apprentissage ludique et développement des compétences",
-  "mainEntity": {
-    "@type": "Product",
-    "name": "Jeux éducatifs pour enfants : pédagogiques, interactifs et amusants",
-    "image": "https://reperehub.com/images/logo_reperehub.webp",
-    "description": "Découvrez notre gamme de jeux éducatifs conçus pour stimuler l'apprentissage, la créativité et la réflexion des enfants tout en s'amusant.",
-    "offers": {
-      "@type": "AggregateOffer",
-      "offerCount": {{ offerCount|default(0) }},
-      "lowPrice": {{ lowPrice|default(0) }},
-      "highPrice": {{ highPrice|default(0) }},
-      "priceCurrency": "EUR"
-    }
-  },
-  "description": "Trouvez des jeux éducatifs adaptés à tous les âges, parfaits pour accompagner le développement intellectuel et moteur des enfants."
-}
-</script>
+	 <script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "WebPage",
+	  "name": "Jeux éducatifs pour enfants - apprentissage ludique et développement des compétences",
+	  "mainEntity": {
+	    "@type": "Product",
+	    "name": "Jeux éducatifs pour enfants : pédagogiques, interactifs et amusants",
+	    "image": "https://reperehub.com/images/logo_reperehub.webp",
+	    "description": "Découvrez notre gamme de jeux éducatifs conçus pour stimuler l'apprentissage, la créativité et la réflexion des enfants tout en s'amusant.",
+	    "offers": {
+	      "@type": "AggregateOffer",
+	      "offerCount": {{ offerCount|default(0) }},
+	      "lowPrice": {{ lowPrice|default(0) }},
+	      "highPrice": {{ highPrice|default(0) }},
+	      "priceCurrency": "EUR"
+	    }
+	  },
+	  "description": "Trouvez des jeux éducatifs adaptés à tous les âges, parfaits pour accompagner le développement intellectuel et moteur des enfants."
+	}
+	</script>
 {% endblock %}
 
 
-
-{% block title %} Jeux Éducatifs : Apprendre en S'Amusant | Repère Hub {% endblock %} {% block
+{% block title %}
+	Jeux Éducatifs : Apprendre en S'Amusant | Repère Hub
+{% endblock %}
+{% block
     stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/categories.css') }}" />
-    {% endblock %}  {% block body %}
-    <main class="category-page">
-      <h1 class="category-page__title">Jeux Éducatifs : Apprendre en S'Amusant</h1>
-    
-      <section class="intro">
-        <h2 class="intro__title">Les jeux éducatifs à découvrir</h2>
-        <p class="intro__text">
-          Plongez dans notre sélection de
-          <strong class="intro__text--highlight"
-            >jeux éducatifs</strong
-          >, conçus pour stimuler la curiosité et l'apprentissage des enfants. Ces
-          articles, prisés par les familles, allient
-          <strong class="intro__text--highlight">divertissement et pédagogie</strong>.
-          Qu'il s'agisse de développer la logique, la créativité ou les connaissances,
-          vous trouverez des idées adaptées à chaque tranche d'âge.
-        </p>
-      
-        <h2 class="intro__title">Les offres en promotion</h2>
-        <p class="intro__text">
-          Faites des économies grâce à des
-          <strong class="intro__text--highlight"
-            >promotions sur les jeux éducatifs</strong
-          >. Profitez de réductions pour découvrir des articles de qualité, parfaits
-          pour encourager l'apprentissage sans dépasser votre budget. Explorez notre
-          sélection pour des
-          <strong class="intro__text--highlight"
-            >opportunités à prix réduit</strong>.
-        </p>
-      
-        <h2 class="intro__title">Les meilleures ventes</h2>
-        <p class="intro__text">
-          Découvrez les
-          <strong class="intro__text--highlight"
-            >jeux éducatifs les plus appréciés</strong
-          >
-          par les familles. Ces produits se distinguent par leur efficacité et leur
-          attrait auprès des enfants. Consultez cette liste pour choisir des
-          <strong class="intro__text--highlight">valeurs sûres</strong> qui allient
-          plaisir et apprentissage.
-        </p>
-      
-        <h2 class="intro__title">Nos suggestions</h2>
-<p class="intro__text">
-  Parcourez une sélection de
-  <strong class="intro__text--highlight">jeux éducatifs</strong>
-  basée sur les recherches les plus populaires. Ces produits, appréciés pour leur
-  qualité et leur efficacité, sont adaptés à divers âges et besoins éducatifs.
-  Trouvez des idées pour stimuler l'apprentissage et le développement des
-  enfants, tout en les divertissant.
-</p>
+	<link rel="stylesheet" href="{{ asset('css/categories.css') }}"/>
+{% endblock %}
+{% block body %}
+	<main class="category-page">
+		<h1 class="category-page__title">Jeux Éducatifs : Apprendre en S'Amusant</h1>
 
-      </section>
-      
-    
-      <section class="products-section">
-        <h2 class="products-section__title">Jeux éducatifs tendances</h2>
-<p class="products-section__description">
-    Découvrez les <strong>jeux éducatifs tendances</strong>, conçus pour allier apprentissage et amusement. Ces <strong>produits populaires</strong> incluent des outils interactifs, des jeux de réflexion et des activités créatives qui captivent les enfants tout en stimulant leur développement. Trouvez l'activité idéale parmi ces <strong>incontournables de l'éducation ludique</strong>, appréciés par les familles en 2024.
-</p>
+		<section class="intro">
+			<h2 class="intro__title">Les jeux éducatifs à découvrir</h2>
+			<p class="intro__text">
+				Plongez dans notre sélection de
+				<strong class="intro__text--highlight">jeux éducatifs</strong>, conçus pour stimuler la curiosité et l'apprentissage des enfants. Ces
+					          articles, prisés par les familles, allient
+				<strong class="intro__text--highlight">divertissement et pédagogie</strong>.
+					          Qu'il s'agisse de développer la logique, la créativité ou les connaissances,
+					          vous trouverez des idées adaptées à chaque tranche d'âge.
+			</p>
 
-        
-    
-        <ul class="products">
-            {% for produit in produits %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in produit.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src={{ produit.getImage() }}
-                    alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
-                
-                <div class="products__pricing">
-                    {% if produit.getPromo() %}
-                    <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ produit.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ produit.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="products-section products-section--2">
-        <h2 class="products-section__title products-section--2__title">Bonnes affaires / Promotions</h2>
-<p class="products-section__description products-section--2__description">
-    Profitez des meilleures <strong>promotions sur les jeux éducatifs</strong> pour encourager l'apprentissage tout en maîtrisant votre budget. Découvrez une sélection de <strong>produits en réduction</strong>, incluant des jeux interactifs, des activités pédagogiques et bien plus encore. Ne manquez pas ces <strong>offres exclusives</strong> pour économiser sur des articles éducatifs de qualité !
-</p>
+			<h2 class="intro__title">Les offres en promotion</h2>
+			<p class="intro__text">
+				Faites des économies grâce à des
+				<strong class="intro__text--highlight">promotions sur les jeux éducatifs</strong>. Profitez de réductions pour découvrir des articles de qualité, parfaits
+					          pour encourager l'apprentissage sans dépasser votre budget. Explorez notre
+					          sélection pour des
+				<strong class="intro__text--highlight">opportunités à prix réduit</strong>.
+			</p>
 
-        
-    
-        <ul class="products">
-            {% for promo in promos %}
-            <li class="products__item">
-                <div class="products__icons">
-                    {% for tag in promo.getTag() %}
-                        {% if tag.getNom() == 'Choix Amazon' %}
-                        <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                        {% elseif tag.getNom() == 'Top Ventes' %}
-                        <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                        {% elseif tag.getNom() == 'Promo' %}
-                        <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-                <img 
-                    src={{ promo.getImage() }}
-                    alt="{{ promo.getNom()|length > 50 ? promo.getNom()|slice(0, 47) ~ '...' : promo.getNom() }}" 
-                    class="products__image" 
-                >
-                
-                <h3 class="products__title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-                <p class="products__description">
-                    {{ promo.getDescription()|slice(0, 150) ~ (promo.getDescription()|length > 150 ? '...' : '') }}
-                </p>
-                
-                
-                <div class="products__pricing">
-                    {% if promo.getPromo() %}
-                    <p class="products__promo">-{{ promo.getPromo() }}%</p>
-                    {% endif %}
-                    <p class="products__price">{{ promo.getPrix() }}€</p>
-                </div>
-                
-                <a href="{{ promo.getLien() }}" class="products__link">
-                    Voir l'offre 
-                    <i class="ri-amazon-fill products__amazon-logo"></i>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    
-    <section class="products-section">
-        <h2 class="products-section__title">Jeux éducatifs populaires</h2>
-        <p class="products-section__description">
-            Explorez une sélection de <strong>jeux éducatifs populaires</strong>, conçus pour éveiller la curiosité et encourager l'apprentissage des enfants. Ces <strong>produits variés</strong>, adaptés à différentes tranches d'âge, proposent des activités ludiques et pédagogiques qui captiveront l'intérêt des plus jeunes tout en stimulant leur développement.
-        </p>        
-    
-    
-      <ul class="products">
-          {% for produit in produits2 %}
-          <li class="products__item">
-              <div class="products__icons">
-                  {% for tag in produit.getTag() %}
-                      {% if tag.getNom() == 'Choix Amazon' %}
-                      <i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
-                      {% elseif tag.getNom() == 'Top Ventes' %}
-                      <i class="ri-medal-fill products__icon products__icon--top-sales"></i>
-                      {% elseif tag.getNom() == 'Promo' %}
-                      <i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
-                      {% endif %}
-                  {% endfor %}
-              </div>
-    
-              <img 
-                  src={{ produit.getImage() }}
-                  alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" 
-                  class="products__image" 
-              >
-    
-              <h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-              <p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
-    
-              <div class="products__pricing">
-                  {% if produit.getPromo() %}
-                  <p class="products__promo">-{{ produit.getPromo() }}%</p>
-                  {% endif %}
-                  <p class="products__price">{{ produit.getPrix() }}€</p>
-              </div>
-    
-              <a href="{{ produit.getLien() }}" class="products__link">
-                  Voir l'offre 
-                  <i class="ri-amazon-fill products__amazon-logo"></i>
-              </a>
-          </li>
-          {% endfor %}
-      </ul>
-    </section>
-    
-    <section class="products-section products-section--2 main__header">
-        <h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+			<h2 class="intro__title">Les meilleures ventes</h2>
+			<p class="intro__text">
+				Découvrez les
+				<strong class="intro__text--highlight">jeux éducatifs les plus appréciés</strong>
+				par les familles. Ces produits se distinguent par leur efficacité et leur
+				          attrait auprès des enfants. Consultez cette liste pour choisir des
+				<strong class="intro__text--highlight">valeurs sûres</strong>
+				qui allient
+				          plaisir et apprentissage.
+			</p>
 
-        <ul class="categories">
-          {% for categorie in categories %}
-              <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
-                  {% if categorie.getSlug() == 'gaming' %}
-                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% elseif categorie.getSlug() == 'jouets' %}
-                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% else %}
-                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
-                  {% endif %}
-                      <strong>{{ categorie.getNom() }}</strong>
-                  </a>
-              </li>
-          {% endfor %}
-      </ul>  
-    </section>
+			<h2 class="intro__title">Nos suggestions</h2>
+			<p class="intro__text">
+				Parcourez une sélection de
+				<strong class="intro__text--highlight">jeux éducatifs</strong>
+				basée sur les recherches les plus populaires. Ces produits, appréciés pour leur
+				  qualité et leur efficacité, sont adaptés à divers âges et besoins éducatifs.
+				  Trouvez des idées pour stimuler l'apprentissage et le développement des
+				  enfants, tout en les divertissant.
+			</p>
 
-    <p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour : {{ formattedDate }}</p>
+		</section>
 
-    </main>
-    
-    {% endblock %}
-    
+
+		<section class="products-section">
+			<h2 class="products-section__title">Jeux éducatifs tendances</h2>
+			<p class="products-section__description">
+				Découvrez les
+				<strong>jeux éducatifs tendances</strong>, conçus pour allier apprentissage et amusement. Ces
+				<strong>produits populaires</strong>
+				incluent des outils interactifs, des jeux de réflexion et des activités créatives qui captivent les enfants tout en stimulant leur développement. Trouvez l'activité idéale parmi ces
+				<strong>incontournables de l'éducation ludique</strong>, appréciés par les familles en 2024.
+			</p>
+
+
+			<ul class="products">
+				{% for produit in produits %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src={{ produit.getImage() }} alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section products-section--2">
+			<h2 class="products-section__title products-section--2__title">Bonnes affaires / Promotions</h2>
+			<p class="products-section__description products-section--2__description">
+				Profitez des meilleures
+				<strong>promotions sur les jeux éducatifs</strong>
+				pour encourager l'apprentissage tout en maîtrisant votre budget. Découvrez une sélection de
+				<strong>produits en réduction</strong>, incluant des jeux interactifs, des activités pédagogiques et bien plus encore. Ne manquez pas ces
+				<strong>offres exclusives</strong>
+				pour économiser sur des articles éducatifs de qualité !
+			</p>
+
+
+			<ul class="products">
+				{% for promo in promos %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in promo.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src={{ promo.getImage() }} alt="{{ promo.getNom()|length > 50 ? promo.getNom()|slice(0, 47) ~ '...' : promo.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">
+							{{ promo.getDescription()|slice(0, 150) ~ (promo.getDescription()|length > 150 ? '...' : '') }}
+						</p>
+
+
+						<div class="products__pricing">
+							{% if promo.getPromo() %}
+								<p class="products__promo">-{{ promo.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ promo.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ promo.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section">
+			<h2 class="products-section__title">Jeux éducatifs populaires</h2>
+			<p class="products-section__description">
+				Explorez une sélection de
+				<strong>jeux éducatifs populaires</strong>, conçus pour éveiller la curiosité et encourager l'apprentissage des enfants. Ces
+				<strong>produits variés</strong>, adaptés à différentes tranches d'âge, proposent des activités ludiques et pédagogiques qui captiveront l'intérêt des plus jeunes tout en stimulant leur développement.
+			</p>
+
+
+			<ul class="products">
+				{% for produit in produits2 %}
+					<li class="products__item">
+						<div class="products__icons">
+							{% for tag in produit.getTag() %}
+								{% if tag.getNom() == 'Choix Amazon' %}
+									<i class="ri-heart-fill products__icon products__icon--amazon-choice"></i>
+								{% elseif tag.getNom() == 'Top Ventes' %}
+									<i class="ri-medal-fill products__icon products__icon--top-sales"></i>
+								{% elseif tag.getNom() == 'Promo' %}
+									<i class="ri-price-tag-3-fill products__icon products__icon--promo"></i>
+								{% endif %}
+							{% endfor %}
+						</div>
+
+						<img src={{ produit.getImage() }} alt="{{ produit.getNom()|length > 50 ? produit.getNom()|slice(0, 47) ~ '...' : produit.getNom() }}" class="products__image">
+
+						<h3 class="products__title">{{ produit.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+						<p class="products__description">{{ produit.getDescription()|slice(0, 150) ~ (produit.getDescription()|length > 150 ? '...' : '') }}</p>
+
+						<div class="products__pricing">
+							{% if produit.getPromo() %}
+								<p class="products__promo">-{{ produit.getPromo() }}%</p>
+							{% endif %}
+							<p class="products__price">{{ produit.getPrix() }}€</p>
+						</div>
+
+						<a href="{{ produit.getLien() }}" class="products__link">
+							Voir l'offre
+							<i class="ri-amazon-fill products__amazon-logo"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<section class="products-section products-section--2 main__header">
+			<h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+			<ul class="categories">
+				{% for categorie in categories %}
+					<li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+						{% if categorie.getSlug() == 'gaming' %}
+							<a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+							{% elseif categorie.getSlug() == 'jouets' %}
+								<a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+								{% else %}
+									<a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+									{% endif %}
+									<strong>{{ categorie.getNom() }}</strong>
+								</a>
+							</li>
+						{% endfor %}
+					</li>
+				</ul>
+			</section>
+
+			<p class="products__description" style="text-align: center; margin-top: 3vh">Dernière mise à jour :
+				{{ formattedDate }}</p>
+
+		</main>
+
+	{% endblock %}

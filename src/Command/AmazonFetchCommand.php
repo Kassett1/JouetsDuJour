@@ -363,7 +363,7 @@ class AmazonFetchCommand extends Command
         // Insère la date actuelle dans la colonne d de la table refresh_date
         $now = new \DateTime();
         $connection->insert('refresh_date', [
-            'd' => $now->format('Y-m-d'),  // format date sans heure
+            'date' => $now->format('Y-m-d'),  // format date sans heure
         ]);
 
 

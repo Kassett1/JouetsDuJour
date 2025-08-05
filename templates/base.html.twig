@@ -1,103 +1,110 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    {% block head %}{% endblock %}
-    <title>{% block title %}{% endblock %}</title>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+		<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/> {% block head %}{% endblock %}
+		<title>
+			{% block title %}{% endblock %}
+		</title>
 
-    {% block stylesheets %}{% endblock %}
+		{% block stylesheets %}{% endblock %}
 
-    {% block javascripts %}{% endblock %}
+		{% block javascripts %}{% endblock %}
 
-    <script src="{{ asset('js/menu.js') }}" defer></script>
+		 <script src="{{ asset('js/menu.js') }}" defer></script>
 
-  </head>
-  <body>
-     <body>
-      {% block content %}
-      <!--=============== HEADER ===============-->
-      <header class="header">
-        <nav class="nav container">
-            <div class="nav__data">
-                <a href="{{ path('home') }}" class="nav__logo">
-                    <img src="{{ asset('images/logo_reperehub.webp') }}" alt="logo">
-                </a>
-                
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class="ri-menu-line nav__burger"></i>
-                    <i class="ri-close-line nav__close"></i>
-                </div>
-            </div>
-    
-            <!--=============== NAV MENU ===============-->
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <!-- Lien vers l'accueil -->
-                    <li><a href="{{ path('home') }}" class="nav__link nav__link--underline">Accueil</a></li>
-    
-                    <!--=============== DROPDOWN 1 ===============-->
-                    <li class="dropdown__item">
-                        <div class="nav__link">
-                            Catégories <i class="ri-arrow-down-s-line dropdown__arrow"></i>
-                        </div>
-    
-                        <ul class="dropdown__menu">
-                          {% for categorie in categories %}
-                              <li>
-                                  {% if categorie.getSlug() == 'gaming' %}
-                                      <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="dropdown__link">
-                                  {% elseif categorie.getSlug() == 'jouets' %}
-                                      <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="dropdown__link">
-                                  {% else %}
-                                      <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="dropdown__link">
-                                  {% endif %}
-                                      {{ categorie.getNom() }}
-                                  </a>
-                              </li>
-                          {% endfor %}
-                      </ul>
-                    </li>
+	</head>
+	<body></body>
+	<body>
+		{% block content %}
+			<!--=============== HEADER ===============-->
+			<header class="header">
+				<nav class="nav container">
+					<div class="nav__data">
+						<a href="{{ path('home') }}" class="nav__logo">
+							<img src="{{ asset('images/logo_reperehub.webp') }}" alt="logo">
+						</a>
 
-                    <!-- Lien vers Articles -->
-                    <li><a href="{{ path('articles') }}" class="nav__link nav__link--underline">Articles</a></li>
-    
-                    <!-- Lien vers Top ventes -->
-                    <li><a href="{{ path('top_ventes') }}" class="nav__link nav__link--underline">Top ventes</a></li>
-    
-                    <!-- Lien vers Promotions -->
-                    <li><a href="{{ path('promotions') }}" class="nav__link nav__link--underline">Promotions</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    
+						<div class="nav__toggle" id="nav-toggle">
+							<i class="ri-menu-line nav__burger"></i>
+							<i class="ri-close-line nav__close"></i>
+						</div>
+					</div>
 
-    {% block body %}{% endblock %}
+					<!--=============== NAV MENU ===============-->
+					<div class="nav__menu" id="nav-menu">
+						<ul
+							class="nav__list">
+							<!-- Lien vers l'accueil -->
+							<li>
+								<a href="{{ path('home') }}" class="nav__link nav__link--underline">Accueil</a>
+							</li>
 
-    <footer class="footer">
-      <nav class="footer__nav">
-        <ul class="footer__list">
-          <li class="footer__item">
-            <a href="{{ path('home') }}" class="footer__link"
-              ><img src="{{ asset('images/logo_reperehub.webp') }}" alt="Acueil"
-            /></a>
-          </li>
-          <li class="footer__item">
-            <a href="{{ path('mentions_legales') }}" class="footer__link">Mentions légales</a>
-          </li>
-          <li class="footer__item">
-            <a href="{{ path('plan_site') }}" class="footer__link">Plan du site</a>
-          </li>
-        </ul>
-      </nav>
-    </footer>
-    {% endblock %}
-  </body>
+							<!--=============== DROPDOWN 1 ===============-->
+							<li class="dropdown__item">
+								<div class="nav__link">
+									Catégories
+									<i class="ri-arrow-down-s-line dropdown__arrow"></i>
+								</div>
+
+								<ul class="dropdown__menu">
+									{% for categorie in categories %}
+										<li>
+											{% if categorie.getSlug() == 'gaming' %}
+												<a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="dropdown__link">
+												{% elseif categorie.getSlug() == 'jouets' %}
+													<a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="dropdown__link">
+													{% else %}
+														<a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="dropdown__link">
+														{% endif %}
+														{{ categorie.getNom() }}
+													</a>
+												</li>
+											{% endfor %}
+										</li>
+									</ul>
+								</li>
+								<!-- Lien vers Articles -->
+							</li>
+							<li>
+								<a href="{{ path('articles') }}" class="nav__link nav__link--underline">Articles</a>
+							</li>
+
+							<!-- Lien vers Top ventes -->
+							<li>
+								<a href="{{ path('top_ventes') }}" class="nav__link nav__link--underline">Top ventes</a>
+							</li>
+
+							<!-- Lien vers Promotions -->
+							<li>
+								<a href="{{ path('promotions') }}" class="nav__link nav__link--underline">Promotions</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</header>
+
+
+			{% block body %}{% endblock %}
+
+			<footer class="footer">
+				<nav class="footer__nav">
+					<ul class="footer__list">
+						<li class="footer__item">
+							<a href="{{ path('home') }}" class="footer__link"><img src="{{ asset('images/logo_reperehub.webp') }}" alt="Acueil"/></a>
+						</li>
+						<li class="footer__item">
+							<a href="{{ path('mentions_legales') }}" class="footer__link">Mentions légales</a>
+						</li>
+						<li class="footer__item">
+							<a href="{{ path('plan_site') }}" class="footer__link">Plan du site</a>
+						</li>
+					</ul>
+				</nav>
+			</footer>
+		{% endblock %}
+	</body>
 </html>

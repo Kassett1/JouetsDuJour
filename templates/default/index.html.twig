@@ -1,228 +1,262 @@
-{% extends 'base.html.twig' %} 
+{% extends 'base.html.twig' %}
 {% block head %}
-<meta name="description" content="Découvrez notre sélection des meilleurs jouets, jeux de société, jeux éducatifs, produits gaming, jeux en plein air et livres pour enfants. Trouvez l'inspiration pour tous les âges grâce à nos guides et tops détaillés." />
+	<meta name="description" content="Découvrez notre sélection des meilleurs jouets, jeux de société, jeux éducatifs, produits gaming, jeux en plein air et livres pour enfants. Trouvez l'inspiration pour tous les âges grâce à nos guides et tops détaillés."/>
 {% endblock %}
 
 {% block javascripts %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Sélection complète de jouets, jeux de société, gaming, jeux éducatifs et livres pour enfants",
-  "mainEntity": {
-    "@type": "Product",
-    "name": "Jouets, jeux de société, jeux éducatifs, produits gaming et livres jeunesse pour toute la famille",
-    "image": "https://reperehub.com/images/logo_reperehub.webp",
-    "description": "Explorez notre large gamme de produits : jouets variés, jeux de société, consoles et accessoires gaming, jeux éducatifs, jeux en plein air et livres pour enfants, pour tous les âges et tous les goûts.",
-    "offers": {
-      "@type": "AggregateOffer",
-      "offerCount": {{ offerCount|default(0) }},
-      "lowPrice": {{ lowPrice|default(0) }},
-      "highPrice": {{ highPrice|default(0) }},
-      "priceCurrency": "EUR"
-    }
-  },
-  "description": "Trouvez facilement les meilleurs produits pour enfants et familles : jouets, jeux, accessoires gaming et livres, avec des sélections régulièrement mises à jour."
-}
-</script>
+	 <script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "WebPage",
+	  "name": "Sélection complète de jouets, jeux de société, gaming, jeux éducatifs et livres pour enfants",
+	  "mainEntity": {
+	    "@type": "Product",
+	    "name": "Jouets, jeux de société, jeux éducatifs, produits gaming et livres jeunesse pour toute la famille",
+	    "image": "https://reperehub.com/images/logo_reperehub.webp",
+	    "description": "Explorez notre large gamme de produits : jouets variés, jeux de société, consoles et accessoires gaming, jeux éducatifs, jeux en plein air et livres pour enfants, pour tous les âges et tous les goûts.",
+	    "offers": {
+	      "@type": "AggregateOffer",
+	      "offerCount": {{ offerCount|default(0) }},
+	      "lowPrice": {{ lowPrice|default(0) }},
+	      "highPrice": {{ highPrice|default(0) }},
+	      "priceCurrency": "EUR"
+	    }
+	  },
+	  "description": "Trouvez facilement les meilleurs produits pour enfants et familles : jouets, jeux, accessoires gaming et livres, avec des sélections régulièrement mises à jour."
+	}
+	</script>
 {% endblock %}
 
-{% block title %} Repère Hub – Comparatifs & Bons Plans Jouets et Jeux {% endblock %} {% block
+{% block title %}
+	Repère Hub – Comparatifs & Bons Plans Jouets et Jeux
+{% endblock %}
+{% block
 stylesheets %}
-<link rel="stylesheet" href="{{ asset('css/home.css') }}" />
-{% endblock %} {% block body %}
-<main class="main">
-  <section class="main__header">
-    <h1 class="main__title">Comparatifs & Bons Plans Jouets et Jeux</h1>
-
-    <h2 class="main__subtitle">Catégories</h2>
-
-    <ul class="categories">
-      {% for categorie in categories %}
-          <li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
-              {% if categorie.getSlug() == 'gaming' %}
-                  <a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
-              {% elseif categorie.getSlug() == 'jouets' %}
-                  <a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
-              {% else %}
-                  <a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
-              {% endif %}
-                  <strong>{{ categorie.getNom() }}</strong>
-              </a>
-          </li>
-      {% endfor %}
-  </ul>  
-
-    <div class="main__intro">
-      <div class="main__intro-item">
-        <h3 class="main__intro-title">Un univers ludique pour tous</h3>
-        <p class="main__intro-text">
-          Explorez une vaste sélection de <strong>jouets créatifs</strong>, de
-          <strong>jeux de société passionnants</strong>, et de
-          <strong>jeux éducatifs enrichissants</strong> adaptés à tous les âges.
-          Que vous cherchiez des idées pour occuper les enfants, des jeux pour
-          animer vos soirées entre amis ou encore des produits innovants pour
-          développer l’imagination et les compétences, notre sélection répond à
-          toutes vos attentes. Découvrez également les dernières tendances en
-          <strong>jeux vidéos</strong>, ainsi que des
-          <strong>accessoires gaming</strong> et <strong>consoles</strong> pour
-          des expériences immersives inoubliables.
-        </p>
-      </div>
-      <div class="main__intro-item">
-        <h3 class="main__intro-title">Les meilleures idées à portée de clic</h3>
-        <p class="main__intro-text">
-          Retrouvez facilement les <strong>promotions</strong> et les
-          <strong>top ventes</strong> sur une sélection de produits triés avec
-          soin. Des <strong>jeux éducatifs</strong> pour stimuler les jeunes
-          esprits, des <strong>jeux de société stratégiques</strong> pour des
-          moments conviviaux, ou encore les indispensables du
-          <strong>gaming</strong>, tout est là pour combler vos envies de
-          divertissement. Parcourez nos recommandations pour dénicher les
-          meilleures offres et offrir des cadeaux qui feront plaisir à coup sûr.
-        </p>
-      </div>
-      <div class="main__intro-item">
-        <h3 class="main__intro-title main__intro-title--center">Partager</h3>
-        <ul class="main__social-list">
-            <li class="main__social-list-item">
-                <a href="https://www.facebook.com/profile.php?id=61573909055642" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ asset('images/logo_facebook.webp') }}" alt="Facebook" class="main__social-icon">
-                </a>
-            </li>
-            <li class="main__social-list-item">
-                <a href="https://www.instagram.com/repere_hub/" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ asset('images/logo_thread.webp') }}" alt="Instagram" class="main__social-icon">
-                </a>
-            </li>
-            <li class="main__social-list-item">
-              <a href="https://www.threads.net/@repere_hub?hl=fr" target="_blank" rel="noopener noreferrer">
-                  <img src="{{ asset('images/logo_instagram.webp') }}" alt="Thread" class="main__social-icon">
-              </a>
-            </li>
-        </ul>
-    </div>
-    
-    </div>
-  </section>
-
-  <section class="section section--top-ventes">
-    <h2 class="section__title">Top ventes</h2>
-  
-    <div class="section__descriptions">
-      <p class="section__description">
-        Explorez notre sélection de <strong>jouets incontournables</strong>, spécialement choisis pour leur popularité et leur qualité. 
-        Parmi ces <strong>top ventes</strong>, vous trouverez des <strong>jeux éducatifs</strong>, des <strong>jeux de société</strong> captivants, des <strong>jeux de plein air</strong> 
-        pour toute la famille et même des articles liés à l'univers <strong>gaming</strong>. Ces produits variés sont parfaits pour éveiller la créativité des enfants et offrir des moments de plaisir partagé.
-      </p>
-      <p class="section__description">
-        Que vous cherchiez des <strong>idées de cadeaux pour enfants</strong> ou des <strong>activités ludiques</strong> pour occuper petits et grands, cette sélection vous propose des références adaptées à tous les âges. 
-        Vous y trouverez également des <strong>livres pour enfants</strong>, idéaux pour développer leur imagination et leurs compétences tout en s’amusant.
-      </p>
-      <p class="section__description">
-        Découvrez dès maintenant ces <strong>jouets et jeux populaires</strong>, qu'il s'agisse de jeux éducatifs pour apprendre tout en jouant, de jeux de plein air pour se dépenser en famille, 
-        ou encore de jeux de société incontournables pour animer vos soirées. Ces articles sont parfaits pour enrichir votre quotidien ou offrir des moments mémorables à vos proches.
-      </p>
-    </div>
-  
-    <ul class="section__list">
-      {% for topVente in topVentes %}
-      <li class="section__item">
-        
-        <h3 class="section__item-title">{{ topVente.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-
-        <div class="section__item-content">
-          <img 
-            src={{ topVente.getImage() }} 
-            alt="{{ topVente.getNom()|length > 50 ? topVente.getNom()[:47] ~ '...' : topVente.getNom() }}"
-            class="section__item-image" 
-          />
-          <div class="section__item-details">
-
-            <p class="section__item-description">
-              {{ topVente.getDescription()|slice(0, 200) ~ (topVente.getDescription()|length > 200 ? '...' : '') }}
-            </p>      
-
-            <div class="section__item-price-wrapper">
-              <div class="section__item-prices">
-                {% if topVente.getPromo() %}
-                <p class="section__item-promo">-{{ topVente.getPromo() }}%</p>
-                {% endif %}
-                <p class="section__item-price">{{ topVente.getPrix() }}€</p>
-              </div>
-              <a 
-                href={{ topVente.getLien() }} 
-                class="section__item-link"
-              >
-                Voir l'offre 
-                <img src="{{ asset('images/logo_amazon.webp') }}" alt="." class="section__item-link-icon" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
-  
-    <a href="{{ path('top_ventes') }}" class="section__more-link">Voir Plus<img class="section__more-link-icone" src="{{ asset('images/arrow5.webp') }}" alt=">"/></a>
-  </section>
-
-  <section class="section section--promotions">
-    <h2 class="section__title">Promotions</h2>
-  
-    <div class="section__descriptions">
-      <p class="section__description">
-        Découvrez les <strong>bons plans du moment</strong> sur une sélection de <strong>jouets, jeux de société</strong>, et autres produits populaires. 
-        Que vous cherchiez des <strong>jeux éducatifs</strong> pour vos enfants, des <strong>jeux d'extérieur</strong> pour profiter du plein air, ou encore des articles de <strong>gaming</strong>, 
-        ces offres vous permettent de trouver des produits intéressants à des prix avantageux.
-      </p>
-      <p class="section__description">
-        Cette sélection inclut une variété de produits tels que des <strong>livres pour enfants</strong>, des <strong>jeux de construction</strong>, ou encore des <strong>accessoires de gaming</strong>. 
-        Quels que soient vos besoins, vous trouverez certainement des idées qui sauront plaire aux petits comme aux grands, tout en explorant les meilleures offres disponibles.
-      </p>
-      <p class="section__description">
-        Parcourez ces <strong>offres incontournables</strong> pour dénicher des <strong>jouets ludiques</strong>, des <strong>jeux éducatifs</strong>, ou des produits liés au <strong>gaming</strong> qui feront le bonheur de toute la famille. 
-        Ces bons plans sont une excellente occasion d'allier qualité et économies, pour se faire plaisir ou gâter vos proches.
-      </p>
-    </div>  
-  
-    <ul class="section__list">
-      {% for promo in promos %}
-      <li class="section__item">
-        <h3 class="section__item-title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
-        <div class="section__item-content">
-          <img 
-            src={{ promo.getImage() }} 
-            alt="{{ promo.getNom()|length > 50 ? promo.getNom()[:47] ~ '...' : promo.getNom() }}"
-            class="section__item-image" 
-          />
-          <div class="section__item-details">
-            <p class="section__item-description">{{ promo.getDescription()|slice(0, 200) ~ (promo.getDescription()|length > 200 ? '...' : '') }}</p>
-            <div class="section__item-price-wrapper">
-              <div class="section__item-prices">
-                {% if promo.getPromo() %}
-                <p class="section__item-promo">-{{ promo.getPromo() }}%</p>
-                {% endif %}
-                <p class="section__item-price">{{ promo.getPrix() }}€</p>
-              </div>
-              <a 
-                href={{ promo.getLien() }} 
-                class="section__item-link"
-              >
-                Voir l'offre 
-                <img src="{{ asset('images/logo_amazon.webp') }}" alt="." class="section__item-link-icon" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
-  
-    <a href="{{ path('promotions') }}" class="section__more-link">Voir plus<img class="section__more-link-icone" src="{{ asset('images/arrow2.webp') }}" alt=">"/></a>
-  </section>
-
-  <p class="main__intro-text" style="text-align: center;">Dernière mise à jour : {{ formattedDate }}</p>
-
-</main>
+	<link rel="stylesheet" href="{{ asset('css/home.css') }}"/>
 {% endblock %}
+{% block body %}
+	<main class="main">
+		<section class="main__header">
+			<h1 class="main__title">Comparatifs & Bons Plans Jouets et Jeux</h1>
+
+			<h2 class="main__subtitle">Catégories</h2>
+
+			<ul class="categories">
+				{% for categorie in categories %}
+					<li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+						{% if categorie.getSlug() == 'gaming' %}
+							<a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+							{% elseif categorie.getSlug() == 'jouets' %}
+								<a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+								{% else %}
+									<a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+									{% endif %}
+									<strong>{{ categorie.getNom() }}</strong>
+								</a>
+							</li>
+						{% endfor %}
+					</li>
+				</ul>
+
+				<div class="main__intro">
+					<div class="main__intro-item">
+						<h3 class="main__intro-title">Un univers ludique pour tous</h3>
+						<p class="main__intro-text">
+							Explorez une vaste sélection de
+							<strong>jouets créatifs</strong>, de
+							<strong>jeux de société passionnants</strong>, et de
+							<strong>jeux éducatifs enrichissants</strong>
+							adaptés à tous les âges.
+							          Que vous cherchiez des idées pour occuper les enfants, des jeux pour
+							          animer vos soirées entre amis ou encore des produits innovants pour
+							          développer l’imagination et les compétences, notre sélection répond à
+							          toutes vos attentes. Découvrez également les dernières tendances en
+							<strong>jeux vidéos</strong>, ainsi que des
+							<strong>accessoires gaming</strong>
+							et
+							<strong>consoles</strong>
+							pour
+							          des expériences immersives inoubliables.
+						</p>
+					</div>
+					<div class="main__intro-item">
+						<h3 class="main__intro-title">Les meilleures idées à portée de clic</h3>
+						<p class="main__intro-text">
+							Retrouvez facilement les
+							<strong>promotions</strong>
+							et les
+							<strong>top ventes</strong>
+							sur une sélection de produits triés avec
+							          soin. Des
+							<strong>jeux éducatifs</strong>
+							pour stimuler les jeunes
+							          esprits, des
+							<strong>jeux de société stratégiques</strong>
+							pour des
+							          moments conviviaux, ou encore les indispensables du
+							<strong>gaming</strong>, tout est là pour combler vos envies de
+								          divertissement. Parcourez nos recommandations pour dénicher les
+								          meilleures offres et offrir des cadeaux qui feront plaisir à coup sûr.
+						</p>
+					</div>
+					<div class="main__intro-item">
+						<h3 class="main__intro-title main__intro-title--center">Partager</h3>
+						<ul class="main__social-list">
+							<li class="main__social-list-item">
+								<a href="https://www.facebook.com/profile.php?id=61573909055642" target="_blank" rel="noopener noreferrer">
+									<img src="{{ asset('images/logo_facebook.webp') }}" alt="Facebook" class="main__social-icon">
+								</a>
+							</li>
+							<li class="main__social-list-item">
+								<a href="https://www.instagram.com/repere_hub/" target="_blank" rel="noopener noreferrer">
+									<img src="{{ asset('images/logo_thread.webp') }}" alt="Instagram" class="main__social-icon">
+								</a>
+							</li>
+							<li class="main__social-list-item">
+								<a href="https://www.threads.net/@repere_hub?hl=fr" target="_blank" rel="noopener noreferrer">
+									<img src="{{ asset('images/logo_instagram.webp') }}" alt="Thread" class="main__social-icon">
+								</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</section>
+
+			<section class="section section--top-ventes">
+				<h2 class="section__title">Top ventes</h2>
+
+				<div class="section__descriptions">
+					<p class="section__description">
+						Explorez notre sélection de
+						<strong>jouets incontournables</strong>, spécialement choisis pour leur popularité et leur qualité. 
+							        Parmi ces
+						<strong>top ventes</strong>, vous trouverez des
+						<strong>jeux éducatifs</strong>, des
+						<strong>jeux de société</strong>
+						captivants, des
+						<strong>jeux de plein air</strong>
+						pour toute la famille et même des articles liés à l'univers
+						<strong>gaming</strong>. Ces produits variés sont parfaits pour éveiller la créativité des enfants et offrir des moments de plaisir partagé.
+					</p>
+					<p class="section__description">
+						Que vous cherchiez des
+						<strong>idées de cadeaux pour enfants</strong>
+						ou des
+						<strong>activités ludiques</strong>
+						pour occuper petits et grands, cette sélection vous propose des références adaptées à tous les âges. 
+						        Vous y trouverez également des
+						<strong>livres pour enfants</strong>, idéaux pour développer leur imagination et leurs compétences tout en s’amusant.
+					</p>
+					<p class="section__description">
+						Découvrez dès maintenant ces
+						<strong>jouets et jeux populaires</strong>, qu'il s'agisse de jeux éducatifs pour apprendre tout en jouant, de jeux de plein air pour se dépenser en famille, 
+							        ou encore de jeux de société incontournables pour animer vos soirées. Ces articles sont parfaits pour enrichir votre quotidien ou offrir des moments mémorables à vos proches.
+					</p>
+				</div>
+
+				<ul class="section__list">
+					{% for topVente in topVentes %}
+						<li class="section__item">
+
+							<h3 class="section__item-title">{{ topVente.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+
+							<div class="section__item-content">
+								<img src={{ topVente.getImage() }} alt="{{ topVente.getNom()|length > 50 ? topVente.getNom()[:47] ~ '...' : topVente.getNom() }}" class="section__item-image"/>
+								<div class="section__item-details">
+
+									<p class="section__item-description">
+										{{ topVente.getDescription()|slice(0, 200) ~ (topVente.getDescription()|length > 200 ? '...' : '') }}
+									</p>
+
+									<div class="section__item-price-wrapper">
+										<div class="section__item-prices">
+											{% if topVente.getPromo() %}
+												<p class="section__item-promo">-{{ topVente.getPromo() }}%</p>
+											{% endif %}
+											<p class="section__item-price">{{ topVente.getPrix() }}€</p>
+										</div>
+										<a href={{ topVente.getLien() }} class="section__item-link">
+											Voir l'offre
+											<img src="{{ asset('images/logo_amazon.webp') }}" alt="." class="section__item-link-icon"/>
+										</a>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+
+				<a href="{{ path('top_ventes') }}" class="section__more-link">Voir Plus<img class="section__more-link-icone" src="{{ asset('images/arrow5.webp') }}" alt=">"/></a>
+			</section>
+
+			<section class="section section--promotions">
+				<h2 class="section__title">Promotions</h2>
+
+				<div class="section__descriptions">
+					<p class="section__description">
+						Découvrez les
+						<strong>bons plans du moment</strong>
+						sur une sélection de
+						<strong>jouets, jeux de société</strong>, et autres produits populaires. 
+							        Que vous cherchiez des
+						<strong>jeux éducatifs</strong>
+						pour vos enfants, des
+						<strong>jeux d'extérieur</strong>
+						pour profiter du plein air, ou encore des articles de
+						<strong>gaming</strong>, 
+							        ces offres vous permettent de trouver des produits intéressants à des prix avantageux.
+					</p>
+					<p class="section__description">
+						Cette sélection inclut une variété de produits tels que des
+						<strong>livres pour enfants</strong>, des
+						<strong>jeux de construction</strong>, ou encore des
+						<strong>accessoires de gaming</strong>. 
+							        Quels que soient vos besoins, vous trouverez certainement des idées qui sauront plaire aux petits comme aux grands, tout en explorant les meilleures offres disponibles.
+					</p>
+					<p class="section__description">
+						Parcourez ces
+						<strong>offres incontournables</strong>
+						pour dénicher des
+						<strong>jouets ludiques</strong>, des
+						<strong>jeux éducatifs</strong>, ou des produits liés au
+						<strong>gaming</strong>
+						qui feront le bonheur de toute la famille. 
+						        Ces bons plans sont une excellente occasion d'allier qualité et économies, pour se faire plaisir ou gâter vos proches.
+					</p>
+				</div>
+
+				<ul class="section__list">
+					{% for promo in promos %}
+						<li class="section__item">
+							<h3 class="section__item-title">{{ promo.getNom()|split(' ')|slice(0, 5)|join(' ') }}</h3>
+							<div class="section__item-content">
+								<img src={{ promo.getImage() }} alt="{{ promo.getNom()|length > 50 ? promo.getNom()[:47] ~ '...' : promo.getNom() }}" class="section__item-image"/>
+								<div class="section__item-details">
+									<p class="section__item-description">{{ promo.getDescription()|slice(0, 200) ~ (promo.getDescription()|length > 200 ? '...' : '') }}</p>
+									<div class="section__item-price-wrapper">
+										<div class="section__item-prices">
+											{% if promo.getPromo() %}
+												<p class="section__item-promo">-{{ promo.getPromo() }}%</p>
+											{% endif %}
+											<p class="section__item-price">{{ promo.getPrix() }}€</p>
+										</div>
+										<a href={{ promo.getLien() }} class="section__item-link">
+											Voir l'offre
+											<img src="{{ asset('images/logo_amazon.webp') }}" alt="." class="section__item-link-icon"/>
+										</a>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+
+				<a href="{{ path('promotions') }}" class="section__more-link">Voir plus<img class="section__more-link-icone" src="{{ asset('images/arrow2.webp') }}" alt=">"/></a>
+			</section>
+
+			<p class="main__intro-text" style="text-align: center;">Dernière mise à jour :
+				{{ formattedDate }}</p>
+
+		</main>
+	{% endblock %}
