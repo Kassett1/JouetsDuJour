@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block head %}
-  <title>Jouets : Sélections pour Tous les Âges | Repère Hub</title>
+  <title>Jouets : Sélections pour Tous les Âges | Jouets du Jour</title>
   
   <meta name="description" content="Offres et promos sur les jouets, jeux de société, gaming et plus. Des idées cadeaux à petit prix pour faire plaisir sans se ruiner." />
   <meta name="robots" content="index, follow" />
   <meta name="keywords" content="jouets enfants, jouets éducatifs, figurines, peluches, jeux de construction, idées cadeaux, jouets par âge" />
   
-  <link rel="canonical" href="https://reperehub.com/jouets" />
+  <link rel="canonical" href="https://jouetsdujour.com/jouets" />
 {% endblock %}
 
 {% block javascripts %}
@@ -18,7 +18,7 @@
 	                "mainEntity": {
 	                    "@type": "Product",
 	                    "name": "Jouets éducatifs, figurines, peluches et jeux de construction pour enfants",
-	                    "image": "https://reperehub.com/images/logo_reperehub.webp",
+	                    "image": "https://jouetsdujour.com/images/logo_jouets_du_jour.webp",
 	                    "description": "Découvrez notre collection variée de jouets adaptés à tous les âges : éducatifs, figurines, peluches et jeux de construction.",
 	                    "offers": {
 	                        "@type" : "AggregateOffer",
@@ -34,9 +34,6 @@
 	        </script>
 {% endblock %}
 
-{% block title %}
-	Jouets : Sélections pour Tous les Âges | Repère Hub
-{% endblock %}
 {% block
 stylesheets %}
 	<link rel="stylesheet" href="{{ asset('css/categories.css') }}"/>

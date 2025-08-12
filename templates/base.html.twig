@@ -4,12 +4,9 @@
 		<meta charset="UTF-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<meta name="author" content="Repère Hub">
+		<meta name="author" content="Jouets du Jour">
 		<link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 		<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/> {% block head %}{% endblock %}
-		<title>
-			{% block title %}{% endblock %}
-		</title>
 
 		{% block stylesheets %}{% endblock %}
 
@@ -26,7 +23,7 @@
 				<nav class="nav container">
 					<div class="nav__data">
 						<a href="{{ path('home') }}" class="nav__logo">
-							<img src="{{ asset('images/logo_reperehub.webp') }}" alt="logo">
+							<img src="{{ asset('images/logo_jouets_du_jour.webp') }}" alt="logo">
 						</a>
 
 						<div class="nav__toggle" id="nav-toggle">
@@ -95,7 +92,7 @@
 				<nav class="footer__nav">
 					<ul class="footer__list">
 						<li class="footer__item">
-							<a href="{{ path('home') }}" class="footer__link"><img src="{{ asset('images/logo_reperehub.webp') }}" alt="Acueil"/></a>
+							<a href="{{ path('home') }}" class="footer__link"><img src="{{ asset('images/logo_jouets_du_jour.webp') }}" alt="Acueil"/></a>
 						</li>
 						<li class="footer__item">
 							<a href="{{ path('mentions_legales') }}" class="footer__link">Mentions légales</a>
