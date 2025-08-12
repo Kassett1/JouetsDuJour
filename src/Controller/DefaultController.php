@@ -641,16 +641,16 @@ class DefaultController extends AbstractController
         $articles = $articleRepository->findAll();
 
         $urls = [
-            ['loc' => 'https://reperehub.com/', 'lastmod' => $date, 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/jouets', 'lastmod' => '2025-07-20', 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/jeux-de-societe', 'lastmod' => $date, 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/gaming', 'lastmod' => $date, 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/jeux-educatifs', 'lastmod' => $date, 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/jeux-plein-air', 'lastmod' => $date, 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/livres', 'lastmod' => $date, 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/top-ventes', 'lastmod' => $date, 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/promotions', 'lastmod' => $date, 'priority' => '1.0'],
-            ['loc' => 'https://reperehub.com/articles', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/jouets', 'lastmod' => '2025-07-20', 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/jeux-de-societe', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/gaming', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/jeux-educatifs', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/jeux-plein-air', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/livres', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/top-ventes', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/promotions', 'lastmod' => $date, 'priority' => '1.0'],
+            ['loc' => 'https://jouetsdujour.com/articles', 'lastmod' => $date, 'priority' => '1.0'],
         ];
 
         foreach ($articles as $article) {
