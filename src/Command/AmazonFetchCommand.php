@@ -285,7 +285,7 @@ class AmazonFetchCommand extends Command
                     "ItemInfo.Features",
                     "Offers.Listings.Price",
                     "BrowseNodeInfo.BrowseNodes.SalesRank",
-                ],
+                ],-
                 "Availability" => "Available",
                 "PartnerTag" => $associateTag,
                 "PartnerType" => "Associates",
