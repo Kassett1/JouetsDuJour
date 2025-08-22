@@ -28,9 +28,14 @@ class ArticlesController extends AbstractController
 
         $articles = $articleRepository->findAll();
 
+        $lastArticle = $articleRepository->findOneBy([], ['date' => 'DESC']);
+
+        $date = formatDateFr($lastArticle->getDate());
+
         return $this->render('default/articles.html.twig', [
             'categories' => $categories,
             'articles' => $articles,
+            'date' => $date,
         ]);
     }
 
