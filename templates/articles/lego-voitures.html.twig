@@ -35,7 +35,7 @@
       {
         "@type": "ListItem",
         "position": {{ loop.index }},
-        "name": "{{ produit.getNom()|e('js') }}"
+        "name": "{{ produit.getNom() }}"
       }{{ not loop.last ? ',' : '' }}
       {% endfor %}
     ]
