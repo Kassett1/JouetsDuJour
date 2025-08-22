@@ -10,27 +10,50 @@
 {% endblock %}
 
 {% block javascripts %}
-	 <script type="application/ld+json">
-	{
-	  "@context": "https://schema.org",
-	  "@type": "WebPage",
-	  "name": "Jeux éducatifs pour enfants - apprentissage ludique et développement des compétences",
-	  "mainEntity": {
-	    "@type": "Product",
-	    "name": "Jeux éducatifs pour enfants : pédagogiques, interactifs et amusants",
-	    "image": "https://jouetsdujour.com/images/logo_jouets_du_jour.webp",
-	    "description": "Découvrez notre gamme de jeux éducatifs conçus pour stimuler l'apprentissage, la créativité et la réflexion des enfants tout en s'amusant.",
-	    "offers": {
-	      "@type": "AggregateOffer",
-	      "offerCount": {{ offerCount|default(0) }},
-	      "lowPrice": {{ lowPrice|default(0) }},
-	      "highPrice": {{ highPrice|default(0) }},
-	      "priceCurrency": "EUR"
-	    }
-	  },
-	  "description": "Trouvez des jeux éducatifs adaptés à tous les âges, parfaits pour accompagner le développement intellectuel et moteur des enfants."
-	}
-	</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Jeux éducatifs pour enfants",
+  "url": "https://jouetsdujour.com/jeux-educatifs",
+  "inLanguage": "fr-FR",
+  "image": "https://jouetsdujour.com/images/jeux-educatifs-cover.webp",
+  "description": "Découvrez notre sélection de jeux éducatifs pour enfants : apprentissage des chiffres, des lettres, développement de la mémoire, logique et créativité.",
+
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "numberOfItems": {{ offerCount|default(0) }},
+    "itemListElement": [
+      {% for p in produits %}
+      {
+        "@type": "Product",
+        "name": "{{ p.nom }}",
+        "image": "{{ p.image }}",
+        "url": "{{ p.lien }}",
+        "offers": {
+          "@type": "Offer",
+          "price": {{ p.prix ?? 0 }},
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock"
+        }
+      }{{ not loop.last ? ',' : '' }}
+      {% endfor %}
+    ]
+  },
+
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": {{ offerCount|default(0) }},
+    "lowPrice": {{ lowPrice|default(0) }},
+    "highPrice": {{ highPrice|default(0) }},
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
+
 {% endblock %}
 
 {% block

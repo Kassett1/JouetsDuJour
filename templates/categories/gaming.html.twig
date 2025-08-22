@@ -11,27 +11,50 @@
 {% endblock %}
 
 {% block javascripts %}
-	 <script type="application/ld+json">
-	{
-	  "@context": "https://schema.org",
-	  "@type": "WebPage",
-	  "name": "Sélection gaming : jeux vidéo, consoles, accessoires et périphériques de haute qualité",
-	  "mainEntity": {
-	    "@type": "Product",
-	    "name": "Jeux vidéo, consoles de jeux, casques gaming et accessoires pour joueurs passionnés",
-	    "image": "https://jouetsdujour.com/images/logo_jouets_du_jour.webp",
-	    "description": "Explorez notre vaste gamme de produits gaming : dernières consoles, jeux vidéo populaires, casques audio, claviers, souris et autres accessoires pour une expérience immersive.",
-	    "offers": {
-	      "@type": "AggregateOffer",
-	      "offerCount": {{ offerCount|default(0) }},
-	      "lowPrice": {{ lowPrice|default(0) }},
-	      "highPrice": {{ highPrice|default(0) }},
-	      "priceCurrency": "EUR"
-	    }
-	  },
-	  "description": "Trouvez les meilleurs équipements gaming : consoles, jeux, périphériques et accessoires sélectionnés pour booster vos performances et votre confort de jeu."
-	}
-	</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Gaming : jeux vidéo, consoles et accessoires",
+  "url": "https://jouetsdujour.com/gaming",
+  "inLanguage": "fr-FR",
+  "image": "https://jouetsdujour.com/images/gaming-cover.webp",
+  "description": "Jeux vidéo, consoles de jeux, casques gaming et accessoires pour joueurs passionnés.",
+
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "numberOfItems": {{ offerCount|default(0) }},
+    "itemListElement": [
+      {% for p in produits %}
+      {
+        "@type": "Product",
+        "name": "{{ p.nom }}",
+        "image": "{{ p.image }}",
+        "url": "{{ p.lien }}",
+        "offers": {
+          "@type": "Offer",
+          "price": {{ p.prix ?? 0 }},
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock"
+        }
+      }{{ not loop.last ? ',' : '' }}
+      {% endfor %}
+    ]
+  },
+
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": {{ offerCount|default(0) }},
+    "lowPrice": {{ lowPrice|default(0) }},
+    "highPrice": {{ highPrice|default(0) }},
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
+
 {% endblock %}
 
 {% block

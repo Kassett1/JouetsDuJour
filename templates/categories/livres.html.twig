@@ -10,27 +10,50 @@
 {% endblock %}
 
 {% block javascripts %}
-	 <script type="application/ld+json">
-	{
-	  "@context": "https://schema.org",
-	  "@type": "WebPage",
-	  "name": "Livres pour enfants : histoires, contes éducatifs et albums illustrés",
-	  "mainEntity": {
-	    "@type": "Product",
-	    "name": "Livres jeunesse : albums, contes, histoires éducatives et illustrées pour enfants",
-	    "image": "https://jouetsdujour.com/images/logo_jouets_du_jour.webp",
-	    "description": "Découvrez notre sélection de livres pour enfants, avec des histoires captivantes, contes éducatifs et albums illustrés pour stimuler l'imagination et l'apprentissage.",
-	    "offers": {
-	      "@type": "AggregateOffer",
-	      "offerCount": {{ offerCount|default(0) }},
-	      "lowPrice": {{ lowPrice|default(0) }},
-	      "highPrice": {{ highPrice|default(0) }},
-	      "priceCurrency": "EUR"
-	    }
-	  },
-	  "description": "Trouvez les meilleurs livres jeunesse pour accompagner le développement et la passion de la lecture chez les enfants."
-	}
-	</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Livres pour enfants",
+  "url": "https://jouetsdujour.com/livres-enfants",
+  "inLanguage": "fr-FR",
+  "image": "https://jouetsdujour.com/images/livres-enfants-cover.webp",
+  "description": "Notre sélection de livres pour enfants : albums illustrés, premières lectures, documentaires et séries pour tous les âges.",
+
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "numberOfItems": {{ offerCount|default(0) }},
+    "itemListElement": [
+      {% for p in produits %}
+      {
+        "@type": "Book",
+        "name": "{{ p.nom }}",
+        "image": "{{ p.image }}",
+        "url": "{{ p.lien }}",
+        "offers": {
+          "@type": "Offer",
+          "price": {{ p.prix ?? 0 }},
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock"
+        }
+      }{{ not loop.last ? ',' : '' }}
+      {% endfor %}
+    ]
+  },
+
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": {{ offerCount|default(0) }},
+    "lowPrice": {{ lowPrice|default(0) }},
+    "highPrice": {{ highPrice|default(0) }},
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
+
 {% endblock %}
 
 {% block

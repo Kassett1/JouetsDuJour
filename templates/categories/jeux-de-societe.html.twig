@@ -10,27 +10,50 @@
 {% endblock %}
 
 {% block javascripts %}
-	 <script type="application/ld+json">
-	{
-	  "@context": "https://schema.org",
-	  "@type": "WebPage",
-	  "name": "Sélection de jeux de société : classiques, coopératifs, éducatifs et stratégiques",
-	  "mainEntity": {
-	    "@type": "Product",
-	    "name": "Jeux de société pour tous : famille, enfants et amateurs de stratégie",
-	    "image": "https://jouetsdujour.com/images/logo_jouets_du_jour.webp",
-	    "description": "Explorez notre collection de jeux de société variés : jeux classiques, coopératifs, éducatifs et stratégiques pour des moments conviviaux en famille ou entre amis.",
-	    "offers": {
-	      "@type": "AggregateOffer",
-	      "offerCount": {{ offerCount|default(0) }},
-	      "lowPrice": {{ lowPrice|default(0) }},
-	      "highPrice": {{ highPrice|default(0) }},
-	      "priceCurrency": "EUR"
-	    }
-	  },
-	  "description": "Trouvez le jeu de société idéal pour toutes les occasions, que ce soit pour des soirées en famille, entre amis ou pour développer la réflexion des plus jeunes."
-	}
-	</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Jeux de société pour enfants et familles",
+  "url": "https://jouetsdujour.com/jeux-de-societe",
+  "inLanguage": "fr-FR",
+  "image": "https://jouetsdujour.com/images/jeux-de-societe-cover.webp",
+  "description": "Sélection de jeux de société pour enfants, ados et familles : classiques, coopératifs, rapides, d'ambiance et stratégiques.",
+
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "numberOfItems": {{ offerCount|default(0) }},
+    "itemListElement": [
+      {% for p in produits %}
+      {
+        "@type": "Product",
+        "name": "{{ p.nom }}",
+        "image": "{{ p.image }}",
+        "url": "{{ p.lien }}",
+        "offers": {
+          "@type": "Offer",
+          "price": {{ p.prix ?? 0 }},
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock"
+        }
+      }{{ not loop.last ? ',' : '' }}
+      {% endfor %}
+    ]
+  },
+
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": {{ offerCount|default(0) }},
+    "lowPrice": {{ lowPrice|default(0) }},
+    "highPrice": {{ highPrice|default(0) }},
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
+
 {% endblock %}
 
 {% block

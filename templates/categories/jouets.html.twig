@@ -11,28 +11,50 @@
 
 {% block javascripts %}
 
-	 <script type="application/ld+json">
-	            {
-	                "@context": "https://schema.org",
-	                "@type": "WebPage",
-	                "name": "Sélection de jouets pour tous les âges - Jouets éducatifs, figurines, peluches, jeux de construction",
-	                "mainEntity": {
-	                    "@type": "Product",
-	                    "name": "Jouets éducatifs, figurines, peluches et jeux de construction pour enfants",
-	                    "image": "https://jouetsdujour.com/images/categories/jouets.webp",
-	                    "description": "Découvrez notre collection variée de jouets adaptés à tous les âges : éducatifs, figurines, peluches et jeux de construction.",
-	                    "offers": {
-	                        "@type" : "AggregateOffer",
-	                        "offerCount": {{ offerCount }},
-	                        "lowPrice": {{ lowPrice }},
-	                        "highPrice": {{ highPrice }},
-	                        "priceCurrency": "EUR"
-	                    }
-	                    
-	                },
-	                "description": "Trouvez le jouet parfait pour chaque enfant grâce à notre sélection complète et régulièrement mise à jour."
-	            }
-	        </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Jouets pour enfants",
+  "url": "https://jouetsdujour.com/jouets",
+  "inLanguage": "fr-FR",
+  "image": "https://jouetsdujour.com/images/jouets-cover.webp",
+  "description": "Découvrez notre sélection de jouets pour enfants : éducatifs, créatifs, ludiques et adaptés à tous les âges.",
+
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "numberOfItems": {{ offerCount|default(0) }},
+    "itemListElement": [
+      {% for p in produits %}
+      {
+        "@type": "Product",
+        "name": "{{ p.nom }}",
+        "image": "{{ p.image }}",
+        "url": "{{ p.lien }}",
+        "brand": { "@type": "Brand", "name": "LEGO" },
+        "offers": {
+          "@type": "Offer",
+          "price": {{ p.prix ?? 0 }},
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock"
+        }
+      }{{ not loop.last ? ',' : '' }}
+      {% endfor %}
+    ]
+  },
+
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": {{ offerCount|default(0) }},
+    "lowPrice": {{ lowPrice|default(0) }},
+    "highPrice": {{ highPrice|default(0) }},
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
+
 {% endblock %}
 
 {% block
