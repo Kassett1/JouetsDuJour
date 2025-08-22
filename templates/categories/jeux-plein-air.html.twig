@@ -29,9 +29,9 @@
       {% for p in produits %}
       {
         "@type": "Product",
-        "name": "{{ p.nom|e('js') }}",
-        "image": "{{ p.image|e('js') }}",
-        "url": "{{ p.lien|e('js') }}",
+        "name": "{{ p.nom }}",
+        "image": "{{ p.image }}",
+        "url": "{{ p.lien }}",
         "brand": { "@type": "Brand", "name": "LEGO" },
         "offers": {
           "@type": "Offer",
