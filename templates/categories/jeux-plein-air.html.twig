@@ -10,27 +10,50 @@
 {% endblock %}
 
 {% block javascripts %}
-	 <script type="application/ld+json">
-	{
-	  "@context": "https://schema.org",
-	  "@type": "WebPage",
-	  "name": "Jeux de plein air pour enfants - activités ludiques, sportives et créatives en extérieur",
-	  "mainEntity": {
-	    "@type": "Product",
-	    "name": "Jeux en plein air : jouets, équipements sportifs et accessoires pour enfants",
-	    "image": "https://jouetsdujour.com/images/logo_jouets_du_jour.webp",
-	    "description": "Découvrez notre sélection de jeux en plein air pour enfants, incluant jouets, équipements sportifs et accessoires pour des moments actifs et amusants en extérieur.",
-	    "offers": {
-	      "@type": "AggregateOffer",
-	      "offerCount": {{ offerCount|default(0) }},
-	      "lowPrice": {{ lowPrice|default(0) }},
-	      "highPrice": {{ highPrice|default(0) }},
-	      "priceCurrency": "EUR"
-	    }
-	  },
-	  "description": "Trouvez les meilleurs jeux de plein air pour enfants, parfaits pour encourager le sport, la créativité et le jeu en extérieur."
-	}
-	</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Jeux de plein air pour enfants",
+  "url": "https://jouetsdujour.com/jeux-plein-air",
+  "inLanguage": "fr-FR",
+  "image": "https://jouetsdujour.com/images/jeux-plein-air-cover.webp",
+  "description": "Trouvez les meilleurs jeux de plein air pour enfants, parfaits pour encourager le sport, la créativité et le jeu en extérieur.",
+
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "numberOfItems": {{ offerCount|default(0) }},
+    "itemListElement": [
+      {% for p in produits %}
+      {
+        "@type": "Product",
+        "name": "{{ p.nom|e('js') }}",
+        "image": "{{ p.image|e('js') }}",
+        "url": "{{ p.lien|e('js') }}",
+        "brand": { "@type": "Brand", "name": "LEGO" },
+        "offers": {
+          "@type": "Offer",
+          "price": {{ p.prix ?? 0 }},
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock"
+        }
+      }{{ not loop.last ? ',' : '' }}
+      {% endfor %}
+    ]
+  },
+
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": {{ offerCount|default(0) }},
+    "lowPrice": {{ lowPrice|default(0) }},
+    "highPrice": {{ highPrice|default(0) }},
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
 {% endblock %}
 
 {% block
