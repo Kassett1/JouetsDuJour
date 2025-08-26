@@ -31,7 +31,7 @@
       {
         "@type": "Article",
         "headline": "{{ a.nom }}",
-        "url": "{{ path('article_show', {id: a.id})|absolute_url }}",
+        "url": "{{ a.lien }}",
         "image": "{{ a.image }}"{% if a.date %},
         "dateModified": "{{ a.date|date('c') }}"{% endif %}
       }{{ not loop.last ? ',' : '' }}
