@@ -11,30 +11,36 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script type="application/ld+json">
-		{
-							  "@context": "https://schema.org",
-							  "@type": "WebPage",
-							  "name": "Sélection complète de jouets, jeux de société, gaming, jeux éducatifs et livres pour enfants",
-							  "mainEntity": {
-							    "@type": "Product",
-							    "name": "Jouets, jeux de société, jeux éducatifs, produits gaming et livres jeunesse pour toute la famille",
-							    "image": "https://jouetsdujour.com/images/logo_jouets_du_jour.webp",
-							    "description": "Explorez notre large gamme de produits : jouets variés, jeux de société, consoles et accessoires gaming, jeux éducatifs, jeux en plein air et livres pour enfants, pour tous les âges et tous les goûts.",
-							    "offers": {
-							      "@type": "AggregateOffer",
-							      "offerCount":
-		{{ offerCount|default(0) }},
-							      "lowPrice":
-		{{ lowPrice|default(0) }},
-							      "highPrice":
-		{{ highPrice|default(0) }},
-							      "priceCurrency": "EUR"
-							    }
-							  },
-							  "description": "Trouvez facilement les meilleurs produits pour enfants et familles : jouets, jeux, accessoires gaming et livres, avec des sélections régulièrement mises à jour."
-							}
-	</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Sélection complète : jouets, jeux de société, gaming, jeux éducatifs et livres",
+  "url": "https://jouetsdujour.com/articles",
+  "inLanguage": "fr-FR",
+  "image": "https://jouetsdujour.com/images/articles-cover.webp",
+  "description": "Tous nos articles thématiques : guides, tops et sélections autour des jouets, jeux de société, gaming, jeux éducatifs et livres.",
+
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "numberOfItems": {{ articles|length }},
+    "itemListElement": [
+      {% for a in articles %}
+      {
+        "@type": "Article",
+        "headline": "{{ a.nom }}",
+        "url": "{{ path('article_show', {id: a.id})|absolute_url }}",
+        "image": "{{ a.image }}"{% if a.date %},
+        "dateModified": "{{ a.date|date('c') }}"{% endif %}
+      }{{ not loop.last ? ',' : '' }}
+      {% endfor %}
+    ]
+  }
+}
+</script>
+
 {% endblock %}
 
 {% block
