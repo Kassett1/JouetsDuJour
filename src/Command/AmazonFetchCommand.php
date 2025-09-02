@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\Console\Command\LockableTrait;
 use App\Entity\Produit;
 use App\Util\AwsV4;
 use App\Entity\Tag;
@@ -20,23 +21,27 @@ use App\Entity\SousCategorie;
 )]
 class AmazonFetchCommand extends Command
 {
+    use LockableTrait;
+
     private HttpClientInterface $httpClient;
     private EntityManagerInterface $entityManager;
+
+    // timestamp du dernier appel pour throttling
+    private float $lastCallTs = 0.0;
 
     public function __construct(HttpClientInterface $httpClient, EntityManagerInterface $entityManager)
     {
         parent::__construct();
-        $this->httpClient = $httpClient;
+        $this->httpClient   = $httpClient;
         $this->entityManager = $entityManager;
     }
 
-    private function aws4($payload)
+    private function aws4(string $payload): AwsV4
     {
-        $region = $_ENV['AWS_REGION'];
+        $region    = $_ENV['AWS_REGION'];
         $accessKey = $_ENV['AWS_ACCESS_KEY'];
         $secretKey = $_ENV['AWS_SECRET_KEY'];
 
-        // 4️⃣ Génération des headers signés
         $awsv4 = new AwsV4($accessKey, $secretKey);
         $awsv4->setRegionName($region);
         $awsv4->setServiceName("ProductAdvertisingAPI");
@@ -52,47 +57,117 @@ class AmazonFetchCommand extends Command
         return $awsv4;
     }
 
-    private function addToBDD_1()
+    /** Throttle simple pour éviter les bursts. */
+    private function throttle(int $minMs = 1600): void
     {
-
+        $now = microtime(true);
+        $elapsedMs = (int)(($now - $this->lastCallTs) * 1000);
+        if ($elapsedMs < $minMs) {
+            usleep(($minMs - $elapsedMs) * 1000);
+        }
+        $this->lastCallTs = microtime(true);
     }
 
-    private function requete_1($output, $httpClient, $entityManager)
+    /**
+     * Envoie une requête PA-API avec retries (429/5xx) et respect de Retry-After.
+     * Retourne le tableau décodé ou null.
+     */
+    private function callPaapi(array $payloadArr, OutputInterface $output): ?array
     {
-        // 🔹 Définition des plages de prix
+        $url     = "https://webservices.amazon.fr/paapi5/searchitems";
+        $payload = json_encode($payloadArr, JSON_UNESCAPED_UNICODE);
+        $headers = $this->aws4($payload)->getHeaders();
+
+        $maxRetries = 6;
+
+        for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
+            // espacement minimal entre appels
+            $this->throttle(1600);
+
+            try {
+                $response = $this->httpClient->request('POST', $url, [
+                    'headers' => $headers,
+                    'body'    => $payload,
+                    'timeout' => 30,
+                ]);
+
+                $status = $response->getStatusCode();
+
+                if ($status === 429) {
+                    $headersAll = $response->getHeaders(false);
+                    $retryAfter = 0;
+                    if (!empty($headersAll['retry-after'][0])) {
+                        $retryAfter = (int)$headersAll['retry-after'][0];
+                    }
+
+                    if ($attempt === $maxRetries) {
+                        $output->writeln("Erreur 429 persistante (tentative $attempt/$maxRetries)");
+                        return null;
+                    }
+
+                    $sleepSec = max($retryAfter, (int)pow(2, $attempt - 1)) + (random_int(0, 500) / 1000);
+                    $output->writeln("429 reçu, attente {$sleepSec}s puis retry (tentative $attempt/$maxRetries)...");
+                    usleep((int)($sleepSec * 1_000_000));
+                    continue;
+                }
+
+                if ($status >= 500) {
+                    if ($attempt === $maxRetries) {
+                        $output->writeln("Erreur $status serveur après $attempt tentatives.");
+                        return null;
+                    }
+                    $sleepSec = (int)pow(2, $attempt - 1) + (random_int(0, 500) / 1000);
+                    $output->writeln("Erreur $status, retry dans {$sleepSec}s (tentative $attempt/$maxRetries)...");
+                    usleep((int)($sleepSec * 1_000_000));
+                    continue;
+                }
+
+                // 2xx/3xx — on tente de parser même vide
+                return $response->toArray(false);
+
+            } catch (\Throwable $e) {
+                if ($attempt === $maxRetries) {
+                    $output->writeln("Exception HttpClient: " . $e->getMessage());
+                    return null;
+                }
+                $sleepSec = (int)pow(2, $attempt - 1) + (random_int(0, 500) / 1000);
+                $output->writeln("Exception réseau, retry dans {$sleepSec}s (tentative $attempt/$maxRetries)...");
+                usleep((int)($sleepSec * 1_000_000));
+            }
+        }
+        return null;
+    }
+
+    private function requete_1(OutputInterface $output): array
+    {
         $priceRanges = [
-            ['min' => 1, 'max' => 2000],     // 0-20€
-            ['min' => 2001, 'max' => 5000],  // 20-50€
-            ['min' => 5001, 'max' => 10000], // 50-100€
-            ['min' => 10001, 'max' => 100000]  // 100€+
+            ['min' => 1,     'max' => 2000],    // 0-20€
+            ['min' => 2001,  'max' => 5000],    // 20-50€
+            ['min' => 5001,  'max' => 10000],   // 50-100€
+            ['min' => 10001, 'max' => 100000],  // 100€+
         ];
 
         $allProducts = [];
-
         $associateTag = $_ENV['AWS_ASSOCIATE_TAG'];
 
-        // 🔹 Récupération des tags en base de données
-        $tagRepo = $entityManager->getRepository(Tag::class);
+        $tagRepo = $this->entityManager->getRepository(Tag::class);
         $tagPromo = $tagRepo->findOneBy(['nom' => 'Promo']);
         $tagTopVentes = $tagRepo->findOneBy(['nom' => 'Top Ventes']);
 
-        // 🔹 Récupération des catégories en base de données
-        $categorieRepo = $entityManager->getRepository(Categorie::class);
+        $categorieRepo = $this->entityManager->getRepository(Categorie::class);
         $categorie = $categorieRepo->findOneBy(['nom' => 'Jouets']);
 
-        // Requête API Amazon sur les plages de prix
         foreach ($priceRanges as $range) {
-            $output->writeln("Récupération des Jouets pour la plage de prix min: {$range['min']} - max: " . ($range['max'] ?? '∞'));
+            $min = (int)$range['min'];
+            $max = (int)$range['max'];
+            $output->writeln("Récupération des Jouets pour la plage de prix min: {$min} - max: {$max}");
 
-            $maxPages = ($range['min'] === 1 && $range['max'] === 2000) ? 2 : 1; // 2 pages pour la première plage, sinon 1
+            $maxPages = ($min === 1 && $max === 2000) ? 2 : 1;
 
             for ($page = 1; $page <= $maxPages; $page++) {
-                // $output->writeln("📄 Page $page/$maxPages pour cette plage de prix");
-
-                $url = "https://webservices.amazon.fr/paapi5/searchitems";
-                $payload = json_encode([
-                    "Keywords" => "jouets",
-                    "Resources" => [
+                $payloadArray = [
+                    "Keywords"     => "jouets",
+                    "Resources"    => [
                         "ItemInfo.Title",
                         "Images.Primary.Large",
                         "ItemInfo.Features",
@@ -100,95 +175,68 @@ class AmazonFetchCommand extends Command
                         "BrowseNodeInfo.BrowseNodes.SalesRank",
                     ],
                     "Availability" => "Available",
-                    "PartnerTag" => $associateTag,
-                    "PartnerType" => "Associates",
-                    "Marketplace" => "www.amazon.fr",
-                    "MaxPrice" => $range['max'],
-                    "MinPrice" => $range['min'],
-                    "ItemPage" => $page, // Ajout de la pagination
-                ]);
+                    "PartnerTag"   => $associateTag,
+                    "PartnerType"  => "Associates",
+                    "Marketplace"  => "www.amazon.fr",
+                    "MaxPrice"     => $max,
+                    "MinPrice"     => $min,
+                    "ItemPage"     => (int)$page,
+                ];
 
-                $headers = $this->aws4($payload)->getHeaders();
+                $data = $this->callPaapi($payloadArray, $output);
+                if (!$data) { continue; }
 
-                // 5️⃣ Exécuter la requête et récupérer les résultats
-                try {
-                    $response = $httpClient->request('POST', $url, [
-                        'headers' => $headers,
-                        'body' => $payload,
-                    ]);
-                    $data = $response->toArray();
-                } catch (\Exception $e) {
-                    $output->writeln("Erreur lors de la requête Amazon : " . $e->getMessage());
-                    continue;
-                }
-
-                // 6️⃣ Sauvegarde temporaire des produits
                 foreach ($data['SearchResult']['Items'] ?? [] as $item) {
-                    if (isset($item['Offers']['Listings'][0]['Price']['Amount'])) {
-                        $product = new Produit();
-                        $product->setNom($item['ItemInfo']['Title']['DisplayValue'] ?? 'Inconnu');
-                        $product->setPrix($item['Offers']['Listings'][0]['Price']['Amount']);
+                    $amount = $item['Offers']['Listings'][0]['Price']['Amount'] ?? null;
+                    if (!is_numeric($amount)) { continue; }
 
-                        if (isset($item['Offers']['Listings'][0]['Price']['Savings']['Percentage'])) {
-                            $product->setPromo($item['Offers']['Listings'][0]['Price']['Savings']['Percentage']);
-                            $product->addTag($tagPromo);
-                        }
+                    $product = new Produit();
+                    $product->setNom($item['ItemInfo']['Title']['DisplayValue'] ?? 'Inconnu');
+                    $product->setPrix((float)$amount);
 
-                        $product->setImage($item['Images']['Primary']['Large']['URL'] ?? null);
-                        $product->setLien($item['DetailPageURL']);
-                        $product->setDescription($item['ItemInfo']['Title']['DisplayValue']);
-
-                        if (
-                            !empty($item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank']) &&
-                            $item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank'] == 1
-                        ) {
-                            if ($tagTopVentes) {
-                                $product->addTag($tagTopVentes);
-                            }
-                        }
-
-                        $product->addCategorie($categorie);
-                        $allProducts[] = $product;
+                    $promoPct = $item['Offers']['Listings'][0]['Price']['Savings']['Percentage'] ?? null;
+                    if (is_numeric($promoPct)) {
+                        $product->setPromo((float)$promoPct);
+                        if ($tagPromo) { $product->addTag($tagPromo); }
                     }
-                }
 
-                sleep(1);
+                    $product->setImage($item['Images']['Primary']['Large']['URL'] ?? null);
+                    $product->setLien($item['DetailPageURL'] ?? null);
+                    $product->setDescription($item['ItemInfo']['Title']['DisplayValue'] ?? null);
+
+                    $salesRank = $item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank'] ?? null;
+                    if (!empty($salesRank) && (int)$salesRank === 1 && $tagTopVentes) {
+                        $product->addTag($tagTopVentes);
+                    }
+
+                    if ($categorie) { $product->addCategorie($categorie); }
+                    $allProducts[] = $product;
+                }
             }
         }
 
         return $allProducts;
     }
 
-    private function requete_2($searchCategorie, $output, $httpClient, $entityManager)
+    private function requete_2(string $searchCategorie, OutputInterface $output): array
     {
         $allProducts = [];
-
         $associateTag = $_ENV['AWS_ASSOCIATE_TAG'];
 
-        // 🔹 Récupération des tags en base de données
-        $tagRepo = $entityManager->getRepository(Tag::class);
+        $tagRepo = $this->entityManager->getRepository(Tag::class);
         $tagPromo = $tagRepo->findOneBy(['nom' => 'Promo']);
         $tagTopVentes = $tagRepo->findOneBy(['nom' => 'Top Ventes']);
 
-        // 🔹 Récupération des catégories en base de données
-        $categorieRepo = $entityManager->getRepository(Categorie::class);
+        $categorieRepo = $this->entityManager->getRepository(Categorie::class);
+        $categorieNom = ($searchCategorie === "Livre pour enfant") ? "Livres" : $searchCategorie;
+        $categorie = $categorieRepo->findOneBy(['nom' => $categorieNom]);
 
-        if ($searchCategorie == "Livre pour enfant") {
-            $categorie = $categorieRepo->findOneBy(['nom' => "Livres"]);
-        } else {
-            $categorie = $categorieRepo->findOneBy(['nom' => $searchCategorie]);
-        }
-
-        // Requête API Amazon sur les plages de prix
         $output->writeln("Récupération des " . $searchCategorie);
 
         for ($page = 1; $page <= 3; $page++) {
-            // $output->writeln("📄 Page $page/3 pour cette catégorie");
-
-            $url = "https://webservices.amazon.fr/paapi5/searchitems";
-            $payload = json_encode([
-                "Keywords" => $searchCategorie,
-                "Resources" => [
+            $payloadArray = [
+                "Keywords"     => $searchCategorie,
+                "Resources"    => [
                     "ItemInfo.Title",
                     "Images.Primary.Large",
                     "ItemInfo.Features",
@@ -196,150 +244,111 @@ class AmazonFetchCommand extends Command
                     "BrowseNodeInfo.BrowseNodes.SalesRank",
                 ],
                 "Availability" => "Available",
-                "PartnerTag" => $associateTag,
-                "PartnerType" => "Associates",
-                "Marketplace" => "www.amazon.fr",
-                "ItemPage" => $page, // Ajout de la pagination
-            ]);
+                "PartnerTag"   => $associateTag,
+                "PartnerType"  => "Associates",
+                "Marketplace"  => "www.amazon.fr",
+                "ItemPage"     => (int)$page,
+            ];
 
-            $headers = $this->aws4($payload)->getHeaders();
+            $data = $this->callPaapi($payloadArray, $output);
+            if (!$data) { continue; }
 
-            // 5️⃣ Exécuter la requête et récupérer les résultats
-            try {
-                $response = $httpClient->request('POST', $url, [
-                    'headers' => $headers,
-                    'body' => $payload,
-                ]);
-                $data = $response->toArray();
-            } catch (\Exception $e) {
-                $output->writeln("Erreur lors de la requête Amazon : " . $e->getMessage());
-                continue;
-            }
-
-            // 6️⃣ Sauvegarde temporaire des produits
             foreach ($data['SearchResult']['Items'] ?? [] as $item) {
-                if (isset($item['Offers']['Listings'][0]['Price']['Amount'])) {
-                    $product = new Produit();
-                    $product->setNom($item['ItemInfo']['Title']['DisplayValue'] ?? 'Inconnu');
-                    $product->setPrix($item['Offers']['Listings'][0]['Price']['Amount']);
+                $amount = $item['Offers']['Listings'][0]['Price']['Amount'] ?? null;
+                if (!is_numeric($amount)) { continue; }
 
-                    if (isset($item['Offers']['Listings'][0]['Price']['Savings']['Percentage'])) {
-                        $product->setPromo($item['Offers']['Listings'][0]['Price']['Savings']['Percentage']);
-                        $product->addTag($tagPromo);
-                    }
+                $product = new Produit();
+                $product->setNom($item['ItemInfo']['Title']['DisplayValue'] ?? 'Inconnu');
+                $product->setPrix((float)$amount);
 
-                    $product->setImage($item['Images']['Primary']['Large']['URL'] ?? null);
-                    $product->setLien($item['DetailPageURL']);
-                    $product->setDescription($item['ItemInfo']['Title']['DisplayValue']);
-
-                    if (
-                        !empty($item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank']) &&
-                        $item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank'] == 1
-                    ) {
-                        if ($tagTopVentes) {
-                            $product->addTag($tagTopVentes);
-                        }
-                    }
-
-                    $product->addCategorie($categorie);
-                    $allProducts[] = $product;
+                $promoPct = $item['Offers']['Listings'][0]['Price']['Savings']['Percentage'] ?? null;
+                if (is_numeric($promoPct)) {
+                    $product->setPromo((float)$promoPct);
+                    if ($tagPromo) { $product->addTag($tagPromo); }
                 }
-            }
 
-            sleep(1);
+                $product->setImage($item['Images']['Primary']['Large']['URL'] ?? null);
+                $product->setLien($item['DetailPageURL'] ?? null);
+                $product->setDescription($item['ItemInfo']['Title']['DisplayValue'] ?? null);
+
+                $salesRank = $item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank'] ?? null;
+                if (!empty($salesRank) && (int)$salesRank === 1 && $tagTopVentes) {
+                    $product->addTag($tagTopVentes);
+                }
+
+                if ($categorie) { $product->addCategorie($categorie); }
+                $allProducts[] = $product;
+            }
         }
 
         return $allProducts;
     }
 
-    private function requete_3($searchCategorie, $output, $httpClient, $entityManager)
+    private function requete_3(string $searchCategorie, OutputInterface $output): array
     {
         $allProducts = [];
-
         $associateTag = $_ENV['AWS_ASSOCIATE_TAG'];
 
-        // 🔹 Récupération des tags en base de données
-        $tagRepo = $entityManager->getRepository(Tag::class);
+        $tagRepo = $this->entityManager->getRepository(Tag::class);
         $tagPromo = $tagRepo->findOneBy(['nom' => 'Promo']);
         $tagTopVentes = $tagRepo->findOneBy(['nom' => 'Top Ventes']);
 
-        // 🔹 Récupération des catégories en base de données
-        $categorieRepo = $entityManager->getRepository(Categorie::class);
+        $categorieRepo = $this->entityManager->getRepository(Categorie::class);
         $categorie = $categorieRepo->findOneBy(['nom' => "Gaming"]);
 
-        $sousCategorieRepo =$entityManager->getRepository(SousCategorie::class);
+        $sousCategorieRepo = $this->entityManager->getRepository(SousCategorie::class);
         $sousCategorie = $sousCategorieRepo->findOneBy(['nom' => $searchCategorie]);
 
-        // Requête API Amazon sur les plages de prix
         $output->writeln("Récupération des " . $searchCategorie);
 
         for ($page = 1; $page <= 1; $page++) {
-            // $output->writeln("📄 Page $page/1 pour cette catégorie");
-
-            $url = "https://webservices.amazon.fr/paapi5/searchitems";
-            $payload = json_encode([
-                "Keywords" => $searchCategorie,
-                "Resources" => [
+            $payloadArray = [
+                "Keywords"     => $searchCategorie,
+                "Resources"    => [
                     "ItemInfo.Title",
                     "Images.Primary.Large",
                     "ItemInfo.Features",
                     "Offers.Listings.Price",
                     "BrowseNodeInfo.BrowseNodes.SalesRank",
-                ],-
+                ],
                 "Availability" => "Available",
-                "PartnerTag" => $associateTag,
-                "PartnerType" => "Associates",
-                "Marketplace" => "www.amazon.fr",
-                "ItemPage" => $page, // Ajout de la pagination
-            ]);
+                "PartnerTag"   => $associateTag,
+                "PartnerType"  => "Associates",
+                "Marketplace"  => "www.amazon.fr",
+                "ItemPage"     => (int)$page,
+            ];
 
-            $headers = $this->aws4($payload)->getHeaders();
+            $data = $this->callPaapi($payloadArray, $output);
+            if (!$data) { continue; }
 
-            // 5️⃣ Exécuter la requête et récupérer les résultats
-            try {
-                $response = $httpClient->request('POST', $url, [
-                    'headers' => $headers,
-                    'body' => $payload,
-                ]);
-                $data = $response->toArray();
-            } catch (\Exception $e) {
-                $output->writeln("Erreur lors de la requête Amazon : " . $e->getMessage());
-                continue;
-            }
-
-            // 6️⃣ Sauvegarde temporaire des produits
             foreach ($data['SearchResult']['Items'] ?? [] as $item) {
-                if (isset($item['Offers']['Listings'][0]['Price']['Amount'])) {
-                    $product = new Produit();
-                    $product->setNom($item['ItemInfo']['Title']['DisplayValue'] ?? 'Inconnu');
-                    $product->setPrix($item['Offers']['Listings'][0]['Price']['Amount']);
+                $amount = $item['Offers']['Listings'][0]['Price']['Amount'] ?? null;
+                if (!is_numeric($amount)) { continue; }
 
-                    if (isset($item['Offers']['Listings'][0]['Price']['Savings']['Percentage'])) {
-                        $product->setPromo($item['Offers']['Listings'][0]['Price']['Savings']['Percentage']);
-                        $product->addTag($tagPromo);
-                    }
+                $product = new Produit();
+                $product->setNom($item['ItemInfo']['Title']['DisplayValue'] ?? 'Inconnu');
+                $product->setPrix((float)$amount);
 
-                    $product->setImage($item['Images']['Primary']['Large']['URL'] ?? null);
-                    $product->setLien($item['DetailPageURL']);
-                    $product->setDescription($item['ItemInfo']['Title']['DisplayValue']);
-
-                    if (
-                        !empty($item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank']) &&
-                        $item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank'] == 1
-                    ) {
-                        if ($tagTopVentes) {
-                            $product->addTag($tagTopVentes);
-                        }
-                    }
-
-                    $product->addCategorie($categorie);
-                    $product->addSousCategorie($sousCategorie);
-
-                    $allProducts[] = $product;
+                $promoPct = $item['Offers']['Listings'][0]['Price']['Savings']['Percentage'] ?? null;
+                if (is_numeric($promoPct)) {
+                    $product->setPromo((float)$promoPct);
+                    if ($tagPromo) { $product->addTag($tagPromo); }
                 }
-            }
 
-            sleep(1);
+                $product->setImage($item['Images']['Primary']['Large']['URL'] ?? null);
+                $product->setLien($item['DetailPageURL'] ?? null);
+                $product->setDescription($item['ItemInfo']['Title']['DisplayValue'] ?? null);
+
+                $salesRank = $item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank'] ?? null;
+                if (!empty($salesRank) && (int)$salesRank === 1 && $tagTopVentes) {
+                    $product->addTag($tagTopVentes);
+                }
+
+                if ($categorie) { $product->addCategorie($categorie); }
+                if ($sousCategorie) { $product->addSousCategorie($sousCategorie); }
+
+                $allProducts[] = $product;
+            }
         }
 
         return $allProducts;
@@ -347,8 +356,13 @@ class AmazonFetchCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // Empêche les exécutions simultanées
+        if (!$this->lock()) {
+            $output->writeln('Commande déjà en cours — arrêt.');
+            return Command::SUCCESS;
+        }
 
-        // Supprimer les anciens produits avec TRUNCATE
+        // Nettoyage tables (attention : opération destructive)
         $connection = $this->entityManager->getConnection();
         $connection->executeStatement('SET FOREIGN_KEY_CHECKS = 0');
         $connection->executeStatement('TRUNCATE TABLE produit_sous_categorie');
@@ -357,30 +371,26 @@ class AmazonFetchCommand extends Command
         $connection->executeStatement('TRUNCATE TABLE produit');
         $connection->executeStatement('TRUNCATE TABLE refresh_date');
         $connection->executeStatement('SET FOREIGN_KEY_CHECKS = 1');
-        // $output->writeln('Table produit vidée avec TRUNCATE.');
 
-
-        // Insère la date actuelle dans la colonne d de la table refresh_date
+        // Ajoute la date du refresh
         $now = new \DateTime();
         $connection->insert('refresh_date', [
-            'date' => $now->format('Y-m-d'),  // format date sans heure
+            'date' => $now->format('Y-m-d'),
         ]);
 
-
-        // Insérer tous les produits en base
+        // Récupérations
         $allProducts = [];
-
         $allProducts = array_merge(
             $allProducts,
-            $this->requete_1($output, $this->httpClient, $this->entityManager),
-            $this->requete_2("Jeux de société", $output, $this->httpClient, $this->entityManager),
-            $this->requete_2("Jeux éducatifs", $output, $this->httpClient, $this->entityManager),
-            $this->requete_2("Jeux plein air", $output, $this->httpClient, $this->entityManager),
-            $this->requete_2("Livre pour enfant", $output, $this->httpClient, $this->entityManager),
-            $this->requete_2("Gaming", $output, $this->httpClient, $this->entityManager),
-            $this->requete_3("Consoles de jeux", $output, $this->httpClient, $this->entityManager),
-            $this->requete_3("Jeux vidéo", $output, $this->httpClient, $this->entityManager),
-            $this->requete_3("Accessoires Gaming", $output, $this->httpClient, $this->entityManager)
+            $this->requete_1($output),
+            $this->requete_2("Jeux de société", $output),
+            $this->requete_2("Jeux éducatifs", $output),
+            $this->requete_2("Jeux plein air", $output),
+            $this->requete_2("Livre pour enfant", $output),
+            $this->requete_2("Gaming", $output),
+            $this->requete_3("Consoles de jeux", $output),
+            $this->requete_3("Jeux vidéo", $output),
+            $this->requete_3("Accessoires Gaming", $output)
         );
 
         foreach ($allProducts as $product) {
@@ -389,6 +399,8 @@ class AmazonFetchCommand extends Command
         $this->entityManager->flush();
 
         $output->writeln(date('[Y-m-d H:i:s]') . ' ' . count($allProducts) . ' produits Amazon mis à jour avec succès !');
+
+        // Le lock est libéré automatiquement à la fin
         return Command::SUCCESS;
     }
 }
