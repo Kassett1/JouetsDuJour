@@ -39,94 +39,12 @@ stylesheets %}
 {% endblock %}
 {% block body %}
 	<main class="main">
-		<section class="main__header">
+
+	<section class="main__header">
 			<h1 class="main__title">Comparatifs & Bons Plans Jouets et Jeux</h1>
-
-			<h2 class="main__subtitle">Catégories</h2>
-
-			<ul class="categories">
-				{% for categorie in categories %}
-					<li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
-						{% if categorie.getSlug() == 'gaming' %}
-							<a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
-							{% elseif categorie.getSlug() == 'jouets' %}
-								<a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
-								{% else %}
-									<a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
-									{% endif %}
-									<strong>{{ categorie.getNom() }}</strong>
-								</a>
-							</li>
-						{% endfor %}
-					</li>
-				</ul>
-
-				<div class="main__intro">
-					<div class="main__intro-item">
-						<h3 class="main__intro-title">Un univers ludique pour tous</h3>
-						<p class="main__intro-text">
-							Explorez une vaste sélection de
-							<strong>jouets créatifs</strong>, de
-							<strong>jeux de société passionnants</strong>, et de
-							<strong>jeux éducatifs enrichissants</strong>
-							adaptés à tous les âges.
-							          Que vous cherchiez des idées pour occuper les enfants, des jeux pour
-							          animer vos soirées entre amis ou encore des produits innovants pour
-							          développer l’imagination et les compétences, notre sélection répond à
-							          toutes vos attentes. Découvrez également les dernières tendances en
-							<strong>jeux vidéos</strong>, ainsi que des
-							<strong>accessoires gaming</strong>
-							et
-							<strong>consoles</strong>
-							pour
-							          des expériences immersives inoubliables.
-						</p>
-					</div>
-					<div class="main__intro-item">
-						<h3 class="main__intro-title">Les meilleures idées à portée de clic</h3>
-						<p class="main__intro-text">
-							Retrouvez facilement les
-							<strong>promotions</strong>
-							et les
-							<strong>top ventes</strong>
-							sur une sélection de produits triés avec
-							          soin. Des
-							<strong>jeux éducatifs</strong>
-							pour stimuler les jeunes
-							          esprits, des
-							<strong>jeux de société stratégiques</strong>
-							pour des
-							          moments conviviaux, ou encore les indispensables du
-							<strong>gaming</strong>, tout est là pour combler vos envies de
-								          divertissement. Parcourez nos recommandations pour dénicher les
-								          meilleures offres et offrir des cadeaux qui feront plaisir à coup sûr.
-						</p>
-					</div>
-					<div class="main__intro-item">
-						<h3 class="main__intro-title main__intro-title--center">Partager</h3>
-						<ul class="main__social-list">
-							<li class="main__social-list-item">
-								<a href="https://www.facebook.com/profile.php?id=61573909055642" target="_blank" rel="noopener noreferrer">
-									<img src="{{ asset('images/logo_facebook.webp') }}" alt="Facebook" class="main__social-icon">
-								</a>
-							</li>
-							<li class="main__social-list-item">
-								<a href="https://www.instagram.com/repere_hub/" target="_blank" rel="noopener noreferrer">
-									<img src="{{ asset('images/logo_thread.webp') }}" alt="Instagram" class="main__social-icon">
-								</a>
-							</li>
-							<li class="main__social-list-item">
-								<a href="https://www.threads.net/@repere_hub?hl=fr" target="_blank" rel="noopener noreferrer">
-									<img src="{{ asset('images/logo_instagram.webp') }}" alt="Thread" class="main__social-icon">
-								</a>
-							</li>
-						</ul>
-					</div>
-
-				</div>
 			</section>
 
-			<section class="section section--top-ventes">
+	<section class="section section--top-ventes">
 				<h2 class="section__title">Top ventes</h2>
 
 				<div class="section__descriptions">
@@ -256,6 +174,94 @@ stylesheets %}
 				</ul>
 
 				<a href="{{ path('promotions') }}" class="section__more-link">Voir plus<img class="section__more-link-icone" src="{{ asset('images/arrow2.webp') }}" alt=">"/></a>
+			</section>
+
+		<section class="main__header">
+
+				<div class="main__intro">
+					<div class="main__intro-item">
+						<h3 class="main__intro-title">Un univers ludique pour tous</h3>
+						<p class="main__intro-text">
+							Explorez une vaste sélection de
+							<strong>jouets créatifs</strong>, de
+							<strong>jeux de société passionnants</strong>, et de
+							<strong>jeux éducatifs enrichissants</strong>
+							adaptés à tous les âges.
+							          Que vous cherchiez des idées pour occuper les enfants, des jeux pour
+							          animer vos soirées entre amis ou encore des produits innovants pour
+							          développer l’imagination et les compétences, notre sélection répond à
+							          toutes vos attentes. Découvrez également les dernières tendances en
+							<strong>jeux vidéos</strong>, ainsi que des
+							<strong>accessoires gaming</strong>
+							et
+							<strong>consoles</strong>
+							pour
+							          des expériences immersives inoubliables.
+						</p>
+					</div>
+					<div class="main__intro-item">
+						<h3 class="main__intro-title">Les meilleures idées à portée de clic</h3>
+						<p class="main__intro-text">
+							Retrouvez facilement les
+							<strong>promotions</strong>
+							et les
+							<strong>top ventes</strong>
+							sur une sélection de produits triés avec
+							          soin. Des
+							<strong>jeux éducatifs</strong>
+							pour stimuler les jeunes
+							          esprits, des
+							<strong>jeux de société stratégiques</strong>
+							pour des
+							          moments conviviaux, ou encore les indispensables du
+							<strong>gaming</strong>, tout est là pour combler vos envies de
+								          divertissement. Parcourez nos recommandations pour dénicher les
+								          meilleures offres et offrir des cadeaux qui feront plaisir à coup sûr.
+						</p>
+					</div>
+					<div class="main__intro-item">
+						<h3 class="main__intro-title main__intro-title--center">Partager</h3>
+						<ul class="main__social-list">
+							<li class="main__social-list-item">
+								<a href="https://www.facebook.com/profile.php?id=61573909055642" target="_blank" rel="noopener noreferrer">
+									<img src="{{ asset('images/logo_facebook.webp') }}" alt="Facebook" class="main__social-icon">
+								</a>
+							</li>
+							<li class="main__social-list-item">
+								<a href="https://www.instagram.com/repere_hub/" target="_blank" rel="noopener noreferrer">
+									<img src="{{ asset('images/logo_thread.webp') }}" alt="Instagram" class="main__social-icon">
+								</a>
+							</li>
+							<li class="main__social-list-item">
+								<a href="https://www.threads.net/@repere_hub?hl=fr" target="_blank" rel="noopener noreferrer">
+									<img src="{{ asset('images/logo_instagram.webp') }}" alt="Thread" class="main__social-icon">
+								</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</section>
+
+				<section class="products-section products-section--2 main__header">
+			<h2 class="products-section--2__title" style="text-align: center;">Découvrez d'autres catégories</h2>
+
+			<ul class="categories">
+				{% for categorie in categories %}
+					<li class="categories__item" style="background-image: url('{{ categorie.getImage() }}');">
+						{% if categorie.getSlug() == 'gaming' %}
+							<a href="{{ path('categorie_gaming', {slug: categorie.getSlug()}) }}" class="categories__link">
+							{% elseif categorie.getSlug() == 'jouets' %}
+								<a href="{{ path('categorie_jouets', {slug: categorie.getSlug()}) }}" class="categories__link">
+								{% else %}
+									<a href="{{ path('categorie_autres', {slug: categorie.getSlug()}) }}" class="categories__link">
+									{% endif %}
+									<strong>{{ categorie.getNom() }}</strong>
+								</a>
+							</li>
+						{% endfor %}
+					</li>
+				</ul>
 			</section>
 
 			<p class="main__intro-text" style="text-align: center;">Dernière mise à jour :

@@ -40,7 +40,7 @@
         flex-direction: column;
         justify-content: center;
         border-radius: 8px;
-        padding: 3vh 5vw;
+        padding: 1vh 5vw;
         @include boxShadow;
     }
 
@@ -56,7 +56,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2vh;
+        gap: 1vh;
     }
 
     &__item-link-icon {
@@ -70,18 +70,20 @@
         flex-direction: row;
         align-items: center;
         @include mobileP;
-
         font-weight: bold;
         background-color: $color5;
         color: black;
         border-radius: 8px;
         padding: 0.5vh 3vw;
         @include boxShadow;
-        margin-top: 2vh;
     }
 
     &__item-prices {
-        position: relative;
+        display: flex;
+        gap: 3vw;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
     }
 
     &__item-price {
@@ -91,21 +93,18 @@
 
     &__item-promo {
         @include mobileP;
-
         font-weight: bold;
-        position: relative;
         background-color: red;
         border-radius: 8px;
         padding: 0.3vh 2vw;
         width: fit-content;
-        margin-bottom: 1vh;
-        right: -5vw;
     }
 
     &__item-price-wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 1vh;
     }
 
     &__more-link {
@@ -317,7 +316,7 @@
 /* Styles pour desktop */
 @media (min-width: 1024px) {
     .section {
-        padding: 5vh 10vw;
+        padding: 3vh 15vw;
 
         &__title {
             @include desktopH2;
@@ -339,16 +338,16 @@
         }
 
         &__list {
-            margin-top: 5vh;
+            margin-top: 3vh;
             display: flex;
             flex-direction: row;
-            gap: 3vw;
+            gap: 1vw;
             margin-bottom: 3vh;
             flex-wrap: wrap;
         }
 
         &__item {
-            padding: 2vh 1.5vw;
+            padding: 1vh 1vw;
             @include boxShadow;
             flex: 0 0 calc(50% - 3vw);
             display: flex;
@@ -365,13 +364,13 @@
         }
 
         &__item-link-icon {
-            width: 2vw;
+            width: 1.5vw;
             margin-left: 0.5vw;
         }
 
         &__item-link {
             @include desktopP;
-            padding: 0.5vh 1vw;
+            padding: 0.3vh 0.5vw;
             transition: all 0.3s ease;
 
             &:hover {
@@ -381,7 +380,7 @@
         }
 
         &__item-prices {
-            position: relative;
+            gap: 1vw;
         }
 
         &__item-price {
@@ -391,19 +390,20 @@
 
         &__item-promo {
             @include desktopP;
-            padding: 0.3vh 0.5vw;
+            padding: 0.1vh 0.3vw;
             right: -2vw;
         }
 
         &__item-price-wrapper {
             flex-direction: row;
-            gap: 2vw;
+            gap: 1vw;
+            align-items: center;
         }
 
         &__more-link {
             @include desktopH3;
             gap: 1vw;
-            margin-top: 5vh;
+            margin-top: 3vh;
 
             &:hover {
                 text-decoration: none;
@@ -411,7 +411,7 @@
         }
 
         &__more-link-icone {
-            width: 1vw;
+            width: 0.5vw;
         }
     }
 

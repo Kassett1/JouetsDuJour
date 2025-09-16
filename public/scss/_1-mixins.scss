@@ -8,37 +8,37 @@
 
 @mixin desktopH1 {
   font-family: "OpenSans", sans-serif;
-  font-size: min(2vw, 38.4px);
+  font-size: min(2vw, 35px);
   font-weight: bold;
 }
 
 @mixin desktopH2 {
   font-family: "OpenSans", sans-serif;
-  font-size: min(1.5vw, 28.8px);
+  font-size: min(1.5vw, 27.3px);
   font-weight: bold;
 }
 
 @mixin desktopH3 {
   font-family: "OpenSans", sans-serif;
-  font-size: min(1.2vw, 23px);
+  font-size: min(1.2vw, 18.2px);
   font-weight: bold;
 }
 
 @mixin desktopP {
   font-family: "OpenSans", sans-serif;
-  font-size: min(1vw, 21px);
+  font-size: min(1vw, 17px);
   line-height: 1.5;
 }
 
 @mixin desktopMenu {
   font-family: "OpenSans", sans-serif;
-  font-size: min(1vw, 21px);
+  font-size: min(1vw, 18px);
   font-weight: bold;
 }
 
 @mixin desktopSubMenu {
   font-family: "OpenSans", sans-serif;
-  font-size: min(1vw, 21px);;
+  font-size: min(1vw, 16px);;
 }
 
 
@@ -86,19 +86,19 @@
 
 @mixin mobileH1 {
   font-family: "OpenSans", sans-serif;
-  font-size: 5.5vw;
+  font-size: 5vw;
   font-weight: bold;
 }
 
 @mixin mobileH2 {
   font-family: "OpenSans", sans-serif;
-  font-size: 5vw;
+  font-size: 4.5vw;
   font-weight: bold;
 }
 
 @mixin mobileH3 {
   font-family: "OpenSans", sans-serif;
-  font-size: 4.5vw;
+  font-size: 4vw;
   font-weight: bold;
 }
 
@@ -110,13 +110,13 @@
 
 @mixin mobileMenu {
   font-family: "OpenSans", sans-serif;
-  font-size: 5vw;
+  font-size: 4.5vw;
   font-weight: bold;
 }
 
 @mixin mobileSubMenu {
   font-family: "OpenSans", sans-serif;
-  font-size: 5vw;
+  font-size: 4vw;
 }
 
 // Autre ----------------------------------------------------------------------------------------------------------------------

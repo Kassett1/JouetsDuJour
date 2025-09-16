@@ -37,23 +37,24 @@
         justify-content: center;
         border-radius: 8px;
         padding: 3vh 5vw;
-        gap: 2vh;
+        gap: 1.5vh;
     }
 
     &__pricing{
-        position: relative;
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 3vw;
+        align-items: center;
+        justify-content: center;
     }
 
     &__promo{
-        position: relative;
         @include mobileP;
         font-weight: bold;
         background-color: red;
         border-radius: 8px;
         padding: 0.3vh 2vw;
         width: fit-content;
-        margin-bottom: 1vh;
-        right: -5vw;
         color: white;
     }
 
@@ -269,15 +270,18 @@
     
         &__item{
             flex: 1 1 calc(25% - 1vw);
-            padding: 1.5vh 1vw;
+            padding: 1vh 0.5vw;
         }
     
         &__price{
             @include desktopH3;
         }
+
+        &__pricing{
+            gap: 1vw;
+        }
     
         &__promo{
-            right: -2vw;
             padding: 0.3vh 1vw;
             @include desktopP;
         }

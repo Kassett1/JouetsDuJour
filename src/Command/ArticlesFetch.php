@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\Console\Command\LockableTrait;
 use App\Util\AwsV4;
 use App\Entity\Article;
 use App\Entity\ProduitArticle;
@@ -17,11 +18,15 @@ use App\Entity\Requetes;
     name: 'app:articles:refresh',
     description: 'Rafraîchit les produits Amazon liés aux articles (sans toucher aux produits globaux).',
 )]
-
 class ArticlesFetch extends Command
 {
+    use LockableTrait;
+
     private HttpClientInterface $httpClient;
     private EntityManagerInterface $entityManager;
+
+    /** Timestamp du dernier appel API pour le throttle */
+    private float $lastCallTs = 0.0;
 
     public function __construct(HttpClientInterface $httpClient, EntityManagerInterface $entityManager)
     {
@@ -30,13 +35,13 @@ class ArticlesFetch extends Command
         $this->entityManager = $entityManager;
     }
 
-    private function aws4($payload)
+    /** Signature AWS v4 pour PA-API */
+    private function aws4(string $payload): AwsV4
     {
-        $region = $_ENV['AWS_REGION'];
+        $region    = $_ENV['AWS_REGION'];
         $accessKey = $_ENV['AWS_ACCESS_KEY'];
         $secretKey = $_ENV['AWS_SECRET_KEY'];
 
-        // 4️⃣ Génération des headers signés
         $awsv4 = new AwsV4($accessKey, $secretKey);
         $awsv4->setRegionName($region);
         $awsv4->setServiceName("ProductAdvertisingAPI");
@@ -50,6 +55,87 @@ class ArticlesFetch extends Command
         $awsv4->addHeader('x-amz-target', 'com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems');
 
         return $awsv4;
+    }
+
+    /** Limiteur de débit (attend pour garantir ≥ $minMs ms entre 2 appels) */
+    private function throttle(int $minMs = 1600): void
+    {
+        $now = microtime(true);
+        $elapsedMs = (int)(($now - $this->lastCallTs) * 1000);
+        if ($elapsedMs < $minMs) {
+            usleep(($minMs - $elapsedMs) * 1000);
+        }
+        $this->lastCallTs = microtime(true);
+    }
+
+    /**
+     * Appel PA-API avec retries (429/5xx), respect Retry-After, backoff + jitter.
+     * Retourne le tableau JSON décodé, ou null en cas d’échec.
+     */
+    private function callPaapi(array $payloadArr, OutputInterface $output): ?array
+    {
+        $url     = "https://webservices.amazon.fr/paapi5/searchitems";
+        $payload = json_encode($payloadArr, JSON_UNESCAPED_UNICODE);
+        $headers = $this->aws4($payload)->getHeaders();
+
+        $maxRetries = 6;
+
+        for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
+            // espacement minimal
+            $this->throttle(1600);
+
+            try {
+                $resp = $this->httpClient->request('POST', $url, [
+                    'headers' => $headers,
+                    'body'    => $payload,
+                    'timeout' => 30,
+                ]);
+
+                $status = $resp->getStatusCode();
+
+                // 429 : quota atteint -> attendre puis retry
+                if ($status === 429) {
+                    $headersAll = $resp->getHeaders(false);
+                    $retryAfter = 0;
+                    if (!empty($headersAll['retry-after'][0])) {
+                        $retryAfter = (int)$headersAll['retry-after'][0];
+                    }
+                    if ($attempt === $maxRetries) {
+                        $output->writeln("Erreur 429 persistante (tentative $attempt/$maxRetries)");
+                        return null;
+                    }
+                    $sleepSec = max($retryAfter, (int)pow(2, $attempt - 1)) + (random_int(0, 500) / 1000);
+                    $output->writeln("429 reçu, pause {$sleepSec}s puis retry (tentative $attempt/$maxRetries)...");
+                    usleep((int)($sleepSec * 1_000_000));
+                    continue;
+                }
+
+                // 5xx : erreur serveur -> backoff + retry
+                if ($status >= 500) {
+                    if ($attempt === $maxRetries) {
+                        $output->writeln("Erreur $status serveur après $attempt tentatives.");
+                        return null;
+                    }
+                    $sleepSec = (int)pow(2, $attempt - 1) + (random_int(0, 500) / 1000);
+                    $output->writeln("Erreur $status, retry dans {$sleepSec}s (tentative $attempt/$maxRetries)...");
+                    usleep((int)($sleepSec * 1_000_000));
+                    continue;
+                }
+
+                // 2xx/3xx : on parse (false => pas d’exception si JSON vide)
+                return $resp->toArray(false);
+            } catch (\Throwable $e) {
+                if ($attempt === $maxRetries) {
+                    $output->writeln("Exception HttpClient: " . $e->getMessage());
+                    return null;
+                }
+                $sleepSec = (int)pow(2, $attempt - 1) + (random_int(0, 500) / 1000);
+                $output->writeln("Exception réseau, retry dans {$sleepSec}s (tentative $attempt/$maxRetries)...");
+                usleep((int)($sleepSec * 1_000_000));
+            }
+        }
+
+        return null;
     }
 
     private function truncateWords(string $text, int $maxWords): string
@@ -83,68 +169,79 @@ class ArticlesFetch extends Command
         return rtrim($cut) . '...';
     }
 
-    private function requete_1(Requetes $requete, $output, $httpClient, $entityManager)
+    /**
+     * Récupère jusqu’à N produits pour une requête (N = $requete->getNbProduit()).
+     * SearchItems renvoie max ~10 items/page : on boucle sur ItemPage jusqu’à N.
+     */
+    private function requete_1(Requetes $requete, OutputInterface $output): array
     {
-
         $associateTag = $_ENV['AWS_ASSOCIATE_TAG'];
-
-        $url = "https://webservices.amazon.fr/paapi5/searchitems";
-        $payload = json_encode([
-            "Keywords" => $requete->getNom(),
-            "Resources" => [
-                "ItemInfo.Title",
-                "Images.Primary.Large",
-                "ItemInfo.Features",
-                "Offers.Listings.Price",
-                "BrowseNodeInfo.BrowseNodes.SalesRank",
-            ],
-            "ItemCount" => $requete->getNbProduit(), // <= limite du nombre de produits
-            "Availability" => "Available",
-            "PartnerTag" => $associateTag,
-            "PartnerType" => "Associates",
-            "Marketplace" => "www.amazon.fr",
-        ]);
-
-        $headers = $this->aws4($payload)->getHeaders();
-
-        try {
-            $response = $httpClient->request('POST', $url, [
-                'headers' => $headers,
-                'body' => $payload,
-            ]);
-            $data = $response->toArray();
-        } catch (\Exception $e) {
-            $output->writeln("Erreur lors de la requête Amazon : " . $e->getMessage());
-            return []; // si erreur => tu renvoies vide => tu gardes anciens produits
-        }
-
+        $need = max(1, (int)$requete->getNbProduit()); // nombre souhaité
+        $page = 1;
+        $maxPages = 10; // sécurité
         $products = [];
 
-        foreach ($data['SearchResult']['Items'] ?? [] as $item) {
-            if (isset($item['Offers']['Listings'][0]['Price']['Amount'])) {
+        while (count($products) < $need && $page <= $maxPages) {
+            $payload = [
+                "Keywords"     => $requete->getNom(),
+                "Resources"    => [
+                    "ItemInfo.Title",
+                    "Images.Primary.Large",
+                    "ItemInfo.Features",
+                    "Offers.Listings.Price",
+                    "BrowseNodeInfo.BrowseNodes.SalesRank",
+                ],
+                "Availability" => "Available",
+                "PartnerTag"   => $associateTag,
+                "PartnerType"  => "Associates",
+                "Marketplace"  => "www.amazon.fr",
+                "ItemPage"     => $page,
+            ];
+
+            $data = $this->callPaapi($payload, $output);
+            if (!$data) {
+                $output->writeln("   ⚠️ API vide/erreur pour « {$requete->getNom()} » (page $page).");
+                break; // on s’arrête proprement (on conservera anciens produits si aucun nouveau)
+            }
+
+            foreach ($data['SearchResult']['Items'] ?? [] as $item) {
+                $amount = $item['Offers']['Listings'][0]['Price']['Amount'] ?? null;
+                if (!is_numeric($amount)) {
+                    continue;
+                }
+
                 $title = $item['ItemInfo']['Title']['DisplayValue'] ?? 'Inconnu';
 
                 $product = new ProduitArticle();
-                $product->setNom($this->truncateWords($title, 5)); // max 5 mots
-                $product->setDescription($this->truncateAtWords2($title, 150)); // max 150 caractères
-                $product->setPrix($item['Offers']['Listings'][0]['Price']['Amount']);
+                $product->setNom($this->truncateWords($title, 5));                 // max 5 mots
+                $product->setDescription($this->truncateAtWords2($title, 150));    // max 150 chars
+                $product->setPrix((float)$amount);
                 $product->setImage($item['Images']['Primary']['Large']['URL'] ?? null);
-                $product->setLien($item['DetailPageURL']);
+                $product->setLien($item['DetailPageURL'] ?? null);
 
                 // Tags
                 $tags = [];
-                if (isset($item['Offers']['Listings'][0]['Price']['Savings']['Percentage'])) {
-                    $product->setPromo($item['Offers']['Listings'][0]['Price']['Savings']['Percentage']);
+                $promoPct = $item['Offers']['Listings'][0]['Price']['Savings']['Percentage'] ?? null;
+                if (is_numeric($promoPct)) {
+                    $product->setPromo((float)$promoPct);
                     $tags[] = "Promo";
                 }
-                if (!empty($item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank']) &&
-                    $item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank'] == 1) {
+                $salesRank = $item['BrowseNodeInfo']['BrowseNodes'][0]['SalesRank'] ?? null;
+                if (!empty($salesRank) && (int)$salesRank === 1) {
                     $tags[] = "Top Ventes";
                 }
                 $product->setTags($tags);
 
                 $products[] = $product;
+                if (count($products) >= $need) break;
             }
+
+            // Si Amazon ne renvoie plus d’items, inutile d’insister
+            if (empty($data['SearchResult']['Items'])) {
+                break;
+            }
+
+            $page++;
         }
 
         return $products;
@@ -152,14 +249,20 @@ class ArticlesFetch extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // Empêche deux exécutions simultanées
+        if (!$this->lock()) {
+            $output->writeln('Commande déjà en cours — arrêt.');
+            return Command::SUCCESS;
+        }
+
         $em = $this->entityManager;
         $tz = new \DateTimeZone('Europe/Paris');
         $maintenant = new \DateTime('now', $tz);
-        $jour = (int) $maintenant->format('j');
+        $jour = (int)$maintenant->format('j');
 
         $articles = $em->getRepository(Article::class)->findAll();
 
-        // Filtrer les articles qui doivent être rafraîchis aujourd’hui
+        // Filtrer les articles à rafraîchir aujourd’hui
         $articlesARafraichir = array_filter($articles, function (Article $article) use ($jour) {
             $jours = $article->getJoursRafraichissement() ?? [];
             return in_array($jour, $jours, true);
@@ -175,7 +278,7 @@ class ArticlesFetch extends Command
         foreach ($articlesARafraichir as $article) {
             $output->writeln(sprintf('→ Article #%d “%s”', $article->getId(), $article->getNom() ?? ''));
 
-            // Récupérer les requêtes liées à l’article
+            // Requêtes liées à l’article
             $requetes = $em->getRepository(Requetes::class)->findBy(
                 ['article' => $article],
                 ['id' => 'ASC']
@@ -185,11 +288,9 @@ class ArticlesFetch extends Command
             $nouveauxProduits = [];
 
             foreach ($requetes as $requete) {
-                // On passe l'objet entier (Requetes) pour récupérer nom + nb_produit dedans
-                $produitsTrouves = $this->requete_1($requete, $output, $this->httpClient, $em);
+                $produitsTrouves = $this->requete_1($requete, $output);
 
                 foreach ($produitsTrouves as $produit) {
-                    // Sécurité : on s’assure qu’on a bien un ProduitArticle
                     if ($produit instanceof ProduitArticle) {
                         $produit->setArticle($article);
                         $nouveauxProduits[] = $produit;
@@ -229,5 +330,4 @@ class ArticlesFetch extends Command
 
         return Command::SUCCESS;
     }
-
 }
